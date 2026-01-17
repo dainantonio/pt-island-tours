@@ -11,16 +11,11 @@
     <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Experience the real Jamaica with P&T Island Tours. Montego Bay, Negril, Ocho Rios.">
     <meta name="keywords" content="Montego Bay airport transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions">
     
-    <!-- 
-    ====================================================================
-    MOBILE APP POLISH (New)
-    These tags make the site look like a native app on mobile phones.
-    ==================================================================== 
-    -->
-    <meta name="theme-color" content="#009B3A"> <!-- Sets mobile browser bar to Brand Green -->
+    <!-- MOBILE APP POLISH -->
+    <meta name="theme-color" content="#009B3A">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/jamaica.png"> <!-- Favicon -->
-    <link rel="apple-touch-icon" href="https://img.icons8.com/color/96/jamaica.png"> <!-- iPhone Home Screen Icon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/jamaica.png">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/96/jamaica.png">
 
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
@@ -32,6 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Using FontAwesome for Icons (CashApp/Venmo icons are custom, using generic money icons for stability) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- 
@@ -42,10 +38,9 @@
     <style>
         /* --- VARIABLES --- */
         :root {
-            /* Authentic Jamaican Palette */
-            --primary-gold: #FFD700;       /* Sunshine Gold */
-            --primary-dark: #1A1A1A;       /* Deep Black/Grey */
-            --primary-green: #009B3A;      /* Flag Green */
+            --primary-gold: #FFD700;       
+            --primary-dark: #1A1A1A;       
+            --primary-green: #009B3A;      
             
             --light-bg: #F9F9F9;
             --text-dark: #222222;
@@ -580,6 +575,23 @@
             margin-bottom: 20px;
         }
 
+        .payment-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .payment-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .nav-links {
@@ -760,7 +772,7 @@
                         <p>Climb the world-famous falls, swim in natural pools, and enjoy a guided adventure in Ocho Rios.</p>
                         <div class="card-footer">
                             <span class="price-start">From $120</span>
-                            <a href="#" onclick="openModalWithContext('Private Tour', 'Ocho Rios')" class="card-link">Book Adventure <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Book Adventure <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
@@ -776,7 +788,7 @@
                         <p>A pilgrimage to Kingston to see the home of the Legend. Includes Devon House stop for famous ice cream.</p>
                         <div class="card-footer">
                             <span class="price-start">From $150</span>
-                            <a href="#" onclick="openModalWithContext('Private Tour', 'Kingston')" class="card-link">Book Culture <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Culture <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
@@ -792,7 +804,7 @@
                         <p>Jump off cliffs, swing on ropes, and swim in bright blue mineral water. A true hidden gem.</p>
                         <div class="card-footer">
                             <span class="price-start">From $130</span>
-                            <a href="#" onclick="openModalWithContext('Private Tour', 'Ocho Rios')" class="card-link">Book Nature <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Nature <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
@@ -801,7 +813,7 @@
         </div>
     </section>
 
-    <!-- FAQ SECTION (New Trust Feature) -->
+    <!-- FAQ SECTION (Updated for Payments) -->
     <section class="section-padding" style="background-color: var(--white);">
         <div class="container">
             <div class="text-center" style="margin-bottom: 40px;">
@@ -810,7 +822,7 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h4>How do I pay?</h4>
-                    <p>We accept cash (USD) upon arrival or major credit cards via a secure link sent to you after booking.</p>
+                    <p>We accept <strong>Cash (USD)</strong> upon arrival. For deposits or pre-payment, we also accept <strong>Venmo</strong>, <strong>CashApp</strong>, and <strong>PayPal</strong>. Details provided after booking confirmation.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Where do I meet the driver?</h4>
@@ -850,6 +862,13 @@
                         P&T <span style="color: var(--primary-green);">ISLAND TOURS</span>
                     </div>
                     <p>Authentic Jamaican hospitality from the moment you arrive. Serving Montego Bay, Negril, and Ocho Rios.</p>
+                    
+                    <h4 style="font-size: 0.9rem; margin-top: 20px; color: #999;">Payment Methods</h4>
+                    <div class="payment-icons">
+                        <span class="payment-badge"><i class="fa-solid fa-money-bill-wave"></i> Cash</span>
+                        <span class="payment-badge"><i class="fa-brands fa-paypal"></i> PayPal</span>
+                        <span class="payment-badge"><i class="fa-solid fa-mobile-screen"></i> Venmo/CashApp</span>
+                    </div>
                 </div>
                 
                 <div class="footer-col">
@@ -874,8 +893,8 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul>
-                        <li><a href="mailto:bookings@ptisland.com"><i class="fa-solid fa-envelope" style="color: var(--primary-gold); margin-right: 10px;"></i> bookings@ptisland.com</a></li>
-                        <li><a href="https://wa.me/18765550123"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (876) 555-0123</a></li>
+                        <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--primary-gold); margin-right: 10px;"></i> ttgrindley@gmail.com</a></li>
+                        <li><a href="https://wa.me/18764453764"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (876) 445-3764</a></li>
                     </ul>
                 </div>
             </div>
@@ -886,7 +905,7 @@
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/18765550123" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <a href="https://wa.me/18764453764" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -944,7 +963,7 @@
                 </div>
                 
                 <p style="font-size: 0.75rem; text-align: center; margin-top: 15px; color: #999;">
-                    We typically reply within 1 hour during business hours.
+                    We typically reply within 1 hour. Venmo/CashApp details provided after confirmation.
                 </p>
             </form>
         </div>
@@ -977,8 +996,6 @@
         }
 
         function openModalWithContext(serviceType, locationValue) {
-            // Logic to map clicking specific tour to correct dropdown
-            // Since the dropdown values are fixed, we just ensure mapped correctly
             if (serviceType.includes("Tour")) {
                 serviceSelect.value = "Private Tour";
             } else if (serviceType.includes("Airport")) {
@@ -1012,7 +1029,7 @@
             }
         });
 
-        // --- 4. Contact Handlers ---
+        // --- 4. Contact Handlers (UPDATED) ---
         function getFormData() {
             return {
                 name: document.getElementById('name').value || 'Traveler',
@@ -1024,7 +1041,7 @@
 
         function sendToWhatsApp() {
             const data = getFormData();
-            const phoneNumber = "18765550123"; 
+            const phoneNumber = "18764453764"; // Updated Number
             const text = `Hi P&T Tours, I'd like to book a trip.%0A%0AName: ${data.name}%0AEmail: ${data.email}%0AService: ${data.service}%0ADestination: ${data.location}`;
             
             window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
@@ -1033,7 +1050,7 @@
 
         function sendViaEmail() {
             const data = getFormData();
-            const email = "bookings@ptisland.com";
+            const email = "ttgrindley@gmail.com"; // Updated Email
             const subject = `Booking Request: ${data.service} - ${data.name}`;
             const body = `Hello P&T Tours,%0A%0AI would like to inquire about a booking.%0A%0AName: ${data.name}%0AEmail: ${data.email}%0AService: ${data.service}%0ADestination: ${data.location}%0A%0APlease let me know availability and pricing.`;
             
