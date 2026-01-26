@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v3.2
-    "The Real Jamaica" Theme + Custom Branding + UX Enhancements
+    P&T ISLAND TOURS - PRODUCTION BUILD v4.3
+    "The Real Jamaica" Theme + EzeePayments Integration
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -18,21 +18,11 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:type" content="website">
 
-    <!-- 
-    ====================================================================
-    APP ICONS & THEME
-    Custom "P&T" Logo for Browser Tab & Tropical Icon for Mobile
-    ==================================================================== 
-    -->
-    <!-- Sets the mobile browser address bar color to Brand Green -->
+    <!-- APP ICONS & THEME -->
     <meta name="theme-color" content="#009B3A">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
-    <!-- Browser Tab Icon (Favicon): Custom "P&T" Circle Logo in Gold/Green/Black -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231A1A1A'/%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23009B3A' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23FFD700' stroke-width='4'/%3E%3Ctext x='50' y='63' font-family='Arial, sans-serif' font-weight='900' font-size='35' text-anchor='middle' fill='%23FFFFFF'%3EP%26T%3C/text%3E%3C/svg%3E">
-    
-    <!-- iPhone/Android Home Screen Icon: High-Res Tropical Palm -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/fluency/192/palm-tree.png">
     <link rel="icon" type="image/png" sizes="192x192" href="https://img.icons8.com/fluency/192/palm-tree.png">
     
@@ -58,7 +48,7 @@
         "addressCountry": "JM"
       },
       "priceRange": "$$",
-      "telephone": "+13049824165",
+      "telephone": "+18764453764",
       "email": "ttgrindley@gmail.com"
     }
     </script>
@@ -66,16 +56,13 @@
     <style>
         /* --- VARIABLES --- */
         :root {
-            /* Authentic Jamaican Palette */
-            --primary-gold: #FFD700;       /* Sunshine Gold */
-            --primary-dark: #1A1A1A;       /* Deep Black/Grey */
-            --primary-green: #009B3A;      /* Flag Green */
-            
+            --primary-gold: #FFD700;       
+            --primary-dark: #1A1A1A;       
+            --primary-green: #009B3A;      
             --light-bg: #F9F9F9;
             --text-dark: #222222;
             --text-light: #555555;
             --white: #FFFFFF;
-            
             --shadow-card: 0 10px 30px -5px rgba(0,0,0,0.1);
             --shadow-hover: 0 20px 40px -5px rgba(0,0,0,0.2);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -190,13 +177,10 @@
             align-items: center;
             gap: 5px; 
             letter-spacing: -0.5px;
-            cursor: pointer; /* Indicates it's clickable */
+            cursor: pointer;
             user-select: none;
         }
-        
-        .logo:hover {
-            opacity: 0.8;
-        }
+        .logo:hover { opacity: 0.8; }
 
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { 
@@ -206,6 +190,7 @@
             color: var(--primary-dark); 
             letter-spacing: 0.5px;
             position: relative;
+            transition: color 0.3s ease;
         }
         
         .nav-links a::after {
@@ -219,7 +204,9 @@
             transition: width 0.3s;
         }
         .nav-links a:hover::after { width: 100%; }
+        /* Active State for Scroll Spy */
         .nav-links a.active { color: var(--primary-green); }
+        .nav-links a.active::after { width: 100%; }
 
         .nav-btn { padding: 12px 24px; font-size: 0.8rem; }
         .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark); }
@@ -298,53 +285,24 @@
             border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .destination-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
+        .destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
 
-        .card-img-wrapper {
-            position: relative;
-            height: 240px;
-            overflow: hidden;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
+        .card-img-wrapper { position: relative; height: 240px; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .destination-card:hover .card-img { transform: scale(1.08); }
 
         .location-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--primary-dark);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; top: 15px; left: 15px;
+            background: rgba(255, 255, 255, 0.95); color: var(--primary-dark);
+            padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .popular-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--primary-gold);
-            color: var(--primary-dark);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; top: 15px; right: 15px;
+            background: var(--primary-gold); color: var(--primary-dark);
+            padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 800;
+            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -354,25 +312,13 @@
         .card-footer {
             border-top: 1px solid #f0f0f0;
             padding-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
         }
 
-        .price-start {
-            color: var(--primary-green);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
+        .price-start { color: var(--primary-green); font-weight: 700; font-size: 1.1rem; }
         .card-link {
-            color: var(--primary-dark);
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: var(--primary-dark); font-weight: 700; font-size: 0.9rem;
+            text-transform: uppercase; display: flex; align-items: center; gap: 5px;
         }
         .card-link:hover { color: var(--primary-gold); }
 
@@ -385,33 +331,21 @@
         }
 
         .feature-card { 
-            text-align: center;
-            background: var(--white);
-            padding: 50px 30px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-card);
-            transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.03);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center; background: var(--white); padding: 50px 30px;
+            border-radius: 16px; box-shadow: var(--shadow-card); transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03); position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
         .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 6px;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
             background: var(--primary-gold);
         }
 
         .feature-icon-circle {
-            width: 80px; height: 80px;
-            background: #F0F9F4; 
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            width: 80px; height: 80px; background: #F0F9F4; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
             margin-bottom: 25px; transition: var(--transition);
         }
 
@@ -429,97 +363,70 @@
         }
 
         .faq-item {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-card);
-            border-left: 4px solid var(--primary-gold);
+            background: var(--white); padding: 30px; border-radius: 12px;
+            box-shadow: var(--shadow-card); border-left: 4px solid var(--primary-gold);
         }
         .faq-item h4 { color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; }
         .faq-item p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0; }
 
         /* --- ABOUT SECTION --- */
         .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-light);
-            max-width: 800px;
-            margin: 0 auto;
+            font-size: 1.1rem; line-height: 1.8; color: var(--text-light);
+            max-width: 800px; margin: 0 auto;
         }
 
         /* --- CALL TO ACTION --- */
         .cta-section {
-            background: var(--primary-dark);
-            color: white;
-            position: relative;
-            overflow: hidden;
+            background: var(--primary-dark); color: white; position: relative; overflow: hidden;
         }
         .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMWExYTFhIiAvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMjIyMjIyIiAvPjwvc3ZnPg==');
             opacity: 0.1;
         }
 
         /* --- MODAL --- */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); z-index: 2000;
+            justify-content: center; align-items: center; opacity: 0;
+            transition: opacity 0.3s ease; backdrop-filter: blur(5px);
         }
         .modal-overlay.open { display: flex; opacity: 1; }
 
         .modal-content {
-            background: var(--white);
-            padding: 40px;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 15px;
-            position: relative;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            background: var(--white); padding: 40px; width: 90%; max-width: 500px;
+            border-radius: 15px; position: relative; transform: scale(0.95);
+            transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             border-top: 8px solid var(--primary-green);
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
 
         .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #999;
-            line-height: 0.8;
+            position: absolute; top: 15px; right: 20px; font-size: 2rem;
+            cursor: pointer; color: #999; line-height: 0.8;
         }
         .close-modal:hover { color: var(--primary-dark); }
 
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-dark); }
         .form-control {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            transition: var(--transition);
-            background: #FAFAFA;
+            width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 8px;
+            font-family: 'Montserrat', sans-serif; font-size: 1rem;
+            transition: var(--transition); background: #FAFAFA;
         }
         .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
 
         .modal-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+
+        /* Micro-Flow styles for Modal */
+        .modal-steps {
+            display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 0.75rem; color: #888;
+            border-bottom: 1px solid #eee; padding-bottom: 15px;
+        }
+        .modal-step { display: flex; align-items: center; gap: 5px; }
+        .modal-step.active { color: var(--primary-green); font-weight: 700; }
+        .modal-step i { font-size: 0.9rem; }
 
         /* --- FLOATING BUTTONS --- */
         .whatsapp-float {
@@ -528,7 +435,7 @@
             text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: flex; align-items: center; justify-content: center;
             transition: var(--transition);
-            animation: pulse-green 2s infinite; /* Pulsing Animation */
+            animation: pulse-green 2s infinite; 
         }
         .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
 
@@ -549,29 +456,19 @@
 
         /* --- FOOTER --- */
         footer {
-            background: var(--primary-dark);
-            color: rgba(255,255,255,0.7);
-            padding: 80px 0 30px;
-            font-size: 0.9rem;
+            background: var(--primary-dark); color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; font-size: 0.9rem;
         }
 
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
-            text-align: left;
-            margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px; text-align: left; margin-bottom: 50px;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 50px;
         }
 
         .footer-col h4 {
-            color: var(--primary-gold);
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-weight: 700;
+            color: var(--primary-gold); margin-bottom: 25px; font-size: 1.1rem;
+            letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
         }
 
         .footer-col ul li { margin-bottom: 15px; }
@@ -579,15 +476,9 @@
         .footer-col a:hover { color: var(--primary-gold); transform: translateX(5px); }
 
         .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem; 
-            font-weight: 800;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            letter-spacing: -0.5px;
-            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800;
+            color: #fff; display: flex; align-items: center; gap: 5px;
+            letter-spacing: -0.5px; margin-bottom: 20px;
         }
 
         .payment-icons { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
@@ -598,20 +489,11 @@
 
         /* --- NOTIFICATION TOAST --- */
         .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--white);
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 3000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            position: fixed; top: 20px; right: 20px; background: var(--white);
+            padding: 15px 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 3000; display: flex; align-items: center; gap: 10px;
             border-left: 5px solid var(--primary-green);
-            transform: translateX(150%);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: translateX(150%); transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         .toast.show { transform: translateX(0); }
         .toast i { color: var(--primary-green); font-size: 1.2rem; }
@@ -658,7 +540,7 @@
                 </div>
                 <div class="nav-links" id="navLinks">
                     <a href="#home">Home</a>
-                    <a href="#about">About</a> <!-- Added About Link -->
+                    <a href="#about">About</a>
                     <a href="#destinations">Destinations</a>
                     <a href="#services">Services</a>
                     <a href="#tours">Tours</a>
@@ -687,12 +569,12 @@
         </div>
     </section>
 
-    <!-- NEW: HOW IT WORKS (Addresses Identification Anxiety) -->
+    <!-- NEW: HOW IT WORKS (Visual Booking Flow) -->
     <section class="section-padding" style="background-color: var(--white); padding-bottom: 40px;">
         <div class="container">
             <div class="text-center" style="margin-bottom: 50px;">
-                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Seamless Process</h4>
-                <h2>How Your Pickup Works</h2>
+                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Simple & Secure</h4>
+                <h2>How to Book & Ride</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
             </div>
             
@@ -700,28 +582,28 @@
                 <!-- Step 1 -->
                 <div>
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
-                        <i class="fa-solid fa-calendar-check"></i>
+                        <i class="fa-brands fa-whatsapp"></i>
                     </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">1. Book Online</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Send your flight or hotel details via our secure form or WhatsApp.</p>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">1. Send Inquiry</h3>
+                    <p style="color: var(--text-light); font-size: 0.95rem;">Click "Book Now" to send your details via WhatsApp. We check availability.</p>
                 </div>
 
                 <!-- Step 2 -->
                 <div>
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
-                        <i class="fa-solid fa-plane-arrival"></i>
+                        <i class="fa-regular fa-credit-card"></i>
                     </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">2. We Track You</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">We monitor your flight status. Early or late, we will be there.</p>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">2. Secure Deposit</h3>
+                    <p style="color: var(--text-light); font-size: 0.95rem;">Pay a small deposit via our secure <strong>EzeePayments</strong> link to lock in your driver.</p>
                 </div>
 
-                <!-- Step 3 (The Answer to your question) -->
+                <!-- Step 3 -->
                 <div>
                     <div style="width: 70px; height: 70px; background: var(--primary-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-dark); font-size: 1.5rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
                         <i class="fa-solid fa-sign-hanging"></i>
                     </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">3. Look for the Sign</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;"><strong>This is key:</strong> Look for the P&T Tours sign with <u>YOUR NAME</u> at the airport arrivals exit.</p>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">3. Meet Your Driver</h3>
+                    <p style="color: var(--text-light); font-size: 0.95rem;"><strong>Look for the P&T Sign</strong> with <u>YOUR NAME</u> at the airport exit. We track your flight!</p>
                 </div>
 
                 <!-- Step 4 -->
@@ -729,8 +611,8 @@
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-solid fa-car-side"></i>
                     </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">4. Ride in Comfort</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Luggage handled. AC on. Relax with a complimentary Red Stripe or water.</p>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">4. Pay Balance</h3>
+                    <p style="color: var(--text-light); font-size: 0.95rem;">Pay the remaining balance in Cash (USD) when you arrive safely.</p>
                 </div>
             </div>
         </div>
@@ -919,7 +801,7 @@
         </div>
     </section>
 
-    <!-- ABOUT SECTION (NEW - TRUST BUILDER) -->
+    <!-- ABOUT SECTION -->
     <section class="section-padding" id="about" style="background-color: var(--light-bg);">
         <div class="container text-center">
             <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">About P&T</h4>
@@ -1002,16 +884,16 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--primary-gold); margin-right: 10px;"></i> ttgrindley@gmail.com</a></li>
-                        <li><a href="https://wa.me/13049824165"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (304) 982-4165</a></li>
+                        <li><a href="https://wa.me/18764453764"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (876) 445-3764</a></li>
                     </ul>
 
                     <!-- NEW: Social Media Links -->
                     <h4 style="margin-top: 25px; font-size: 0.9rem; margin-bottom: 15px;">Follow Us</h4>
                     <div style="display: flex; gap: 20px;">
-                        <a href="https://facebook.com" target="_blank" title="Follow us on Facebook" style="font-size: 1.5rem;">
+                        <a href="https://facebook.com" target="_blank" title="Follow us on Facebook" style="font-size: 1.5rem; color: white;">
                             <i class="fa-brands fa-facebook"></i>
                         </a>
-                        <a href="https://instagram.com" target="_blank" title="Follow us on Instagram" style="font-size: 1.5rem;">
+                        <a href="https://instagram.com" target="_blank" title="Follow us on Instagram" style="font-size: 1.5rem; color: white;">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
                     </div>
@@ -1024,7 +906,7 @@
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/13049824165" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <a href="https://wa.me/18764453764" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -1040,6 +922,13 @@
             <div class="text-center" style="margin-bottom: 25px;">
                 <h3 style="color: var(--primary-dark); margin-bottom: 5px;">Plan Your Trip</h3>
                 <p style="font-size: 0.9rem; color: #666;">Choose your preferred contact method below.</p>
+            </div>
+
+            <!-- Integrated Micro-Flow for Order Form -->
+            <div class="modal-steps">
+                <div class="modal-step active"><i class="fa-regular fa-paper-plane"></i> 1. Send Details</div>
+                <div class="modal-step"><i class="fa-solid fa-check"></i> 2. We Confirm</div>
+                <div class="modal-step"><i class="fa-regular fa-credit-card"></i> 3. Pay Deposit</div>
             </div>
             
             <form id="bookingForm">
@@ -1184,7 +1073,7 @@
 
         function sendToWhatsApp() {
             const data = getFormData();
-            const phoneNumber = "13049824165"; 
+            const phoneNumber = "18764453764"; 
             
             // UPDATED: Using WhatsApp Markdown (*Bold*) for a cleaner "Ticket" look
             const text = `*New Booking Inquiry* 🇯🇲%0A%0A*Name:* ${data.name}%0A*Email:* ${data.email}%0A*Service:* ${data.service}%0A*Destination:* ${data.location}%0A%0A_Sent via P&T Website_`;
