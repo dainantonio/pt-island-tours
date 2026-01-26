@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v5.0
-    "The Real Jamaica" Theme + Gallery + Legal
+    P&T ISLAND TOURS - PRODUCTION BUILD v6.0 (UX UPGRADE)
+    "The Real Jamaica" Theme + Motion Design + Smooth Reveal
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:type" content="website">
 
-    <!-- GOOGLE ANALYTICS (Placeholder - Add your ID here later) -->
+    <!-- GOOGLE ANALYTICS (Placeholder) -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -104,11 +104,27 @@
         img { max-width: 100%; display: block; }
         button { font-family: 'Montserrat', sans-serif; }
 
-        /* --- UTILITIES --- */
+        /* --- UTILITIES & ANIMATIONS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-padding { padding: 90px 0; }
         .text-center { text-align: center; }
-        .hidden { display: none; }
+        
+        /* Reveal on Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delay for grid items */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
 
         /* --- BUTTONS --- */
         .btn {
@@ -294,11 +310,16 @@
             border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        /* Upgraded Hover Effect: Lift and Deep Shadow */
+        .destination-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
+        }
 
         .card-img-wrapper { position: relative; height: 240px; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .destination-card:hover .card-img { transform: scale(1.08); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        /* Image Zoom on Hover */
+        .destination-card:hover .card-img { transform: scale(1.1); }
 
         .location-badge {
             position: absolute; top: 15px; left: 15px;
@@ -363,7 +384,7 @@
         .feature-icon { font-size: 2rem; color: var(--primary-green); transition: var(--transition); }
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 15px; font-weight: 700; }
 
-        /* --- GALLERY GRID (New) --- */
+        /* --- GALLERY GRID --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px; margin-top: 40px;
@@ -373,7 +394,7 @@
             box-shadow: var(--shadow-card); cursor: pointer;
         }
         .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;
         }
         .gallery-item:hover img { transform: scale(1.1); }
 
@@ -388,7 +409,9 @@
         .faq-item {
             background: var(--white); padding: 30px; border-radius: 12px;
             box-shadow: var(--shadow-card); border-left: 4px solid var(--primary-gold);
+            transition: var(--transition);
         }
+        .faq-item:hover { transform: translateX(5px); } /* Subtle nudge interaction */
         .faq-item h4 { color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; }
         .faq-item p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0; }
 
@@ -422,7 +445,7 @@
             border-radius: 15px; position: relative; transform: scale(0.95);
             transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             border-top: 8px solid var(--primary-green);
-            max-height: 90vh; overflow-y: auto; /* Fix for small screens */
+            max-height: 90vh; overflow-y: auto;
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
 
@@ -439,7 +462,11 @@
             font-family: 'Montserrat', sans-serif; font-size: 1rem;
             transition: var(--transition); background: #FAFAFA;
         }
-        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
+        /* Better Focus State */
+        .form-control:focus { 
+            outline: none; border-color: var(--primary-green); background: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 155, 58, 0.1); 
+        }
 
         .modal-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
 
@@ -593,10 +620,10 @@
         </div>
     </section>
 
-    <!-- NEW: HOW IT WORKS (Visual Booking Flow) -->
+    <!-- NEW: HOW IT WORKS (Visual Booking Flow - Staggered Reveal) -->
     <section class="section-padding" style="background-color: var(--white); padding-bottom: 40px;">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 50px;">
+            <div class="text-center reveal" style="margin-bottom: 50px;">
                 <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Simple & Secure</h4>
                 <h2>How to Book & Ride</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
@@ -604,7 +631,7 @@
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
                 <!-- Step 1 -->
-                <div>
+                <div class="reveal delay-100">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-brands fa-whatsapp"></i>
                     </div>
@@ -613,7 +640,7 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div>
+                <div class="reveal delay-200">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-regular fa-credit-card"></i>
                     </div>
@@ -622,7 +649,7 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div>
+                <div class="reveal delay-300">
                     <div style="width: 70px; height: 70px; background: var(--primary-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-dark); font-size: 1.5rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
                         <i class="fa-solid fa-sign-hanging"></i>
                     </div>
@@ -631,7 +658,7 @@
                 </div>
 
                 <!-- Step 4 -->
-                <div>
+                <div class="reveal delay-400">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-solid fa-car-side"></i>
                     </div>
@@ -645,7 +672,7 @@
     <!-- DESTINATIONS SECTION -->
     <section class="section-padding" id="destinations">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 60px;">
+            <div class="text-center reveal" style="margin-bottom: 60px;">
                 <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">Airport Transfers</h4>
                 <h2>Main Destinations</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
@@ -654,7 +681,7 @@
             <div class="destinations-grid">
                 
                 <!-- Card 1: Montego Bay -->
-                <article class="destination-card">
+                <article class="destination-card reveal">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
@@ -671,7 +698,7 @@
                 </article>
 
                 <!-- Card 2: Negril -->
-                <article class="destination-card">
+                <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Negril</span>
                         <img src="https://images.unsplash.com/photo-1618600451426-38290da372d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Negril Beach Sunset" class="card-img" loading="lazy">
@@ -687,7 +714,7 @@
                 </article>
 
                 <!-- Card 3: Ocho Rios -->
-                <article class="destination-card">
+                <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ocho Rios View" class="card-img" loading="lazy">
@@ -709,26 +736,26 @@
     <!-- SERVICES SECTION -->
     <section class="section-padding" style="background-color: var(--white);" id="services">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 60px;">
+            <div class="text-center reveal" style="margin-bottom: 60px;">
                 <h2>Our Services</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-green); margin: 20px auto 0;"></div>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="feature-icon-circle">
                         <i class="fa-solid fa-id-card feature-icon"></i>
                     </div>
                     <h3>JTB Certified</h3>
                     <p>Fully licensed by the Jamaica Tourist Board and insured. Your safety is our absolute priority.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal delay-100">
                     <div class="feature-icon-circle">
                         <i class="fa-solid fa-plane-circle-check feature-icon"></i>
                     </div>
                     <h3>We Wait For You</h3>
                     <p>Flight delayed? No worries. We track your arrival and wait for you at no extra cost.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal delay-200">
                     <div class="feature-icon-circle">
                         <i class="fa-solid fa-lock feature-icon"></i>
                     </div>
@@ -742,7 +769,7 @@
     <!-- TOURS SECTION -->
     <section class="section-padding" id="tours">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 60px;">
+            <div class="text-center reveal" style="margin-bottom: 60px;">
                 <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">Unforgettable Experiences</h4>
                 <h2>Featured Tours</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
@@ -751,7 +778,7 @@
             <div class="destinations-grid">
                 
                 <!-- Tour 1 -->
-                <article class="destination-card">
+                <article class="destination-card reveal">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Adventure</span>
                         <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dunn's River Falls" class="card-img" loading="lazy">
@@ -767,7 +794,7 @@
                 </article>
 
                 <!-- Tour 2 -->
-                <article class="destination-card">
+                <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Culture</span>
                         <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kingston Culture" class="card-img" loading="lazy">
@@ -783,7 +810,7 @@
                 </article>
 
                 <!-- Tour 3 -->
-                <article class="destination-card">
+                <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Nature</span>
                         <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blue Hole" class="card-img" loading="lazy">
@@ -805,15 +832,15 @@
     <!-- NEW: CAPTURED MOMENTS (Gallery) -->
     <section class="section-padding" style="background-color: var(--light-bg);" id="gallery">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 40px;">
+            <div class="text-center reveal" style="margin-bottom: 40px;">
                 <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Captured Moments</h4>
                 <h2>See the Vibe</h2>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Beach" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Nature" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Food" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Waterfall" loading="lazy"></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Beach" loading="lazy"></div>
+                <div class="gallery-item reveal delay-100"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Nature" loading="lazy"></div>
+                <div class="gallery-item reveal delay-200"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Food" loading="lazy"></div>
+                <div class="gallery-item reveal delay-300"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Waterfall" loading="lazy"></div>
             </div>
         </div>
     </section>
@@ -821,19 +848,19 @@
     <!-- FAQ SECTION -->
     <section class="section-padding" style="background-color: var(--white);">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 40px;">
+            <div class="text-center reveal" style="margin-bottom: 40px;">
                 <h2>Common Questions</h2>
             </div>
             <div class="faq-grid">
-                <div class="faq-item">
+                <div class="faq-item reveal">
                     <h4>How do I pay?</h4>
                     <p>We accept <strong>Cash (USD)</strong> upon arrival. For deposits, we accept <strong>EzeePayments</strong> (Visa/Mastercard). Details provided after booking confirmation.</p>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item reveal delay-100">
                     <h4>Where do I meet the driver?</h4>
                     <p>At the airport, our driver will be holding a P&T Island Tours sign with <strong>YOUR NAME</strong> at the exit of the Arrivals terminal.</p>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item reveal delay-200">
                     <h4>Is the price per person?</h4>
                     <p>Private transfer prices are typically for the vehicle (1-4 passengers). Larger groups have a small per-person fee.</p>
                 </div>
@@ -843,7 +870,7 @@
 
     <!-- ABOUT SECTION -->
     <section class="section-padding" id="about" style="background-color: var(--light-bg);">
-        <div class="container text-center">
+        <div class="container text-center reveal">
             <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">About P&T</h4>
             <h2 style="margin-bottom: 20px;">Your Local Travel Family</h2>
             <p class="about-text">
@@ -860,7 +887,7 @@
     <!-- CALL TO ACTION AREA -->
     <section class="section-padding cta-section" id="contact">
         <div class="container">
-            <div class="cta-content" style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
+            <div class="cta-content reveal" style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
                 <div style="flex: 1; max-width: 600px;">
                     <h2 style="color: white; margin-bottom: 15px;">Ready for the Real Jamaica?</h2>
                     <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Secure your transportation today. No deposit required to inquire.</p>
@@ -1038,12 +1065,28 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        // --- 1. Mobile Menu ---
+        // --- 1. Reveal on Scroll (Motion Design) ---
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Trigger only once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 2. Mobile Menu ---
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
 
-        // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 const navLinks = document.getElementById('navLinks');
@@ -1053,7 +1096,7 @@
             });
         });
 
-        // --- 2. Modal Logic (Generic) ---
+        // --- 3. Modal Logic ---
         function openModal() {
             document.getElementById('bookingModal').classList.add('open');
         }
@@ -1063,7 +1106,6 @@
         }
 
         function closeModal(modalId) {
-            // Default to booking modal if no ID passed (backward compatibility)
             const id = modalId || 'bookingModal'; 
             document.getElementById(id).classList.remove('open');
         }
@@ -1084,14 +1126,13 @@
             openModal();
         }
 
-        // Close modals on outside click
         window.addEventListener('click', function(e) {
             if (e.target.classList.contains('modal-overlay')) {
                 e.target.classList.remove('open');
             }
         });
 
-        // --- 3. Scroll Spy (Active Link) ---
+        // --- 4. Scroll Spy ---
         const sections = document.querySelectorAll('section[id]');
         
         window.addEventListener('scroll', () => {
@@ -1107,7 +1148,6 @@
 
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                // Calculate if we've scrolled past this section (with buffer for fixed header)
                 if (scrollY >= sectionTop - 120) {
                     current = section.getAttribute('id');
                 }
@@ -1115,21 +1155,19 @@
 
             navLi.forEach(li => {
                 li.classList.remove('active');
-                // Use strict match to ensure correctness
                 if (li.getAttribute('href') === '#' + current) {
                     li.classList.add('active');
                 }
             });
         });
 
-        // --- 4. Toast Notification ---
+        // --- 5. Toast & Contact ---
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
 
-        // --- 5. Contact Handlers ---
         function getFormData() {
             return {
                 name: document.getElementById('name').value || 'Traveler',
@@ -1142,8 +1180,6 @@
         function sendToWhatsApp() {
             const data = getFormData();
             const phoneNumber = "18764453764"; 
-            
-            // UPDATED: Using WhatsApp Markdown (*Bold*) for a cleaner "Ticket" look
             const text = `*New Booking Inquiry* 🇯🇲%0A%0A*Name:* ${data.name}%0A*Email:* ${data.email}%0A*Service:* ${data.service}%0A*Destination:* ${data.location}%0A%0A_Sent via P&T Website_`;
             
             showToast();
@@ -1157,8 +1193,6 @@
             const data = getFormData();
             const email = "ttgrindley@gmail.com";
             const subject = `Booking Request: ${data.service} - ${data.name}`;
-            
-            // UPDATED: Cleaner Email Body Layout
             const body = `New Booking Request via Website%0D%0A%0D%0AName: ${data.name}%0D%0AEmail: ${data.email}%0D%0AService: ${data.service}%0D%0ADestination: ${data.location}%0D%0A%0D%0APlease respond with availability and pricing.`;
             
             showToast();
