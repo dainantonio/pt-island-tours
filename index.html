@@ -58,7 +58,7 @@
         "addressCountry": "JM"
       },
       "priceRange": "$$",
-      "telephone": "+18764453764",
+      "telephone": "+13049824165",
       "email": "ttgrindley@gmail.com"
     }
     </script>
@@ -905,11 +905,11 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h4>How do I pay?</h4>
-                    <p>We accept <strong>Cash (USD)</strong> upon arrival. For deposits, we also accept <strong>Venmo</strong>, <strong>CashApp</strong>, and <strong>PayPal</strong>. Details provided after booking confirmation.</p>
+                    <p>We believe in transparency. You can pay a deposit to secure your booking via a secure <strong>EzeePayments link</strong> (Visa/Mastercard). The balance is due in <strong>Cash (USD)</strong> or Card upon arrival.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Where do I meet the driver?</h4>
-                    <p>At the airport, our driver will be holding a sign with your name at the exit of the Arrivals terminal.</p>
+                    <p>At the airport, our driver will be holding a P&T Island Tours sign with <strong>YOUR NAME</strong> at the exit of the Arrivals terminal.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Is the price per person?</h4>
@@ -965,8 +965,8 @@
                     <h4 style="font-size: 0.9rem; margin-top: 20px; color: #999;">Payment Methods</h4>
                     <div class="payment-icons">
                         <span class="payment-badge"><i class="fa-solid fa-money-bill-wave"></i> Cash</span>
-                        <span class="payment-badge"><i class="fa-brands fa-paypal"></i> PayPal</span>
-                        <span class="payment-badge"><i class="fa-solid fa-mobile-screen"></i> Venmo/CashApp</span>
+                        <span class="payment-badge"><i class="fa-regular fa-credit-card"></i> Visa/Mastercard</span>
+                        <span class="payment-badge" style="border: 1px solid var(--primary-green); color: var(--primary-green);">Secured by EzeePayments</span>
                     </div>
 
                     <!-- NEW: Credibility Badge & Text -->
@@ -1002,7 +1002,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--primary-gold); margin-right: 10px;"></i> ttgrindley@gmail.com</a></li>
-                        <li><a href="https://wa.me/18764453764"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (876) 445-3764</a></li>
+                        <li><a href="https://wa.me/13049824165"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (304) 982-4165</a></li>
                     </ul>
 
                     <!-- NEW: Social Media Links -->
@@ -1024,7 +1024,7 @@
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/18764453764" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <a href="https://wa.me/13049824165" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -1184,8 +1184,10 @@
 
         function sendToWhatsApp() {
             const data = getFormData();
-            const phoneNumber = "18764453764"; 
-            const text = `Hi P&T Tours, I'd like to book a trip.%0A%0AName: ${data.name}%0AEmail: ${data.email}%0AService: ${data.service}%0ADestination: ${data.location}`;
+            const phoneNumber = "13049824165"; 
+            
+            // UPDATED: Using WhatsApp Markdown (*Bold*) for a cleaner "Ticket" look
+            const text = `*New Booking Inquiry* 🇯🇲%0A%0A*Name:* ${data.name}%0A*Email:* ${data.email}%0A*Service:* ${data.service}%0A*Destination:* ${data.location}%0A%0A_Sent via P&T Website_`;
             
             showToast();
             setTimeout(() => {
@@ -1198,7 +1200,9 @@
             const data = getFormData();
             const email = "ttgrindley@gmail.com";
             const subject = `Booking Request: ${data.service} - ${data.name}`;
-            const body = `Hello P&T Tours,%0A%0AI would like to inquire about a booking.%0A%0AName: ${data.name}%0AEmail: ${data.email}%0AService: ${data.service}%0ADestination: ${data.location}%0A%0APlease let me know availability and pricing.`;
+            
+            // UPDATED: Cleaner Email Body Layout
+            const body = `New Booking Request via Website%0D%0A%0D%0AName: ${data.name}%0D%0AEmail: ${data.email}%0D%0AService: ${data.service}%0D%0ADestination: ${data.location}%0D%0A%0D%0APlease respond with availability and pricing.`;
             
             showToast();
             setTimeout(() => {
