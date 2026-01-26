@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v2.0
-    "The Real Jamaica" Theme
+    P&T ISLAND TOURS - PRODUCTION BUILD v3.0
+    "The Real Jamaica" Theme + Trust Signals
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Experience the real Jamaica with P&T Island Tours. Montego Bay, Negril, Ocho Rios.">
     <meta name="keywords" content="Montego Bay airport transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions">
     
-    <!-- SOCIAL SHARING TAGS (Make it look good on Facebook/WhatsApp) -->
+    <!-- SOCIAL SHARING TAGS -->
     <meta property="og:title" content="P&T Island Tours | Experience the Real Jamaica">
     <meta property="og:description" content="Private, safe, and authentic transportation across Jamaica. Book your driver today.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
@@ -31,11 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- 
-    ====================================================================
-    SEO SCHEMA (JSON-LD) - The "Secret Sauce" for Google Ranking
-    ==================================================================== 
-    -->
+    <!-- SEO SCHEMA -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -57,7 +53,6 @@
     <style>
         /* --- VARIABLES --- */
         :root {
-            /* Authentic Jamaican Palette */
             --primary-gold: #FFD700;       
             --primary-dark: #1A1A1A;       
             --primary-green: #009B3A;      
@@ -156,7 +151,7 @@
         /* --- HEADER & NAV --- */
         header {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px); /* Frosted glass effect */
+            backdrop-filter: blur(12px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: fixed;
             width: 100%;
@@ -193,7 +188,6 @@
             position: relative;
         }
         
-        /* Nav Hover Effect */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -217,7 +211,7 @@
                         url('https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -228,7 +222,7 @@
             position: relative;
         }
 
-        .hero-content { z-index: 2; animation: fadeIn Up 1s ease-out; }
+        .hero-content { z-index: 2; animation: fadeInUp 1s ease-out; }
 
         .hero-content h1 {
             color: var(--white);
@@ -406,28 +400,6 @@
         .feature-icon { font-size: 2rem; color: var(--primary-green); transition: var(--transition); }
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 15px; font-weight: 700; }
 
-        /* --- REVIEWS (New - The Social Proof) --- */
-        .reviews-slider {
-            display: flex;
-            gap: 30px;
-            overflow-x: auto;
-            padding-bottom: 30px;
-            scrollbar-width: none; /* Hide scrollbar Firefox */
-        }
-        .reviews-slider::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
-
-        .review-card {
-            min-width: 300px;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-card);
-            border-left: 4px solid var(--primary-green);
-        }
-        .stars { color: var(--primary-gold); margin-bottom: 15px; }
-        .review-text { font-style: italic; color: #555; margin-bottom: 15px; }
-        .reviewer { font-weight: 700; color: var(--primary-dark); font-size: 0.9rem; }
-
         /* --- FAQ SECTION --- */
         .faq-grid {
             display: grid;
@@ -445,6 +417,15 @@
         }
         .faq-item h4 { color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; }
         .faq-item p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0; }
+
+        /* --- ABOUT SECTION (New - Trust Builder) --- */
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
         /* --- CALL TO ACTION --- */
         .cta-section {
@@ -527,8 +508,15 @@
             text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: flex; align-items: center; justify-content: center;
             transition: var(--transition);
+            animation: pulse-green 2s infinite; /* Pulsing Animation */
         }
-        .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; }
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
 
         .scroll-top {
             position: fixed; width: 50px; height: 50px; bottom: 30px; left: 30px;
@@ -637,7 +625,7 @@
         <i class="fa-solid fa-check-circle"></i>
         <div>
             <h5 style="margin:0; font-size: 0.9rem;">Success</h5>
-            <p style="margin:0; font-size: 0.8rem; color: #666;">Opening WhatsApp...</p>
+            <p style="margin:0; font-size: 0.8rem; color: #666;">Opening your app...</p>
         </div>
     </div>
 
@@ -650,6 +638,7 @@
                 </div>
                 <div class="nav-links" id="navLinks">
                     <a href="#home">Home</a>
+                    <a href="#about">About</a> <!-- Added About Link -->
                     <a href="#destinations">Destinations</a>
                     <a href="#services">Services</a>
                     <a href="#tours">Tours</a>
@@ -678,7 +667,7 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS SECTION (Transfers) -->
+    <!-- DESTINATIONS SECTION -->
     <section class="section-padding" id="destinations">
         <div class="container">
             <div class="text-center" style="margin-bottom: 60px;">
@@ -838,7 +827,7 @@
         </div>
     </section>
 
-    <!-- FAQ SECTION (Background changed to White for contrast) -->
+    <!-- FAQ SECTION -->
     <section class="section-padding" style="background-color: var(--white);">
         <div class="container">
             <div class="text-center" style="margin-bottom: 40px;">
@@ -857,6 +846,22 @@
                     <h4>Is the price per person?</h4>
                     <p>Private transfer prices are typically for the vehicle (1-4 passengers). Larger groups have a small per-person fee.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION (NEW - TRUST BUILDER) -->
+    <section class="section-padding" id="about" style="background-color: var(--light-bg);">
+        <div class="container text-center">
+            <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">About P&T</h4>
+            <h2 style="margin-bottom: 20px;">Your Local Travel Family</h2>
+            <p class="about-text">
+                Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
+                Whether you need a safe ride to your resort or want to discover hidden gems off the beaten path, we treat every guest like family.
+                Experience the warmth, culture, and beauty of Jamaica with drivers who know every turn of the road.
+            </p>
+            <div style="margin-top: 30px;">
+                <i class="fa-solid fa-heart" style="color: var(--primary-gold); font-size: 2rem;"></i>
             </div>
         </div>
     </section>
@@ -900,8 +905,8 @@
                     <h4>Explore</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
                         <li><a href="#destinations">Destinations</a></li>
-                        <li><a href="#services">Services</a></li>
                         <li><a href="#tours">Tours</a></li>
                     </ul>
                 </div>
@@ -1052,7 +1057,6 @@
                 scrollTopBtn.style.display = 'none';
             }
 
-            // Navigation Highlight
             const sections = document.querySelectorAll('section');
             const navLi = document.querySelectorAll('.nav-links a');
             
@@ -1094,7 +1098,7 @@
             const phoneNumber = "18764453764"; 
             const text = `Hi P&T Tours, I'd like to book a trip.%0A%0AName: ${data.name}%0AEmail: ${data.email}%0AService: ${data.service}%0ADestination: ${data.location}`;
             
-            showToast(); // Visual feedback
+            showToast();
             setTimeout(() => {
                 window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
                 closeModal(); 
