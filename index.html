@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v3.1
-    "The Real Jamaica" Theme + Custom Branding
+    P&T ISLAND TOURS - PRODUCTION BUILD v3.2
+    "The Real Jamaica" Theme + Custom Branding + UX Enhancements
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -190,6 +190,12 @@
             align-items: center;
             gap: 5px; 
             letter-spacing: -0.5px;
+            cursor: pointer; /* Indicates it's clickable */
+            user-select: none;
+        }
+        
+        .logo:hover {
+            opacity: 0.8;
         }
 
         .nav-links { display: flex; gap: 25px; align-items: center; }
@@ -647,7 +653,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
+                <div class="logo" onclick="window.location.reload()" title="Refresh Page">
                     P&T <span style="color: var(--primary-green);">ISLAND TOURS</span>
                 </div>
                 <div class="nav-links" id="navLinks">
@@ -1003,7 +1009,7 @@
     </a>
 
     <!-- SCROLL TO TOP BUTTON -->
-    <div class="scroll-top" onclick="window.scrollTo(0,0)">
+    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <i class="fa-solid fa-arrow-up"></i>
     </div>
 
