@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v4.3
-    "The Real Jamaica" Theme + EzeePayments Integration
+    P&T ISLAND TOURS - PRODUCTION BUILD v5.0
+    "The Real Jamaica" Theme + Gallery + Legal
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -17,6 +17,15 @@
     <meta property="og:description" content="Private, safe, and authentic transportation across Jamaica. Book your driver today.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:type" content="website">
+
+    <!-- GOOGLE ANALYTICS (Placeholder - Add your ID here later) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
 
     <!-- APP ICONS & THEME -->
     <meta name="theme-color" content="#009B3A">
@@ -354,6 +363,20 @@
         .feature-icon { font-size: 2rem; color: var(--primary-green); transition: var(--transition); }
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 15px; font-weight: 700; }
 
+        /* --- GALLERY GRID (New) --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-top: 40px;
+        }
+        .gallery-item {
+            height: 250px; border-radius: 12px; overflow: hidden; position: relative;
+            box-shadow: var(--shadow-card); cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+
         /* --- FAQ SECTION --- */
         .faq-grid {
             display: grid;
@@ -399,6 +422,7 @@
             border-radius: 15px; position: relative; transform: scale(0.95);
             transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             border-top: 8px solid var(--primary-green);
+            max-height: 90vh; overflow-y: auto; /* Fix for small screens */
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
 
@@ -778,6 +802,22 @@
         </div>
     </section>
 
+    <!-- NEW: CAPTURED MOMENTS (Gallery) -->
+    <section class="section-padding" style="background-color: var(--light-bg);" id="gallery">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Captured Moments</h4>
+                <h2>See the Vibe</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Beach" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Nature" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Food" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Waterfall" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ SECTION -->
     <section class="section-padding" style="background-color: var(--white);">
         <div class="container">
@@ -787,7 +827,7 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h4>How do I pay?</h4>
-                    <p>We believe in transparency. You can pay a deposit to secure your booking via a secure <strong>EzeePayments link</strong> (Visa/Mastercard). The balance is due in <strong>Cash (USD)</strong> or Card upon arrival.</p>
+                    <p>We accept <strong>Cash (USD)</strong> upon arrival. For deposits, we accept <strong>EzeePayments</strong> (Visa/Mastercard). Details provided after booking confirmation.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Where do I meet the driver?</h4>
@@ -847,11 +887,10 @@
                     <h4 style="font-size: 0.9rem; margin-top: 20px; color: #999;">Payment Methods</h4>
                     <div class="payment-icons">
                         <span class="payment-badge"><i class="fa-solid fa-money-bill-wave"></i> Cash</span>
-                        <span class="payment-badge"><i class="fa-regular fa-credit-card"></i> Visa/Mastercard</span>
-                        <span class="payment-badge" style="border: 1px solid var(--primary-green); color: var(--primary-green);">Secured by EzeePayments</span>
+                        <span class="payment-badge"><i class="fa-regular fa-credit-card"></i> EzeePayments</span>
                     </div>
 
-                    <!-- NEW: Credibility Badge & Text -->
+                    <!-- Credibility Badge & Text -->
                     <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; align-items: start; gap: 15px;">
                         <i class="fa-solid fa-certificate" style="color: var(--primary-gold); font-size: 2rem; margin-top: 2px;"></i>
                         <div>
@@ -887,7 +926,7 @@
                         <li><a href="https://wa.me/18764453764"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (876) 445-3764</a></li>
                     </ul>
 
-                    <!-- NEW: Social Media Links -->
+                    <!-- Social Media Links -->
                     <h4 style="margin-top: 25px; font-size: 0.9rem; margin-bottom: 15px;">Follow Us</h4>
                     <div style="display: flex; gap: 20px;">
                         <a href="https://facebook.com" target="_blank" title="Follow us on Facebook" style="font-size: 1.5rem; color: white;">
@@ -899,8 +938,11 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
+            
+            <!-- Terms Link -->
+            <div class="text-center" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; display: flex; flex-direction: column; gap: 10px;">
                 <p>&copy; 2024 P&T Island Tours. Authentic Jamaica.</p>
+                <a href="#" onclick="openLegalModal()" style="font-size: 0.8rem; color: #888; text-decoration: underline;">Terms & Conditions</a>
             </div>
         </div>
     </footer>
@@ -915,10 +957,10 @@
         <i class="fa-solid fa-arrow-up"></i>
     </div>
 
-    <!-- MODAL POPUP (Universal Contact) -->
+    <!-- MODAL POPUP (Booking) -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
             <div class="text-center" style="margin-bottom: 25px;">
                 <h3 style="color: var(--primary-dark); margin-bottom: 5px;">Plan Your Trip</h3>
                 <p style="font-size: 0.9rem; color: #666;">Choose your preferred contact method below.</p>
@@ -977,6 +1019,23 @@
         </div>
     </div>
 
+    <!-- LEGAL MODAL -->
+    <div class="modal-overlay" id="legalModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
+            <div style="text-align: left;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 15px;">Terms & Conditions</h3>
+                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem; color: #555; line-height: 1.6;">
+                    <p><strong>1. Bookings & Deposits:</strong> A deposit is required to secure all bookings. The remaining balance is due in cash (USD) or card upon arrival.</p>
+                    <p><strong>2. Cancellations:</strong> Cancellations made more than 24 hours in advance will receive a full refund of the deposit. Cancellations within 24 hours are non-refundable.</p>
+                    <p><strong>3. Waiting Policy:</strong> We monitor all flights. We will wait for delayed flights at no extra cost. For hotel pickups, we offer a 15-minute grace period.</p>
+                    <p><strong>4. Liability:</strong> P&T Island Tours is fully insured. However, we are not responsible for lost personal items left in vehicles.</p>
+                    <p><strong>5. Conduct:</strong> We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or vehicle.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT -->
     <script>
         // --- 1. Mobile Menu ---
@@ -994,16 +1053,25 @@
             });
         });
 
-        // --- 2. Modal Logic ---
-        const modal = document.getElementById('bookingModal');
-        const serviceSelect = document.getElementById('service');
-        const locationSelect = document.getElementById('location');
-
+        // --- 2. Modal Logic (Generic) ---
         function openModal() {
-            modal.classList.add('open');
+            document.getElementById('bookingModal').classList.add('open');
+        }
+
+        function openLegalModal() {
+            document.getElementById('legalModal').classList.add('open');
+        }
+
+        function closeModal(modalId) {
+            // Default to booking modal if no ID passed (backward compatibility)
+            const id = modalId || 'bookingModal'; 
+            document.getElementById(id).classList.remove('open');
         }
 
         function openModalWithContext(serviceType, locationValue) {
+            const serviceSelect = document.getElementById('service');
+            const locationSelect = document.getElementById('location');
+            
             if (serviceType.includes("Tour")) {
                 serviceSelect.value = "Private Tour";
             } else if (serviceType.includes("Airport")) {
@@ -1016,17 +1084,16 @@
             openModal();
         }
 
-        function closeModal() {
-            modal.classList.remove('open');
-        }
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
+        // Close modals on outside click
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('open');
             }
         });
 
         // --- 3. Scroll Spy (Active Link) ---
+        const sections = document.querySelectorAll('section[id]');
+        
         window.addEventListener('scroll', () => {
             const scrollTopBtn = document.querySelector('.scroll-top');
             if (window.scrollY > 300) {
@@ -1035,20 +1102,21 @@
                 scrollTopBtn.style.display = 'none';
             }
 
-            const sections = document.querySelectorAll('section');
             const navLi = document.querySelectorAll('.nav-links a');
-            
             let current = '';
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 150) {
+                // Calculate if we've scrolled past this section (with buffer for fixed header)
+                if (scrollY >= sectionTop - 120) {
                     current = section.getAttribute('id');
                 }
             });
 
             navLi.forEach(li => {
                 li.classList.remove('active');
-                if (li.getAttribute('href').includes(current)) {
+                // Use strict match to ensure correctness
+                if (li.getAttribute('href') === '#' + current) {
                     li.classList.add('active');
                 }
             });
