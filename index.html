@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v16.7
-    Features: Fixed Mobile Nav + Centered "Float" Swipe Cards
+    P&T ISLAND TOURS - PRODUCTION BUILD v17.2 (UNIFIED & CENTERED)
+    Features: Perfectly Centered Mobile Cards + High Contrast Sections
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -58,13 +58,16 @@
             --primary-gold: #FFD700;       
             --primary-dark: #1A1A1A;       
             --primary-green: #009B3A;      
-            --light-bg: #EFFDF5;
+            
+            /* High Contrast Section Background (Darker Mint) */
+            --light-bg: #E0F2F1; 
+            
             --text-dark: #222222;
             --text-light: #555555;
             --white: #FFFFFF;
             
-            --shadow-card: 0 5px 20px rgba(0,0,0,0.08);
-            --shadow-hover: 0 15px 30px rgba(0,0,0,0.15);
+            --shadow-card: 0 8px 25px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 35px rgba(0,0,0,0.2);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -183,35 +186,41 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.5); color: #f0f0f0;
         }
 
-        /* --- HOW IT WORKS --- */
-        .process-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: center;
-        }
-        .process-icon {
-            width: 60px; height: 60px; background: var(--light-bg); border-radius: 50%;
+        /* --- HOW IT WORKS & SERVICES (ICONS) --- */
+        .process-icon, .feature-icon-circle {
+            width: 60px; height: 60px; background: var(--white); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;
             color: var(--primary-green); font-size: 1.2rem; border: 2px solid var(--primary-green);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
+        .feature-icon { font-size: 1.5rem; color: var(--primary-green); }
 
-        /* --- CARDS & SCROLLING CONTAINERS --- */
-        /* Desktop Defaults */
-        .destinations-grid, .features-grid, .gallery-grid, .process-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
-        }
-
-        .destination-card, .feature-card {
-            background: var(--white); border-radius: 12px; overflow: hidden;
-            box-shadow: var(--shadow-card); transition: transform 0.3s ease, opacity 0.3s ease;
+        /* --- UNIFIED CARD STYLING --- */
+        .destination-card, .feature-card, .process-item, .gallery-item {
+            background: var(--white); border-radius: 16px; overflow: hidden;
+            box-shadow: var(--shadow-card); transition: transform 0.3s ease;
             position: relative; display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.02); min-width: 300px;
+            border: 1px solid rgba(0,0,0,0.05); 
+            /* Min-width handled by grid on desktop, scroll on mobile */
         }
-        .destination-card:hover, .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        
+        .feature-card, .process-item { padding: 40px 20px; text-align: center; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--primary-gold); }
+        
+        .destination-card:hover, .feature-card:hover, .process-item:hover, .gallery-item:hover { 
+            transform: translateY(-5px); box-shadow: var(--shadow-hover); 
+        }
 
         /* Carousel Images */
         .card-img-wrapper { position: relative; height: 220px; overflow: hidden; user-select: none; }
         .carousel-track { display: flex; height: 100%; transition: transform 0.5s ease; }
         .carousel-track img { min-width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
 
+        /* Gallery */
+        .gallery-item { height: 250px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Carousel Arrows */
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(255, 255, 255, 0.9); color: var(--primary-dark);
@@ -246,25 +255,13 @@
             color: var(--primary-dark); font-weight: 700; font-size: 0.85rem;
             text-transform: uppercase; display: flex; align-items: center; gap: 5px;
         }
-        
-        /* Service Cards */
-        .feature-card { padding: 30px; text-align: center; }
-        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary-gold); }
-        .feature-icon-circle {
-            width: 60px; height: 60px; background: #fff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-            box-shadow: var(--shadow-card);
-        }
-        .feature-icon { font-size: 1.5rem; color: var(--primary-green); }
 
-        /* --- GALLERY --- */
-        .gallery-item {
-            height: 200px; border-radius: 12px; overflow: hidden; position: relative;
-            min-width: 250px;
+        /* --- DESKTOP GRIDS --- */
+        .destinations-grid, .features-grid, .gallery-grid, .process-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
         }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- FAQ --- */
+        /* --- FAQ ACCORDION --- */
         .faq-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
         .faq-item {
             background: var(--white); border-radius: 12px; box-shadow: var(--shadow-card);
@@ -330,7 +327,6 @@
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
-        
         .scroll-top {
             position: fixed; width: 45px; height: 45px; bottom: 30px; left: 20px;
             background-color: var(--primary-dark); color: #FFF; border-radius: 50%;
@@ -340,7 +336,7 @@
         }
         .scroll-top:hover { background-color: var(--primary-green); }
 
-        /* --- RESPONSIVE OPTIMIZATIONS (COMPACT & SWIPE) --- */
+        /* --- RESPONSIVE OPTIMIZATIONS (UNIFIED CENTERED SWIPE) --- */
         @media (max-width: 900px) {
             .nav-links {
                 position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px);
@@ -350,56 +346,58 @@
             }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: block; }
-            .nav-btn { display: none; } /* Hide header button, use sticky footer */
+            .nav-btn { display: none; } 
             
-            /* Compact Padding */
-            .section-padding { padding: 40px 0; }
+            .section-padding { padding: 50px 0; }
             .hero { min-height: 85vh; margin-top: 0; padding-top: 90px; }
             .hero-content h1 { font-size: 2.5rem; }
 
-            /* HORIZONTAL SCROLL CONTAINERS (SWIPE) - CENTERED */
+            /* UNIFIED MOBILE SWIPE CONTAINER */
             .destinations-grid, .gallery-grid, .features-grid, .process-grid {
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding-bottom: 25px; /* Room for shadow */
+                padding-bottom: 25px;
                 gap: 15px;
                 -webkit-overflow-scrolling: touch;
                 
-                /* Centering Math: (100vw - 75vw) / 2 = 12.5vw padding on each side */
-                padding-left: 12.5vw;
-                padding-right: 12.5vw;
+                /* PERFECT CENTERING MATH */
+                /* 100vw - 80vw = 20vw remaining. Divide by 2 = 10vw padding on each side. */
+                padding-left: 10vw; 
+                padding-right: 10vw;
                 
-                /* Ensure container spans full width to allow bleed */
+                /* Break out of container padding */
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
             }
             
+            /* UNIFIED MOBILE CARD SIZE */
             .destination-card, .gallery-item, .feature-card, .process-item {
-                min-width: 75vw; /* Card Width */
-                scroll-snap-align: center; /* Snap to center */
+                min-width: 80vw; /* 80% Screen Width */
+                scroll-snap-align: center;
                 margin-right: 0;
                 flex-shrink: 0;
-                
-                /* Ensure all sides visible */
                 margin-top: 5px; 
                 margin-bottom: 5px;
             }
 
-            /* Hide carousel arrows on mobile to prefer swiping */
             .carousel-btn { display: none; }
-
-            /* Sticky Footer CTA */
             .mobile-sticky-cta { display: block; }
-            body { padding-bottom: 80px; } /* Space for sticky bar */
-
-            /* Adjust WhatsApp button for sticky CTA */
+            body { padding-bottom: 80px; }
             .whatsapp-float { bottom: 90px; }
         }
     </style>
 </head>
 <body>
+
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-check-circle"></i>
+        <div>
+            <h5 style="margin:0; font-size: 0.9rem;">Success</h5>
+            <p style="margin:0; font-size: 0.8rem; color: #666;">Opening your app...</p>
+        </div>
+    </div>
 
     <header>
         <div class="container">
@@ -493,8 +491,8 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS (Swipe) -->
-    <section class="section-padding" id="destinations">
+    <!-- DESTINATIONS (Swipe on Mobile) -->
+    <section class="section-padding" id="destinations" style="background-color: var(--white);">
         <div class="container">
             <div class="text-center">
                 <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TRANSFERS</h4>
@@ -504,7 +502,7 @@
             <div class="destinations-grid" id="destGrid">
                 <!-- Montego Bay -->
                 <article class="destination-card">
-                    <div class="card-img-wrapper">
+                    <div class="card-img-wrapper" id="mobay-carousel">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
                         <div class="carousel-track">
@@ -526,7 +524,7 @@
 
                 <!-- Negril -->
                 <article class="destination-card">
-                    <div class="card-img-wrapper">
+                    <div class="card-img-wrapper" id="negril-carousel">
                         <span class="location-badge">Negril</span>
                         <div class="carousel-track">
                             <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road">
@@ -569,7 +567,7 @@
         </div>
     </section>
 
-    <!-- TOURS SECTION (Swipe) -->
+    <!-- TOURS SECTION (Swipe on Mobile) -->
     <section class="section-padding" id="tours" style="background-color: var(--light-bg);">
         <div class="container">
             <div class="text-center">
@@ -626,7 +624,7 @@
         </div>
     </section>
 
-    <!-- GALLERY (Swipe) -->
+    <!-- GALLERY (Swipe on Mobile) -->
     <section class="section-padding" style="background-color: var(--white);" id="gallery">
         <div class="container">
             <div class="text-center" style="margin-bottom: 40px;">
@@ -710,13 +708,10 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
             <div style="text-align: left;">
-                <h3 style="color:var(--primary-dark); margin-bottom:15px;">Terms & Conditions</h3>
-                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem; color:#555;">
-                    <p style="margin-bottom:15px;"><strong>1. Booking & Deposits:</strong> All bookings require a 20-30% deposit to confirm the date and vehicle. The remaining balance is payable in Cash (USD) or via credit card upon arrival.</p>
-                    <p style="margin-bottom:15px;"><strong>2. Cancellations:</strong> Cancellations made more than 24 hours before the scheduled pickup time are eligible for a full refund of the deposit. Cancellations within 24 hours are non-refundable.</p>
-                    <p style="margin-bottom:15px;"><strong>3. Flight Delays:</strong> We actively monitor all incoming flights. If your flight is delayed, we will wait for you at no extra cost. For hotel pickups, a 15-minute grace period applies.</p>
-                    <p style="margin-bottom:15px;"><strong>4. Liability:</strong> P&T Island Tours is fully insured. However, we are not responsible for lost personal items left in our vehicles. Passengers are responsible for their belongings.</p>
-                    <p><strong>5. Passenger Conduct:</strong> We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or the vehicle. No refunds will be given in such cases.</p>
+                <h3>Terms & Conditions</h3>
+                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem;">
+                    <p><strong>1. Bookings:</strong> Deposit required.</p>
+                    <p><strong>2. Cancellations:</strong> >24hrs = Refund.</p>
                 </div>
             </div>
         </div>
@@ -768,20 +763,20 @@
             if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
         });
 
-        // Close Menu on Link Click
+        // Close Menu on Link Click (Fix)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navLinks').classList.remove('active');
             });
         });
 
-        // SCROLL SPY & SCROLL TOP
+        // SCROLL SPY FIX (Robust)
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const btn = document.querySelector('.scroll-top');
             if(btn) btn.style.display = scrollY > 300 ? 'flex' : 'none';
 
-            // Safe Selection
+            // Targeted selection to avoid null errors
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a');
 
