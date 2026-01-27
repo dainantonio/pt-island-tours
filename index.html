@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v16.6
-    Features: Fixed Nav + Full Legal + Invisible Swipe
+    P&T ISLAND TOURS - PRODUCTION BUILD v16.7
+    Features: Fixed Mobile Nav + Centered "Float" Swipe Cards
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -194,6 +194,7 @@
         }
 
         /* --- CARDS & SCROLLING CONTAINERS --- */
+        /* Desktop Defaults */
         .destinations-grid, .features-grid, .gallery-grid, .process-grid { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
         }
@@ -356,24 +357,34 @@
             .hero { min-height: 85vh; margin-top: 0; padding-top: 90px; }
             .hero-content h1 { font-size: 2.5rem; }
 
-            /* HORIZONTAL SCROLL CONTAINERS (SWIPE) */
+            /* HORIZONTAL SCROLL CONTAINERS (SWIPE) - CENTERED */
             .destinations-grid, .gallery-grid, .features-grid, .process-grid {
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding-bottom: 20px;
+                padding-bottom: 25px; /* Room for shadow */
                 gap: 15px;
                 -webkit-overflow-scrolling: touch;
-                padding-left: 20px; padding-right: 20px; /* Peek padding */
-                margin-left: -20px; margin-right: -20px; /* Offset to full edge */
-                margin-top: 20px;
+                
+                /* Centering Math: (100vw - 75vw) / 2 = 12.5vw padding on each side */
+                padding-left: 12.5vw;
+                padding-right: 12.5vw;
+                
+                /* Ensure container spans full width to allow bleed */
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
             }
             
             .destination-card, .gallery-item, .feature-card, .process-item {
-                min-width: 75vw; /* Show the next card peeking */
-                scroll-snap-align: center;
+                min-width: 75vw; /* Card Width */
+                scroll-snap-align: center; /* Snap to center */
                 margin-right: 0;
                 flex-shrink: 0;
+                
+                /* Ensure all sides visible */
+                margin-top: 5px; 
+                margin-bottom: 5px;
             }
 
             /* Hide carousel arrows on mobile to prefer swiping */
@@ -482,7 +493,7 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS (Swipe on Mobile) -->
+    <!-- DESTINATIONS (Swipe) -->
     <section class="section-padding" id="destinations">
         <div class="container">
             <div class="text-center">
@@ -493,12 +504,12 @@
             <div class="destinations-grid" id="destGrid">
                 <!-- Montego Bay -->
                 <article class="destination-card">
-                    <div class="card-img-wrapper" id="mobay-carousel">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Van" onerror="this.src='https://via.placeholder.com/800x600?text=Montego+Bay'">
-                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Van">
+                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -515,11 +526,11 @@
 
                 <!-- Negril -->
                 <article class="destination-card">
-                    <div class="card-img-wrapper" id="negril-carousel">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Negril</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road" onerror="this.src='https://via.placeholder.com/800x600?text=Negril'">
-                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beach" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beach">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -539,8 +550,8 @@
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fern Gully" onerror="this.src='https://via.placeholder.com/800x600?text=Ocho+Rios'">
-                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coast" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fern Gully">
+                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coast">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -558,7 +569,7 @@
         </div>
     </section>
 
-    <!-- TOURS SECTION (Swipe on Mobile) -->
+    <!-- TOURS SECTION (Swipe) -->
     <section class="section-padding" id="tours" style="background-color: var(--light-bg);">
         <div class="container">
             <div class="text-center">
@@ -570,8 +581,8 @@
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Falls" onerror="this.src='https://via.placeholder.com/800x600?text=Dunns+River'">
-                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Climb" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Falls">
+                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Climb">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -580,7 +591,7 @@
                         <h3>Dunn's River</h3>
                         <p>Climb the famous falls and swim in the ocean.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $120 (1-4 people)</span>
+                            <span class="price-start">From $120</span>
                             <a href="#" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Book Now</a>
                         </div>
                     </div>
@@ -589,8 +600,8 @@
                     <div class="card-img-wrapper">
                         <span class="location-badge">Kingston</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mural" onerror="this.src='https://via.placeholder.com/800x600?text=Bob+Marley'">
-                            <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Devon" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mural">
+                            <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Devon">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -599,7 +610,7 @@
                         <h3>Bob Marley</h3>
                         <p>Visit the home of the Legend + Devon House.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $150 (1-4 people)</span>
+                            <span class="price-start">From $150</span>
                             <a href="#" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
                         </div>
                     </div>
@@ -615,17 +626,17 @@
         </div>
     </section>
 
-    <!-- GALLERY (Swipe on Mobile) -->
+    <!-- GALLERY (Swipe) -->
     <section class="section-padding" style="background-color: var(--white);" id="gallery">
         <div class="container">
             <div class="text-center" style="margin-bottom: 40px;">
                 <h2>Captured Moments</h2>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach" onerror="this.src='https://via.placeholder.com/600x400?text=Beach'"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature" onerror="this.style.display='none'"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food" onerror="this.style.display='none'"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water" onerror="this.style.display='none'"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water"></div>
             </div>
         </div>
     </section>
@@ -657,8 +668,8 @@
             <div class="footer-logo">P&T <span style="color: var(--primary-green);">ISLAND TOURS</span></div>
             <p style="margin-bottom:20px;">Serving Montego Bay, Negril, Ocho Rios.</p>
             <div style="margin-bottom:20px;">
-                <a href="https://facebook.com" style="margin:0 10px;"><i class="fa-brands fa-facebook fa-lg"></i></a>
-                <a href="https://instagram.com" style="margin:0 10px;"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                <a href="https://facebook.com" style="margin:0 10px;" target="_blank"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                <a href="https://instagram.com" style="margin:0 10px;" target="_blank"><i class="fa-brands fa-instagram fa-lg"></i></a>
             </div>
             <p style="font-size:0.8rem; opacity:0.6;">&copy; 2024 P&T Island Tours. JTB Certified. <a href="#" onclick="openLegalModal()" style="color:inherit; text-decoration: underline; margin-left: 5px;">Terms</a></p>
         </div>
@@ -699,13 +710,13 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
             <div style="text-align: left;">
-                <h3>Terms & Conditions</h3>
-                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem;">
-                    <p><strong>1. Bookings:</strong> A 20-30% deposit is required to secure all bookings. The remaining balance is due in cash (USD) or card upon arrival.</p>
-                    <p><strong>2. Cancellations:</strong> Cancellations made more than 24 hours in advance will receive a full refund of the deposit. Cancellations within 24 hours are non-refundable.</p>
-                    <p><strong>3. Waiting Policy:</strong> We monitor all flights. We will wait for delayed flights at no extra cost. For hotel pickups, we offer a 15-minute grace period.</p>
-                    <p><strong>4. Liability:</strong> P&T Island Tours is fully insured. However, we are not responsible for lost personal items left in vehicles.</p>
-                    <p><strong>5. Conduct:</strong> We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or vehicle.</p>
+                <h3 style="color:var(--primary-dark); margin-bottom:15px;">Terms & Conditions</h3>
+                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem; color:#555;">
+                    <p style="margin-bottom:15px;"><strong>1. Booking & Deposits:</strong> All bookings require a 20-30% deposit to confirm the date and vehicle. The remaining balance is payable in Cash (USD) or via credit card upon arrival.</p>
+                    <p style="margin-bottom:15px;"><strong>2. Cancellations:</strong> Cancellations made more than 24 hours before the scheduled pickup time are eligible for a full refund of the deposit. Cancellations within 24 hours are non-refundable.</p>
+                    <p style="margin-bottom:15px;"><strong>3. Flight Delays:</strong> We actively monitor all incoming flights. If your flight is delayed, we will wait for you at no extra cost. For hotel pickups, a 15-minute grace period applies.</p>
+                    <p style="margin-bottom:15px;"><strong>4. Liability:</strong> P&T Island Tours is fully insured. However, we are not responsible for lost personal items left in our vehicles. Passengers are responsible for their belongings.</p>
+                    <p><strong>5. Passenger Conduct:</strong> We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or the vehicle. No refunds will be given in such cases.</p>
                 </div>
             </div>
         </div>
@@ -757,13 +768,20 @@
             if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
         });
 
-        // SCROLL SPY FIX (Robust)
+        // Close Menu on Link Click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // SCROLL SPY & SCROLL TOP
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const btn = document.querySelector('.scroll-top');
             if(btn) btn.style.display = scrollY > 300 ? 'flex' : 'none';
 
-            // Targeted selection to avoid null errors
+            // Safe Selection
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a');
 
