@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v16.2
-    Features: 3D Scroll Effect + Compact Layout + Removed Clutter
+    P&T ISLAND TOURS - PRODUCTION BUILD v16.3 (STABLE RESTORE)
+    Features: Mobile Swipe Layout + Working Nav + Pulse Animation + Legal
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -79,16 +79,16 @@
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--text-dark);
-            line-height: 1.5;
+            line-height: 1.6;
             background-color: var(--light-bg); 
             overflow-x: hidden;
-            padding-bottom: 70px; /* Adjusted for Sticky CTA */
+            padding-bottom: 80px; /* Space for Sticky CTA */
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             color: var(--primary-dark);
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         a { text-decoration: none; color: inherit; transition: var(--transition); }
@@ -98,9 +98,24 @@
 
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 60px 0; } /* Reduced default padding */
+        .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
         
+        /* Mobile Scroll Helpers */
+        .mobile-swipe-hint {
+            display: none; /* Hidden on desktop */
+            font-size: 0.75rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
         /* --- BUTTONS --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
@@ -121,10 +136,10 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
             transition: var(--transition);
         }
-        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
 
         .logo {
-            font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800;
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800;
             color: var(--primary-dark); display: flex; align-items: center; gap: 5px;
             letter-spacing: -0.5px; cursor: pointer; user-select: none;
         }
@@ -160,10 +175,10 @@
                         url('https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
-            color: var(--white); margin-top: 70px; padding: 20px; position: relative;
+            color: var(--white); margin-top: 80px; padding: 20px; position: relative;
         }
         .hero-content h1 {
-            color: var(--white); font-size: 3.2rem; margin-bottom: 15px; font-weight: 800;
+            color: var(--white); font-size: 3.5rem; margin-bottom: 20px; font-weight: 800;
             text-shadow: 0 4px 10px rgba(0,0,0,0.5); line-height: 1.1;
         }
         .jamaica-gradient-text {
@@ -172,7 +187,7 @@
             font-weight: 800; filter: drop-shadow(2px 2px 0px #000000); 
         }
         .hero-content p {
-            font-size: 1.1rem; margin-bottom: 25px; max-width: 600px;
+            font-size: 1.2rem; margin-bottom: 30px; max-width: 600px;
             margin-left: auto; margin-right: auto; font-weight: 400;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5); color: #f0f0f0;
         }
@@ -195,7 +210,7 @@
 
         .destination-card, .feature-card {
             background: var(--white); border-radius: 12px; overflow: hidden;
-            box-shadow: var(--shadow-card); transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: var(--shadow-card); transition: var(--transition);
             position: relative; display: flex; flex-direction: column;
             border: 1px solid rgba(0,0,0,0.02); min-width: 300px;
         }
@@ -318,8 +333,15 @@
             text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: flex; align-items: center; justify-content: center;
             transition: var(--transition);
+            animation: pulse-green 2s infinite; 
         }
-        .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; }
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
         .scroll-top {
             position: fixed; width: 45px; height: 45px; bottom: 30px; left: 20px;
             background-color: var(--primary-dark); color: #FFF; border-radius: 50%;
@@ -358,24 +380,17 @@
                 margin-top: 20px;
             }
             
-            /* Card 3D Effect for Focus */
             .destination-card, .gallery-item, .feature-card, .process-item {
-                min-width: 75vw; /* Smaller width to see next card clearly */
+                min-width: 75vw; /* Show the next card peeking */
                 scroll-snap-align: center;
+                margin-right: 0;
                 flex-shrink: 0;
-                transform: scale(0.95);
-                opacity: 0.7;
-                transition: transform 0.3s ease, opacity 0.3s ease;
-            }
-            
-            /* JS will toggle this class for the focused item, or default CSS for simplicity */
-            .destination-card:hover, .gallery-item:hover {
-                transform: scale(1); opacity: 1;
             }
 
-            /* Hide carousel arrows on mobile */
-            .carousel-btn { display: none; }
-            
+            /* Visual Cues */
+            .mobile-swipe-hint { display: flex; justify-content: center; }
+            .carousel-btn { opacity: 1; }
+
             /* Sticky Footer CTA */
             .mobile-sticky-cta { display: block; }
             body { padding-bottom: 80px; } /* Space for sticky bar */
@@ -427,6 +442,7 @@
             <div class="text-center">
                 <h2>Why Choose P&T Tours</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-green); margin: 15px auto;"></div>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
             <div class="features-grid" id="featuresGrid">
                 <div class="feature-card">
@@ -453,6 +469,7 @@
         <div class="container">
             <div class="text-center">
                 <h2>How It Works</h2>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
             <div class="process-grid" id="processGrid">
                 <div class="process-item">
@@ -479,13 +496,13 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS (Swipe on Mobile) -->
+    <!-- DESTINATIONS (Swipe) -->
     <section class="section-padding" id="destinations">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 30px;">
+            <div class="text-center">
                 <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TRANSFERS</h4>
                 <h2>Main Destinations</h2>
-                <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
 
             <div class="destinations-grid" id="destGrid">
@@ -556,10 +573,10 @@
         </div>
     </section>
 
-    <!-- TOURS (Swipe on Mobile) -->
+    <!-- TOURS (Swipe) -->
     <section class="section-padding" id="tours" style="background-color: var(--light-bg);">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 30px;">
+            <div class="text-center">
                 <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TOURS</h4>
                 <h2>Top Experiences</h2>
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
@@ -614,7 +631,7 @@
         </div>
     </section>
 
-    <!-- GALLERY (Swipe on Mobile) -->
+    <!-- GALLERY (SWIPEABLE) -->
     <section class="section-padding" style="background-color: var(--white);" id="gallery">
         <div class="container">
             <div class="text-center" style="margin-bottom: 30px;">
@@ -630,7 +647,7 @@
         </div>
     </section>
 
-    <!-- FAQ (Collapsible) -->
+    <!-- FAQ (COLLAPSIBLE) -->
     <section class="section-padding" style="background-color: var(--light-bg);">
         <div class="container">
             <div class="text-center" style="margin-bottom: 30px;"><h2>FAQ</h2></div>
@@ -713,10 +730,12 @@
         function toggleFaq(item) {
             const body = item.querySelector('.faq-body');
             const isActive = item.classList.contains('active');
+            
             document.querySelectorAll('.faq-item').forEach(i => {
                 i.classList.remove('active');
                 i.querySelector('.faq-body').style.maxHeight = null;
             });
+
             if (!isActive) {
                 item.classList.add('active');
                 body.style.maxHeight = body.scrollHeight + "px";
