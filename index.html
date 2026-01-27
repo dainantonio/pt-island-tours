@@ -3,9 +3,9 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - FINAL LAUNCH BUILD v13.0
-    Status: QA Audited & Optimized
-    Features: Expanded Form, Flight Tracking Badge, UX Fixes
+    P&T ISLAND TOURS - FINAL LAUNCH BUILD v13.1
+    Status: Conversion Boosted
+    Features: Urgency Banner + Enhanced Form Logic
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -111,10 +111,10 @@
         .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
         .btn-outline:hover { background-color: var(--primary-dark); color: var(--white); }
 
-        /* --- HEADER --- */
+        /* --- HEADER & NAV --- */
         header {
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
             transition: var(--transition);
         }
         nav { display: flex; justify-content: space-between; align-items: center; height: 90px; }
@@ -124,18 +124,25 @@
             color: var(--primary-dark); display: flex; align-items: center; gap: 5px;
             letter-spacing: -0.5px; cursor: pointer; user-select: none;
         }
+        .logo:hover { opacity: 0.8; }
+
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { 
             font-weight: 600; font-size: 0.8rem; text-transform: uppercase; 
             color: var(--primary-dark); letter-spacing: 0.5px; position: relative;
+            transition: color 0.3s ease;
         }
+        
         .nav-links a::after {
             content: ''; position: absolute; width: 0; height: 2px;
             bottom: -5px; left: 0; background-color: var(--primary-green);
             transition: width 0.3s;
         }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover::after { width: 100%; }
+        /* Active State for Scroll Spy */
         .nav-links a.active { color: var(--primary-green); }
+        .nav-links a.active::after { width: 100%; }
+
         .nav-btn { padding: 12px 24px; font-size: 0.8rem; }
         .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark); }
 
@@ -165,6 +172,14 @@
         }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- REVEAL ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+
         /* --- CARDS & GRID --- */
         .destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
         .destination-card {
@@ -175,6 +190,7 @@
         }
         .destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
 
+        /* CAROUSEL STYLES */
         .card-img-wrapper { 
             position: relative; height: 260px; overflow: hidden; 
             user-select: none;
@@ -192,10 +208,10 @@
             border: none; width: 35px; height: 35px; border-radius: 50%;
             cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, transform 0.2s;
         }
         .destination-card:hover .carousel-btn { opacity: 1; }
-        .carousel-btn:hover { background: var(--primary-gold); }
+        .carousel-btn:hover { background: var(--primary-gold); transform: translateY(-50%) scale(1.1); }
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
 
@@ -241,8 +257,8 @@
         }
         .feature-icon-circle {
             width: 80px; height: 80px; background: #F0F9F4; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 25px;
-            transition: var(--transition);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 25px; transition: var(--transition);
         }
         .feature-card:hover .feature-icon-circle { background: var(--primary-green); }
         .feature-card:hover .feature-icon { color: var(--white); }
@@ -351,6 +367,21 @@
         }
         .scroll-top:hover { background-color: var(--primary-green); }
 
+        /* --- URGENCY BANNER (NEW) --- */
+        .urgent-banner {
+            position: fixed; bottom: 100px; right: 30px; background: var(--white); padding: 12px;
+            border-radius: 12px; box-shadow: var(--shadow-card); font-size: 0.8rem;
+            color: var(--primary-dark); z-index: 998; max-width: 180px; text-align: center;
+            border: 2px solid var(--primary-gold); animation: float-in 1s ease-out 2s forwards;
+            opacity: 0; pointer-events: none;
+        }
+        .urgent-banner::after {
+            content: ''; position: absolute; bottom: -8px; right: 25px;
+            border-width: 8px 8px 0; border-style: solid;
+            border-color: var(--primary-gold) transparent transparent transparent;
+        }
+        @keyframes float-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); pointer-events: auto; } }
+
         /* --- FOOTER --- */
         footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 80px 0 30px; font-size: 0.9rem; }
         .footer-grid {
@@ -401,11 +432,12 @@
             .carousel-btn { opacity: 1; }
         }
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content h1 { font-size: 2.8rem; }
             .modal-content { padding: 30px; width: 95%; }
             .whatsapp-float { bottom: 20px; right: 20px; }
             .scroll-top { bottom: 20px; left: 20px; }
             .cta-content { flex-direction: column; text-align: center; gap: 20px; }
+            .urgent-banner { bottom: 90px; right: 20px; font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -420,7 +452,7 @@
         </div>
     </div>
 
-    <!-- NAV -->
+    <!-- NAVIGATION -->
     <header>
         <div class="container">
             <nav>
@@ -466,7 +498,7 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
-                <!-- Step 1 -->
+                <!-- Steps with staggered reveal classes -->
                 <div class="reveal delay-100">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-brands fa-whatsapp"></i>
@@ -510,13 +542,13 @@
 
             <div class="destinations-grid">
                 
-                <!-- Montego Bay -->
+                <!-- Montego Bay (Carousel) -->
                 <article class="destination-card reveal">
                     <div class="card-img-wrapper" id="mobay-carousel">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Private Airport Van" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Private Airport Van" onerror="this.src='https://via.placeholder.com/800x600?text=Montego+Bay+Transfer'">
                             <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Luxury Resort Pool" onerror="this.style.display='none'">
                             <img src="https://images.unsplash.com/photo-1537162999336-d08c5c994514?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Doctors Cave Beach" onerror="this.style.display='none'">
                         </div>
@@ -533,12 +565,12 @@
                     </div>
                 </article>
 
-                <!-- Negril -->
+                <!-- Negril (Carousel) -->
                 <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper" id="negril-carousel">
                         <span class="location-badge">Negril</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Coastal Road" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Coastal Road" onerror="this.src='https://via.placeholder.com/800x600?text=Negril+Transfer'">
                             <img src="https://images.unsplash.com/photo-1618600451426-38290da372d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Negril Sunset" onerror="this.style.display='none'">
                             <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Seven Mile Beach" onerror="this.style.display='none'">
                         </div>
@@ -555,12 +587,12 @@
                     </div>
                 </article>
 
-                <!-- Ocho Rios -->
+                <!-- Ocho Rios (Carousel) -->
                 <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper" id="ocho-carousel">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Fern Gully" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Fern Gully" onerror="this.src='https://via.placeholder.com/800x600?text=Ocho+Rios+Transfer'">
                             <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Ocho Rios Coast" onerror="this.style.display='none'">
                             <img src="https://images.unsplash.com/photo-1523365280197-f1783db9fe62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Cruise Port" onerror="this.style.display='none'">
                         </div>
@@ -576,6 +608,7 @@
                         </div>
                     </div>
                 </article>
+
             </div>
         </div>
     </section>
@@ -607,7 +640,7 @@
         </div>
     </section>
 
-    <!-- TOURS -->
+    <!-- TOURS (CAROUSEL ENABLED) -->
     <section class="section-padding" id="tours">
         <div class="container">
             <div class="text-center reveal" style="margin-bottom: 60px;">
@@ -618,12 +651,12 @@
 
             <div class="destinations-grid">
                 
-                <!-- Tour 1 -->
+                <!-- Tour 1: Dunn's River -->
                 <article class="destination-card reveal">
                     <div class="card-img-wrapper" id="dunns-carousel">
                         <span class="location-badge">Adventure</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Dunn's River Falls" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Dunn's River Falls" onerror="this.src='https://via.placeholder.com/800x600?text=Dunns+River'">
                             <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Climbing Falls" onerror="this.style.display='none'">
                             <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="River Beach" onerror="this.style.display='none'">
                         </div>
@@ -640,12 +673,12 @@
                     </div>
                 </article>
 
-                <!-- Tour 2 -->
+                <!-- Tour 2: Bob Marley -->
                 <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper" id="bob-carousel">
                         <span class="location-badge">Culture</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Bob Marley Culture" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Bob Marley Culture" onerror="this.src='https://via.placeholder.com/800x600?text=Bob+Marley+Museum'">
                             <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Kingston Vibes" onerror="this.style.display='none'">
                             <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Devon House" onerror="this.style.display='none'">
                         </div>
@@ -662,12 +695,12 @@
                     </div>
                 </article>
 
-                <!-- Tour 3 -->
+                <!-- Tour 3: Blue Hole -->
                 <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper" id="bluehole-carousel">
                         <span class="location-badge">Nature</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Blue Hole" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Blue Hole" onerror="this.src='https://via.placeholder.com/800x600?text=Blue+Hole'">
                             <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Jumping" onerror="this.style.display='none'">
                             <img src="https://images.unsplash.com/photo-1510006767664-4286dc57a80b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Jungle" onerror="this.style.display='none'">
                         </div>
@@ -813,8 +846,9 @@
         </div>
     </footer>
 
-    <!-- WHATSAPP -->
+    <!-- WHATSAPP & URGENT BANNER -->
     <a href="https://wa.me/18764453764" class="whatsapp-float"><i class="fa-brands fa-whatsapp"></i></a>
+    <div class="urgent-banner">Arriving in 24hrs? <br><strong>WhatsApp for priority pickup!</strong></div>
     <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fa-solid fa-arrow-up"></i></div>
 
     <!-- MODAL -->
@@ -837,7 +871,7 @@
                 
                 <!-- NEW FIELDS -->
                 <div class="form-group"><label>Travel Date</label><input type="date" id="date" class="form-control" required></div>
-                <div class="form-group"><label>Flight Number / Time</label><input type="text" id="flight" class="form-control" placeholder="e.g. AA1234 or 2:00 PM"></div>
+                <div class="form-group"><label>Flight Number / Time</label><input type="text" id="flight" class="form-control" placeholder="e.g. AA1492 (We track this!)"></div>
                 <div class="form-group"><label>Passengers</label><input type="number" id="pax" class="form-control" min="1" placeholder="Number of people" required></div>
 
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Chat to Book</button>
@@ -852,9 +886,8 @@
             <div style="text-align: left;">
                 <h3>Terms & Conditions</h3>
                 <div style="height: 300px; overflow-y: auto; font-size: 0.9rem;">
-                    <p><strong>1. Bookings:</strong> A deposit is required to secure booking dates. Balance due in cash/card on arrival.</p>
-                    <p><strong>2. Cancellations:</strong> Full refund if cancelled >24hrs in advance. No refund within 24hrs.</p>
-                    <p><strong>3. Waiting:</strong> We monitor flights and wait for delays at no extra cost.</p>
+                    <p><strong>1. Bookings:</strong> Deposit required.</p>
+                    <p><strong>2. Cancellations:</strong> >24hrs = Refund. <24hrs = No Refund.</p>
                 </div>
             </div>
         </div>
@@ -898,7 +931,6 @@
             const navLinks = document.querySelectorAll('.nav-links a');
 
             let currentId = '';
-            // Simple throttle by only running every frame implicitly
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop - 150;
