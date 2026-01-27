@@ -3,13 +3,12 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v25.1
+    P&T ISLAND TOURS - PRODUCTION BUILD v25.4
     Features: 
-    - Animated "Real Jamaica" Text (Shimmer)
-    - Pulsating WhatsApp Button
-    - Collapsible Mobile Footer
-    - FAQ Modal Approach
-    - Merged About/Driver Tabs
+    - Updated Contact Information (WhatsApp Business)
+    - WhatsApp Message Templates (Form & Float)
+    - Expanded Booking Modal
+    - Previous Fixes (Icons, Layout, Colors)
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -45,6 +44,10 @@
             --shadow-pop: 0 10px 25px rgba(0, 155, 58, 0.25);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --error-red: #d32f2f;
+            
+            /* Brand Colors for Icons */
+            --fb-blue: #1877F2;
+            --insta-pink: #E4405F;
         }
 
         /* --- RESET & BASE --- */
@@ -70,7 +73,7 @@
         .text-center { text-align: center; }
         
         /* Section Titles */
-        .section-title-wrapper { margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; }
+        .section-title-wrapper { margin-bottom: 50px; display: flex; flex-direction: column; align-items: center; }
         .section-underline { width: 80px; height: 4px; background: var(--primary-green); margin: 15px auto 0; border-radius: 2px; }
 
         /* --- BUTTONS --- */
@@ -80,6 +83,9 @@
             text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
             cursor: pointer; border: none; transition: var(--transition); gap: 8px;
         }
+        .btn.loading { opacity: 0.8; pointer-events: none; }
+        .btn.loading i { display: none; }
+
         .btn-primary { background-color: var(--primary-green); color: var(--white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
         .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); }
         
@@ -124,15 +130,10 @@
             margin-left: auto; margin-right: auto; 
             text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
         }
-        /* ANIMATED SHIMMER TEXT */
         .jamaica-text { 
             background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text; color: transparent; font-weight: 800; 
-            filter: drop-shadow(2px 2px 0px #000000); 
-            animation: shine 4s linear infinite;
+            -webkit-background-clip: text; color: transparent; font-weight: 800; filter: drop-shadow(2px 2px 0px #000000); 
         }
-        @keyframes shine { to { background-position: 200% center; } }
 
         /* --- ICONS --- */
         .feature-icon-circle, .process-icon {
@@ -195,7 +196,7 @@
         .tab-content.active { display: grid; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- DRIVER / ABOUT PROFILE --- */
+        /* --- DRIVER PROFILE --- */
         .driver-card {
             background: var(--white); border-radius: 20px; box-shadow: var(--shadow-card);
             padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
@@ -223,10 +224,8 @@
             cursor: pointer; color: #999; line-height: 0.8;
         }
         
-        /* FAQ Accordion in Modal */
-        .faq-item {
-            border-bottom: 1px solid #eee; overflow: hidden;
-        }
+        /* FAQ Accordion */
+        .faq-item { border-bottom: 1px solid #eee; overflow: hidden; }
         .faq-header {
             padding: 15px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
             font-weight: 700; color: var(--primary-dark); font-size: 0.95rem;
@@ -255,8 +254,16 @@
         .footer-col a:hover { color: var(--primary-gold); padding-left: 5px; }
         
         .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; }
+        
+        /* COLORED FOOTER ICONS */
+        .contact-icon { color: var(--primary-gold); margin-right: 10px; font-size: 1.1rem; }
+        .social-icon-fb { color: var(--fb-blue); font-size: 1.5rem; transition: 0.3s; }
+        .social-icon-in { color: var(--insta-pink); font-size: 1.5rem; transition: 0.3s; }
+        
         .payment-icons { display: flex; gap: 10px; margin-top: 15px; }
-        .payment-badge { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 4px; color: #fff; font-size: 0.75rem; display: flex; align-items: center; gap: 5px; }
+        .payment-badge { padding: 6px 12px; border-radius: 4px; color: #fff; font-size: 0.75rem; display: flex; align-items: center; gap: 5px; font-weight: 600; }
+        .badge-ezee { background-color: #007bff; }
+        .badge-cash { background-color: var(--primary-green); }
 
         /* --- MOBILE STICKY & FLOATING --- */
         .mobile-sticky-cta {
@@ -302,8 +309,6 @@
                 padding-bottom: 30px; /* Room for shadow */
                 gap: 15px;
                 -webkit-overflow-scrolling: touch;
-                
-                /* PERFECT CENTERING MATH */
                 padding-left: 10vw; padding-right: 10vw;
                 margin-left: -20px; margin-right: -20px; width: calc(100% + 40px);
             }
@@ -316,8 +321,7 @@
                 border-radius: 20px; 
             }
             
-            /* Active/Center state handled by JS scroll listener */
-            .universal-card.active, .gallery-item.active {
+            .universal-card.active {
                 transform: scale(1); opacity: 1; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
             }
 
@@ -334,13 +338,10 @@
             }
             .footer-col h4::after { content: '+'; font-size: 1.2rem; }
             .footer-col.active h4::after { content: '-'; }
-            .footer-col ul, .footer-col .payment-icons { 
-                display: none; margin-top: 15px; 
-            }
+            .footer-col ul, .footer-col .payment-icons { display: none; margin-top: 15px; }
             .footer-col.active ul, .footer-col.active .payment-icons { display: block; }
-            /* Exception: First column (Logo) always visible */
             .footer-col:first-child ul, .footer-col:first-child .payment-icons, .footer-col:first-child p { display: block; }
-            .footer-col:first-child h4 { display: none; } /* Hide empty H4 in first col if any */
+            .footer-col:first-child h4 { display: none; } 
         }
     </style>
 </head>
@@ -534,6 +535,20 @@
                         </div>
                     </div>
                 </article>
+                <article class="universal-card">
+                    <div class="card-img-wrapper">
+                        <span class="badge badge-loc">Ocho Rios</span>
+                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole" class="card-img" alt="Blue Hole">
+                    </div>
+                    <div class="card-body">
+                        <h3>Blue Hole</h3>
+                        <p>Jump and swim in bright blue mineral waters.</p>
+                        <div class="card-footer">
+                            <span class="price-start">From $130</span>
+                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -553,6 +568,9 @@
                 </div>
                 <div class="universal-card card-img-wrapper">
                     <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Jungle+Vibes" class="card-img" alt="Nature">
+                </div>
+                <div class="universal-card card-img-wrapper">
+                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Island+Food" class="card-img" alt="Food">
                 </div>
             </div>
         </div>
@@ -585,7 +603,7 @@
 
             <!-- Tab: About -->
             <div id="tab-about-info" class="tab-content active" style="max-width: 800px; margin: 0 auto; display: block;">
-                 <p class="about-text">
+                 <p class="about-text" style="font-size:1.1rem; line-height:1.8; color:var(--text-light);">
                     Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
                     Whether you need a safe ride to your resort or want to discover hidden gems off the beaten path, we treat every guest like family.
                 </p>
@@ -600,22 +618,22 @@
                     </div>
                     <h3 style="margin-bottom: 10px;">Pedro</h3>
                     <p style="color: var(--primary-green); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 20px;">Head Guide & Founder</p>
-                    <p style="color: var(--text-light);">"I've been driving these roads for over 20 years. My goal isn't just to get you from A to B, but to show you the heart of Jamaica."</p>
+                    <p style="color: var(--text-light);">"I've been driving these roads for over 20 years. My goal isn't just to get you from A to B, but to show you the heart of Jamaica along the way. Whether you need the best jerk chicken or a quiet beach, I got you."</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER (Dark) -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="footer-logo">P&T <span>ISLAND TOURS</span></div>
-                    <p style="opacity: 0.8; margin-bottom: 20px;">Authentic Jamaican hospitality.</p>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">Authentic Jamaican hospitality. Serving Montego Bay, Negril, and Ocho Rios.</p>
                     <div class="payment-icons">
-                        <span class="payment-badge"><i class="fa-solid fa-money-bill-wave"></i> Cash</span>
-                        <span class="payment-badge"><i class="fa-regular fa-credit-card"></i> EzeePayments</span>
+                        <span class="payment-badge badge-ezee">EzeePayments</span>
+                        <span class="payment-badge badge-cash">Cash (USD)</span>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -629,9 +647,13 @@
                 <div class="footer-col">
                     <h4 onclick="toggleFooter(this)">Contact</h4>
                     <ul>
-                        <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope"></i> Email Us</a></li>
-                        <li><a href="tel:18764453764"><i class="fa-solid fa-phone"></i> +1 (876) 445-3764</a></li>
+                        <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope contact-icon"></i> Email Us</a></li>
+                        <li><a href="tel:18764859759"><i class="fa-solid fa-phone contact-icon"></i> +1 (876) 485-9759</a></li>
                     </ul>
+                     <div style="margin-top: 20px; display: flex; gap: 15px;">
+                        <a href="https://facebook.com/ptislandtours" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook fa-lg social-icon-fb"></i></a>
+                        <a href="https://instagram.com/ptislandtours" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram fa-lg social-icon-in"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="text-center" style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
@@ -646,7 +668,7 @@
     </div>
 
     <!-- WHATSAPP FLOAT -->
-    <a href="https://wa.me/18764453764" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
     <!-- MODAL: BOOKING -->
     <div class="modal-overlay" id="bookingModal">
@@ -656,9 +678,44 @@
                 <h3>Plan Your Trip</h3>
             </div>
             <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
-                <input type="text" id="name" class="form-control" placeholder="Name" required>
-                <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Chat to Book</button>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email (Optional)</label>
+                    <input type="email" id="email" class="form-control" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Destination</label>
+                    <select id="location" class="form-control">
+                        <option value="Montego Bay">Montego Bay</option>
+                        <option value="Negril">Negril</option>
+                        <option value="Ocho Rios">Ocho Rios</option>
+                        <option value="Kingston">Kingston</option>
+                        <option value="Custom/Other">Custom / Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Travel Date</label>
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Flight # or Pickup Time</label>
+                    <input type="text" id="flight" class="form-control" placeholder="e.g. AA1492 or 10:00 AM">
+                </div>
+                <div class="form-group">
+                    <label>Passengers</label>
+                    <input type="number" id="pax" class="form-control" min="1" placeholder="Number of people" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">
+                    <i class="fa-brands fa-whatsapp"></i> Chat to Book
+                </button>
             </form>
         </div>
     </div>
@@ -771,9 +828,48 @@
         // WHATSAPP
         function sendToWhatsApp(e) {
             e.preventDefault();
-            window.open('https://wa.me/18764453764', '_blank');
-            closeModal('bookingModal');
+            
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            
+            // Loading State
+            btn.classList.add('loading');
+            btn.innerHTML = 'Opening WhatsApp...';
+
+            setTimeout(() => {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value || "Not Provided";
+                const service = document.getElementById('service').value;
+                const loc = document.getElementById('location').value;
+                const date = document.getElementById('date').value;
+                const flight = document.getElementById('flight').value || "Not Provided";
+                const pax = document.getElementById('pax').value;
+
+                // Create a clean, formatted message
+                const text = `*NEW BOOKING REQUEST* 🇯🇲%0A%0A` +
+                             `👤 *Name:* ${encodeURIComponent(name)}%0A` +
+                             `📧 *Email:* ${encodeURIComponent(email)}%0A` +
+                             `🚐 *Service:* ${encodeURIComponent(service)}%0A` +
+                             `📍 *Destination:* ${encodeURIComponent(loc)}%0A` +
+                             `📅 *Date:* ${date}%0A` +
+                             `✈️ *Flight/Time:* ${encodeURIComponent(flight)}%0A` +
+                             `👥 *Passengers:* ${pax}%0A%0A` +
+                             `_Sent via P&T Island Tours Website_`;
+
+                window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
+                
+                // Reset
+                btn.classList.remove('loading');
+                btn.innerHTML = originalText;
+                closeModal('bookingModal');
+            }, 800);
         }
+
+        // Set Min Date
+        document.addEventListener('DOMContentLoaded', function() {
+            const datePicker = document.getElementById('date');
+            if(datePicker) datePicker.min = new Date().toISOString().split("T")[0];
+        });
 
         // Menu
         function toggleMenu() {
