@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v16.4 (3D SWIPE)
-    Features: Horizontal Swipe on All Grids + 3D Zoom Effect
+    P&T ISLAND TOURS - PRODUCTION BUILD v16.6
+    Features: Fixed Nav + Full Legal + Invisible Swipe
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -24,7 +24,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231A1A1A'/%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23009B3A' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23FFD700' stroke-width='4'/%3E%3Ctext x='50' y='63' font-family='Arial, sans-serif' font-weight='900' font-size='35' text-anchor='middle' fill='%23FFFFFF'%3EP%26T%3C/text%3E%3C/svg%3E">
     <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/fluency/192/palm-tree.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://img.icons8.com/fluency/192/palm-tree.png">
     
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
@@ -59,7 +58,7 @@
             --primary-gold: #FFD700;       
             --primary-dark: #1A1A1A;       
             --primary-green: #009B3A;      
-            --light-bg: #F9F9F9;
+            --light-bg: #EFFDF5;
             --text-dark: #222222;
             --text-light: #555555;
             --white: #FFFFFF;
@@ -72,8 +71,8 @@
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Hide Scrollbars for cleaner look */
-        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        /* Hide Scrollbars Globally */
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         ::-webkit-scrollbar { display: none; }
         html, body { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -81,9 +80,9 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
-            background-color: var(--light-bg); 
+            background-color: var(--white); 
             overflow-x: hidden;
-            padding-bottom: 80px; /* Space for Sticky CTA */
+            padding-bottom: 80px;
         }
 
         h1, h2, h3, h4 {
@@ -99,24 +98,14 @@
 
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 60px 0; }
+        
+        .section-padding { 
+            padding: 70px 0; 
+            border-top: 1px solid rgba(0,0,0,0.05); 
+        }
+        
         .text-center { text-align: center; }
         
-        /* Mobile Scroll Helpers */
-        .mobile-swipe-hint {
-            display: none; /* Hidden on desktop */
-            font-size: 0.75rem;
-            color: var(--primary-green);
-            margin-bottom: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-        }
-
         /* --- BUTTONS --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
@@ -135,7 +124,7 @@
         header {
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
             box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
-            transition: var(--transition);
+            transition: var(--transition); border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
 
@@ -177,6 +166,7 @@
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
             color: var(--white); margin-top: 80px; padding: 20px; position: relative;
+            border-bottom: 5px solid var(--primary-gold);
         }
         .hero-content h1 {
             color: var(--white); font-size: 3.5rem; margin-bottom: 20px; font-weight: 800;
@@ -204,7 +194,6 @@
         }
 
         /* --- CARDS & SCROLLING CONTAINERS --- */
-        /* Desktop Defaults */
         .destinations-grid, .features-grid, .gallery-grid, .process-grid { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
         }
@@ -257,26 +246,24 @@
             text-transform: uppercase; display: flex; align-items: center; gap: 5px;
         }
         
-        /* Service Cards & Process */
+        /* Service Cards */
         .feature-card { padding: 30px; text-align: center; }
         .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary-gold); }
-        .feature-icon-circle, .process-icon {
-            width: 60px; height: 60px; background: #F0F9F4; border-radius: 50%;
+        .feature-icon-circle {
+            width: 60px; height: 60px; background: #fff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            box-shadow: var(--shadow-card);
         }
-        .process-icon { background: var(--white); border: 2px solid var(--primary-green); }
         .feature-icon { font-size: 1.5rem; color: var(--primary-green); }
-        .process-icon i { font-size: 1.2rem; color: var(--primary-green); }
-        .process-item { text-align: center; min-width: 200px; }
 
         /* --- GALLERY --- */
         .gallery-item {
             height: 200px; border-radius: 12px; overflow: hidden; position: relative;
-            min-width: 250px; /* For mobile scroll */
+            min-width: 250px;
         }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- FAQ ACCORDION (COLLAPSIBLE) --- */
+        /* --- FAQ --- */
         .faq-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
         .faq-item {
             background: var(--white); border-radius: 12px; box-shadow: var(--shadow-card);
@@ -314,6 +301,18 @@
             width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
             font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin-bottom: 15px;
         }
+        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
+        
+        /* --- FOOTER --- */
+        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 60px 0 30px; font-size: 0.9rem; }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;
+        }
+        .footer-col h4 { color: var(--primary-gold); margin-bottom: 20px; }
+        .footer-logo { font-family: 'Playfair Display'; font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; }
+        .payment-icons { display: flex; gap: 10px; margin-top: 15px; }
+        .payment-badge { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px; color: #fff; font-size: 0.75rem; }
 
         /* --- FLOATING BUTTONS --- */
         .whatsapp-float {
@@ -330,6 +329,7 @@
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
+        
         .scroll-top {
             position: fixed; width: 45px; height: 45px; bottom: 30px; left: 20px;
             background-color: var(--primary-dark); color: #FFF; border-radius: 50%;
@@ -337,33 +337,9 @@
             z-index: 999; display: none; align-items: center; justify-content: center;
             cursor: pointer; border: 2px solid var(--primary-gold);
         }
+        .scroll-top:hover { background-color: var(--primary-green); }
 
-        /* --- FOOTER --- */
-        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 60px 0 30px; font-size: 0.9rem; }
-        .footer-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px; text-align: left; margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;
-        }
-        .footer-col h4 { color: var(--primary-gold); margin-bottom: 20px; }
-        .footer-logo { font-family: 'Playfair Display'; font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; }
-        .payment-icons { display: flex; gap: 10px; margin-top: 15px; }
-        .payment-badge { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px; color: #fff; font-size: 0.75rem; }
-
-        /* --- TOAST --- */
-        .toast {
-            position: fixed; top: 20px; right: 20px; background: var(--white);
-            padding: 15px 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 3000; display: none; align-items: center; gap: 10px;
-            border-left: 5px solid var(--primary-green);
-        }
-        .toast.show { display: flex; animation: slideIn 0.3s forwards; }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-
-        /* ================================================================
-           MOBILE OPTIMIZATIONS (THE SWIPE FIX + 3D ZOOM)
-           ================================================================ 
-        */
+        /* --- RESPONSIVE OPTIMIZATIONS (COMPACT & SWIPE) --- */
         @media (max-width: 900px) {
             .nav-links {
                 position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px);
@@ -388,26 +364,20 @@
                 padding-bottom: 20px;
                 gap: 15px;
                 -webkit-overflow-scrolling: touch;
-                padding-left: 10%; /* Center the first card */
-                padding-right: 10%;
+                padding-left: 20px; padding-right: 20px; /* Peek padding */
+                margin-left: -20px; margin-right: -20px; /* Offset to full edge */
                 margin-top: 20px;
             }
             
-            /* 3D FOCUS EFFECT */
             .destination-card, .gallery-item, .feature-card, .process-item {
                 min-width: 75vw; /* Show the next card peeking */
                 scroll-snap-align: center;
+                margin-right: 0;
                 flex-shrink: 0;
-                transform: scale(0.92);
-                opacity: 0.8;
-                transition: transform 0.3s ease, opacity 0.3s ease;
             }
 
             /* Hide carousel arrows on mobile to prefer swiping */
             .carousel-btn { display: none; }
-            
-            /* Visual Cues */
-            .mobile-swipe-hint { display: flex; justify-content: center; }
 
             /* Sticky Footer CTA */
             .mobile-sticky-cta { display: block; }
@@ -420,14 +390,6 @@
 </head>
 <body>
 
-    <div class="toast" id="toast">
-        <i class="fa-solid fa-check-circle"></i>
-        <div>
-            <h5 style="margin:0; font-size: 0.9rem;">Success</h5>
-            <p style="margin:0; font-size: 0.8rem; color: #666;">Opening your app...</p>
-        </div>
-    </div>
-
     <header>
         <div class="container">
             <nav>
@@ -436,7 +398,7 @@
                 </div>
                 <div class="nav-links" id="navLinks">
                     <a href="#home">Home</a>
-                    <a href="#services">Services</a>
+                    <a href="#services">Why Us</a>
                     <a href="#howitworks">Process</a>
                     <a href="#destinations">Destinations</a>
                     <a href="#tours">Tours</a>
@@ -468,9 +430,8 @@
             <div class="text-center">
                 <h2>Why Choose P&T Tours</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-green); margin: 15px auto;"></div>
-                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i></div>
             </div>
-            <div class="features-grid">
+            <div class="features-grid" id="featuresGrid">
                 <div class="feature-card">
                     <div class="feature-icon-circle"><i class="fa-solid fa-id-card feature-icon"></i></div>
                     <h3>JTB Certified</h3>
@@ -495,9 +456,8 @@
         <div class="container">
             <div class="text-center">
                 <h2>How It Works</h2>
-                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i></div>
             </div>
-            <div class="process-grid">
+            <div class="process-grid" id="processGrid">
                 <div class="process-item">
                     <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <h4>1. Inquire</h4>
@@ -528,18 +488,17 @@
             <div class="text-center">
                 <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TRANSFERS</h4>
                 <h2>Main Destinations</h2>
-                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i></div>
             </div>
 
-            <div class="destinations-grid">
+            <div class="destinations-grid" id="destGrid">
                 <!-- Montego Bay -->
                 <article class="destination-card">
-                    <div class="card-img-wrapper">
+                    <div class="card-img-wrapper" id="mobay-carousel">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Van">
-                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort">
+                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Van" onerror="this.src='https://via.placeholder.com/800x600?text=Montego+Bay'">
+                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort" onerror="this.style.display='none'">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -556,11 +515,11 @@
 
                 <!-- Negril -->
                 <article class="destination-card">
-                    <div class="card-img-wrapper">
+                    <div class="card-img-wrapper" id="negril-carousel">
                         <span class="location-badge">Negril</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road">
-                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beach">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road" onerror="this.src='https://via.placeholder.com/800x600?text=Negril'">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beach" onerror="this.style.display='none'">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -580,8 +539,8 @@
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fern Gully">
-                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coast">
+                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fern Gully" onerror="this.src='https://via.placeholder.com/800x600?text=Ocho+Rios'">
+                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coast" onerror="this.style.display='none'">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
@@ -605,24 +564,20 @@
             <div class="text-center">
                 <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TOURS</h4>
                 <h2>Top Experiences</h2>
-                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
-
-            <div class="destinations-grid">
-                
-                <!-- Dunn's River -->
-                <article class="destination-card">
+            <div class="destinations-grid" id="toursGrid">
+                 <article class="destination-card">
                     <div class="card-img-wrapper">
-                        <span class="location-badge">Adventure</span>
+                        <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Falls">
-                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Climb">
+                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Falls" onerror="this.src='https://via.placeholder.com/800x600?text=Dunns+River'">
+                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Climb" onerror="this.style.display='none'">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
-                        <h3>Dunn's River Falls</h3>
+                        <h3>Dunn's River</h3>
                         <p>Climb the famous falls and swim in the ocean.</p>
                         <div class="card-footer">
                             <span class="price-start">From $120 (1-4 people)</span>
@@ -630,49 +585,25 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Bob Marley -->
-                <article class="destination-card">
+                 <article class="destination-card">
                     <div class="card-img-wrapper">
-                        <span class="location-badge">Culture</span>
+                        <span class="location-badge">Kingston</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Culture">
-                            <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kingston">
+                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mural" onerror="this.src='https://via.placeholder.com/800x600?text=Bob+Marley'">
+                            <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Devon" onerror="this.style.display='none'">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
-                        <h3>Bob Marley Museum</h3>
-                        <p>Visit the home of the Legend in Kingston. Includes Devon House.</p>
+                        <h3>Bob Marley</h3>
+                        <p>Visit the home of the Legend + Devon House.</p>
                         <div class="card-footer">
                             <span class="price-start">From $150 (1-4 people)</span>
                             <a href="#" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
                         </div>
                     </div>
                 </article>
-
-                <!-- Blue Hole -->
-                <article class="destination-card">
-                    <div class="card-img-wrapper">
-                        <span class="location-badge">Nature</span>
-                        <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blue Hole">
-                            <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jump">
-                        </div>
-                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
-                    </div>
-                    <div class="card-content">
-                        <h3>Blue Hole / Secret Falls</h3>
-                        <p>Jump and swim in bright blue mineral waters.</p>
-                        <div class="card-footer">
-                            <span class="price-start">From $130 (1-4 people)</span>
-                            <a href="#" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
-                        </div>
-                    </div>
-                </article>
-
             </div>
             
             <!-- Directory / Custom Tour -->
@@ -689,13 +620,12 @@
         <div class="container">
             <div class="text-center" style="margin-bottom: 40px;">
                 <h2>Captured Moments</h2>
-                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach" onerror="this.src='https://via.placeholder.com/600x400?text=Beach'"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature" onerror="this.style.display='none'"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food" onerror="this.style.display='none'"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water" onerror="this.style.display='none'"></div>
             </div>
         </div>
     </section>
@@ -771,8 +701,11 @@
             <div style="text-align: left;">
                 <h3>Terms & Conditions</h3>
                 <div style="height: 300px; overflow-y: auto; font-size: 0.9rem;">
-                    <p><strong>1. Bookings:</strong> Deposit required.</p>
-                    <p><strong>2. Cancellations:</strong> >24hrs = Refund.</p>
+                    <p><strong>1. Bookings:</strong> A 20-30% deposit is required to secure all bookings. The remaining balance is due in cash (USD) or card upon arrival.</p>
+                    <p><strong>2. Cancellations:</strong> Cancellations made more than 24 hours in advance will receive a full refund of the deposit. Cancellations within 24 hours are non-refundable.</p>
+                    <p><strong>3. Waiting Policy:</strong> We monitor all flights. We will wait for delayed flights at no extra cost. For hotel pickups, we offer a 15-minute grace period.</p>
+                    <p><strong>4. Liability:</strong> P&T Island Tours is fully insured. However, we are not responsible for lost personal items left in vehicles.</p>
+                    <p><strong>5. Conduct:</strong> We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or vehicle.</p>
                 </div>
             </div>
         </div>
@@ -824,32 +757,32 @@
             if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
         });
 
-        // SCROLL FOCUS (3D Effect)
-        function handleScrollFocus() {
-            if (window.innerWidth > 900) return; 
-            const containers = document.querySelectorAll('.destinations-grid, .features-grid, .gallery-grid, .process-grid');
-            containers.forEach(container => {
-                const center = container.getBoundingClientRect().left + container.offsetWidth / 2;
-                Array.from(container.children).forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const cardCenter = rect.left + rect.width / 2;
-                    const dist = Math.abs(center - cardCenter);
-                    const scale = Math.max(0.9, 1 - (dist / window.innerWidth) * 0.2);
-                    const opacity = Math.max(0.6, 1 - (dist / window.innerWidth) * 0.5);
-                    card.style.transform = `scale(${scale})`;
-                    card.style.opacity = opacity;
-                    card.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
-                });
+        // SCROLL SPY FIX (Robust)
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const btn = document.querySelector('.scroll-top');
+            if(btn) btn.style.display = scrollY > 300 ? 'flex' : 'none';
+
+            // Targeted selection to avoid null errors
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            let currentId = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (scrollY >= sectionTop) {
+                    currentId = section.getAttribute('id');
+                }
             });
-        }
-        
-        // Attach Scroll Listeners to Containers
-        document.querySelectorAll('.destinations-grid, .features-grid, .gallery-grid, .process-grid').forEach(el => {
-            el.addEventListener('scroll', handleScrollFocus);
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (currentId && link.getAttribute('href') === '#' + currentId) {
+                    link.classList.add('active');
+                }
+            });
         });
-        
-        // Initial call
-        handleScrollFocus();
 
         function sendToWhatsApp(e) {
             e.preventDefault();
