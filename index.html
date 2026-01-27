@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - FINAL PRODUCTION BUILD v13.2 (STABLE)
-    Status: Fixed Navigation & Scroll Logic
+    P&T ISLAND TOURS - PRODUCTION BUILD v16.1
+    Features: Compact "App" Layout + Restored Buttons (WhatsApp/Legal)
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -63,14 +63,18 @@
             --text-light: #555555;
             --white: #FFFFFF;
             
-            --shadow-card: 0 10px 30px -5px rgba(0,0,0,0.1);
-            --shadow-hover: 0 20px 40px -5px rgba(0,0,0,0.2);
+            --shadow-card: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 30px rgba(0,0,0,0.15);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Hide Scrollbars for cleaner look */
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        ::-webkit-scrollbar { display: none; }
+        html, body { -ms-overflow-style: none; scrollbar-width: none; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -78,6 +82,7 @@
             line-height: 1.6;
             background-color: var(--light-bg); 
             overflow-x: hidden;
+            padding-bottom: 80px; /* Space for Sticky CTA */
         }
 
         h1, h2, h3, h4 {
@@ -93,39 +98,54 @@
 
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 90px 0; }
+        .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
+        
+        /* Mobile Scroll Helpers */
+        .mobile-swipe-hint {
+            display: none; /* Hidden on desktop */
+            font-size: 0.75rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
 
         /* --- BUTTONS --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 32px; border-radius: 50px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
-            cursor: pointer; border: none; transition: var(--transition); gap: 10px;
+            padding: 14px 28px; border-radius: 50px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.85rem;
+            cursor: pointer; border: none; transition: var(--transition); gap: 8px;
         }
         .btn-primary { background-color: var(--primary-green); color: var(--white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
-        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); }
         .btn-secondary { background-color: var(--primary-gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
-        .btn-secondary:hover { background-color: #e6c200; transform: translateY(-3px); }
+        .btn-secondary:hover { background-color: #e6c200; transform: translateY(-2px); }
         .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
         .btn-outline:hover { background-color: var(--primary-dark); color: var(--white); }
 
         /* --- HEADER & NAV --- */
         header {
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
             transition: var(--transition);
         }
-        nav { display: flex; justify-content: space-between; align-items: center; height: 90px; }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
 
         .logo {
-            font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800;
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800;
             color: var(--primary-dark); display: flex; align-items: center; gap: 5px;
             letter-spacing: -0.5px; cursor: pointer; user-select: none;
         }
         .logo:hover { opacity: 0.8; }
 
-        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { 
             font-weight: 600; font-size: 0.8rem; text-transform: uppercase; 
             color: var(--primary-dark); letter-spacing: 0.5px; position: relative;
@@ -138,70 +158,75 @@
             transition: width 0.3s;
         }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-        .nav-btn { padding: 12px 24px; font-size: 0.8rem; }
         .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark); }
+        
+        /* Mobile Sticky CTA */
+        .mobile-sticky-cta {
+            display: none;
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--white); padding: 15px; z-index: 2000;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1); border-top: 1px solid #eee;
+        }
 
         /* --- HERO --- */
         .hero {
-            min-height: 90vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+            min-height: 85vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
                         url('https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
-            color: var(--white); margin-top: 90px; padding: 20px; position: relative;
+            color: var(--white); margin-top: 80px; padding: 20px; position: relative;
         }
-        .hero-content { z-index: 2; animation: fadeInUp 1s ease-out; }
         .hero-content h1 {
-            color: var(--white); font-size: 4rem; margin-bottom: 20px; font-weight: 800;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5); line-height: 1.1;
+            color: var(--white); font-size: 3.5rem; margin-bottom: 20px; font-weight: 800;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5); line-height: 1.1;
         }
         .jamaica-gradient-text {
             background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
             -webkit-background-clip: text; background-clip: text; color: transparent;
-            font-weight: 800; filter: drop-shadow(3px 3px 0px #000000); 
+            font-weight: 800; filter: drop-shadow(2px 2px 0px #000000); 
         }
         .hero-content p {
-            font-size: 1.3rem; margin-bottom: 35px; max-width: 650px;
+            font-size: 1.2rem; margin-bottom: 30px; max-width: 600px;
             margin-left: auto; margin-right: auto; font-weight: 400;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5); color: #f0f0f0;
         }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- REVEAL ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
-        .delay-400 { transition-delay: 0.4s; }
+        /* --- HOW IT WORKS --- */
+        .process-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: center;
+        }
+        .process-icon {
+            width: 60px; height: 60px; background: var(--light-bg); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;
+            color: var(--primary-green); font-size: 1.2rem; border: 2px solid var(--primary-green);
+        }
 
-        /* --- CARDS & GRID --- */
-        .destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
-        .destination-card {
-            background: var(--white); border-radius: 16px; overflow: hidden;
+        /* --- CARDS & SCROLLING CONTAINERS --- */
+        /* Desktop Defaults */
+        .destinations-grid, .features-grid, .gallery-grid, .process-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
+        }
+
+        .destination-card, .feature-card {
+            background: var(--white); border-radius: 12px; overflow: hidden;
             box-shadow: var(--shadow-card); transition: var(--transition);
             position: relative; display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.02); min-width: 300px;
         }
-        .destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .destination-card:hover, .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 
-        .card-img-wrapper { 
-            position: relative; height: 260px; overflow: hidden; 
-            user-select: none;
-        }
-        .carousel-track {
-            display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .carousel-track img {
-            min-width: 100%; height: 100%; object-fit: cover; flex-shrink: 0;
-        }
+        /* Carousel Images */
+        .card-img-wrapper { position: relative; height: 220px; overflow: hidden; user-select: none; }
+        .carousel-track { display: flex; height: 100%; transition: transform 0.5s ease; }
+        .carousel-track img { min-width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(255, 255, 255, 0.9); color: var(--primary-dark);
-            border: none; width: 35px; height: 35px; border-radius: 50%;
+            border: none; width: 30px; height: 30px; border-radius: 50%;
             cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0;
+            font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); opacity: 0;
             transition: opacity 0.3s;
         }
         .destination-card:hover .carousel-btn { opacity: 1; }
@@ -209,138 +234,101 @@
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
 
-        .location-badge {
-            position: absolute; top: 15px; left: 15px; z-index: 5;
-            background: rgba(255, 255, 255, 0.9); color: var(--primary-dark);
-            padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        /* Badges */
+        .location-badge, .popular-badge {
+            position: absolute; top: 15px; z-index: 5;
+            padding: 5px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .popular-badge {
-            position: absolute; top: 15px; right: 15px; z-index: 5;
-            background: var(--primary-gold); color: var(--primary-dark);
-            padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 800;
-            text-transform: uppercase;
-        }
+        .location-badge { left: 15px; background: rgba(255, 255, 255, 0.95); color: var(--primary-dark); }
+        .popular-badge { right: 15px; background: var(--primary-gold); color: var(--primary-dark); }
 
-        .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-content h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
-        .card-content p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-content h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
+        .card-content p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
         .card-footer {
-            border-top: 1px solid #f0f0f0; padding-top: 20px;
+            border-top: 1px solid #f0f0f0; padding-top: 15px;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .price-start { color: var(--primary-green); font-weight: 700; font-size: 1.1rem; }
+        .price-start { color: var(--primary-green); font-weight: 700; font-size: 1rem; }
         .card-link {
-            color: var(--primary-dark); font-weight: 700; font-size: 0.9rem;
+            color: var(--primary-dark); font-weight: 700; font-size: 0.85rem;
             text-transform: uppercase; display: flex; align-items: center; gap: 5px;
         }
-        .card-link:hover { color: var(--primary-gold); }
-
-        /* --- TRUST SIGNALS --- */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-        .feature-card { 
-            text-align: center; background: var(--white); padding: 50px 30px;
-            border-radius: 16px; box-shadow: var(--shadow-card); transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.03); position: relative; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center;
+        
+        /* Service Cards & Process */
+        .feature-card { padding: 30px; text-align: center; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary-gold); }
+        .feature-icon-circle, .process-icon {
+            width: 60px; height: 60px; background: #F0F9F4; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
         }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-        .feature-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
-            background: var(--primary-gold);
-        }
-        .feature-icon-circle {
-            width: 80px; height: 80px; background: #F0F9F4; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 25px;
-            transition: var(--transition);
-        }
-        .feature-card:hover .feature-icon-circle { background: var(--primary-green); }
-        .feature-card:hover .feature-icon { color: var(--white); }
-        .feature-icon { font-size: 2rem; color: var(--primary-green); transition: var(--transition); }
-        .feature-card h3 { font-size: 1.25rem; margin-bottom: 15px; font-weight: 700; }
-
-        /* --- DIRECTORY (NEW) --- */
-        .directory-box {
-            background: var(--primary-dark); color: white; padding: 40px;
-            border-radius: 16px; margin-top: 40px; position: relative; overflow: hidden;
-        }
-        .directory-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px;
-            margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;
-        }
-        .directory-col span { 
-            display: block; font-size: 0.85rem; margin-bottom: 8px; color: rgba(255,255,255,0.8); 
-            cursor: pointer; transition: color 0.3s; 
-        }
-        .directory-col span:hover { color: var(--primary-gold); text-decoration: underline; }
+        .process-icon { background: var(--white); border: 2px solid var(--primary-green); }
+        .feature-icon { font-size: 1.5rem; color: var(--primary-green); }
+        .process-icon i { font-size: 1.2rem; color: var(--primary-green); }
+        .process-item { text-align: center; min-width: 200px; }
 
         /* --- GALLERY --- */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 40px; }
         .gallery-item {
-            height: 250px; border-radius: 12px; overflow: hidden; position: relative;
-            box-shadow: var(--shadow-card); cursor: pointer;
+            height: 200px; border-radius: 12px; overflow: hidden; position: relative;
+            min-width: 250px; /* For mobile scroll */
         }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- FAQ --- */
-        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        /* --- FAQ ACCORDION (COLLAPSIBLE) --- */
+        .faq-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
         .faq-item {
-            background: var(--white); padding: 30px; border-radius: 12px;
-            box-shadow: var(--shadow-card); border-left: 4px solid var(--primary-gold);
+            background: var(--white); border-radius: 12px; box-shadow: var(--shadow-card);
+            overflow: hidden; transition: var(--transition);
         }
-        .faq-item h4 { color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; }
-        .faq-item p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0; }
-
-        /* --- ABOUT --- */
-        .about-text { font-size: 1.1rem; line-height: 1.8; color: var(--text-light); max-width: 800px; margin: 0 auto; }
-
-        /* --- CALL TO ACTION --- */
-        .cta-section { background: var(--primary-dark); color: white; position: relative; overflow: hidden; }
-        .cta-section::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMWExYTFhIiAvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMjIyMjIyIiAvPjwvc3ZnPg==');
-            opacity: 0.1;
+        .faq-header {
+            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-weight: 700; color: var(--primary-dark);
         }
+        .faq-header i { transition: transform 0.3s; color: var(--primary-gold); }
+        .faq-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+            padding: 0 20px; color: var(--text-light); font-size: 0.9rem;
+        }
+        .faq-item.active .faq-body { padding-bottom: 20px; }
+        .faq-item.active .faq-header i { transform: rotate(180deg); }
 
         /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); z-index: 2000;
-            justify-content: center; align-items: center; opacity: 0;
-            transition: opacity 0.3s ease; backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.8); z-index: 3000;
+            justify-content: center; align-items: center;
         }
-        .modal-overlay.open { display: flex; opacity: 1; }
+        .modal-overlay.open { display: flex; }
         .modal-content {
-            background: var(--white); padding: 40px; width: 90%; max-width: 500px;
-            border-radius: 15px; position: relative; transform: scale(0.95);
-            transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            border-top: 8px solid var(--primary-green); max-height: 90vh; overflow-y: auto;
+            background: var(--white); padding: 30px; width: 90%; max-width: 450px;
+            border-radius: 15px; position: relative; border-top: 6px solid var(--primary-green);
+            max-height: 90vh; overflow-y: auto;
         }
-        .modal-overlay.open .modal-content { transform: scale(1); }
         .close-modal {
-            position: absolute; top: 15px; right: 20px; font-size: 2rem;
+            position: absolute; top: 10px; right: 20px; font-size: 2rem;
             cursor: pointer; color: #999; line-height: 0.8;
         }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-dark); }
         .form-control {
-            width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 8px;
-            font-family: 'Montserrat', sans-serif; font-size: 1rem;
-            transition: var(--transition); background: #FAFAFA;
+            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin-bottom: 15px;
         }
         .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
-        .modal-steps {
-            display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 0.75rem; color: #888;
-            border-bottom: 1px solid #eee; padding-bottom: 15px;
+        
+        /* --- FOOTER --- */
+        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 60px 0 30px; font-size: 0.9rem; }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;
         }
-        .modal-step { display: flex; align-items: center; gap: 5px; }
-        .modal-step.active { color: var(--primary-green); font-weight: 700; }
-        .modal-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        .footer-col h4 { color: var(--primary-gold); margin-bottom: 20px; }
+        .footer-logo { font-family: 'Playfair Display'; font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; }
+        .payment-icons { display: flex; gap: 10px; margin-top: 15px; }
+        .payment-badge { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px; color: #fff; font-size: 0.75rem; }
 
         /* --- FLOATING BUTTONS --- */
         .whatsapp-float {
-            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 20px;
             background-color: #25d366; color: #FFF; border-radius: 50px;
             text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: flex; align-items: center; justify-content: center;
@@ -348,81 +336,63 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; }
         .scroll-top {
-            position: fixed; width: 50px; height: 50px; bottom: 30px; left: 30px;
+            position: fixed; width: 45px; height: 45px; bottom: 30px; left: 20px;
             background-color: var(--primary-dark); color: #FFF; border-radius: 50%;
-            text-align: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-align: center; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: none; align-items: center; justify-content: center;
-            transition: var(--transition); cursor: pointer; border: 2px solid var(--primary-gold);
-        }
-        .scroll-top:hover { background-color: var(--primary-green); }
-
-        /* --- FOOTER --- */
-        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 80px 0 30px; font-size: 0.9rem; }
-        .footer-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px; text-align: left; margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 50px;
-        }
-        .footer-col h4 {
-            color: var(--primary-gold); margin-bottom: 25px; font-size: 1.1rem;
-            letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
-        }
-        .footer-col ul li { margin-bottom: 15px; }
-        .footer-col a { color: rgba(255,255,255,0.7); transition: var(--transition); display: inline-block; }
-        .footer-col a:hover { color: var(--primary-gold); transform: translateX(5px); }
-        .footer-logo {
-            font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800;
-            color: #fff; display: flex; align-items: center; gap: 5px;
-            letter-spacing: -0.5px; margin-bottom: 20px;
-        }
-        .payment-icons { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .payment-badge {
-            background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px;
-            color: #fff; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 5px;
+            cursor: pointer; border: 2px solid var(--primary-gold);
         }
 
-        /* --- TOAST --- */
-        .toast {
-            position: fixed; top: 20px; right: 20px; background: var(--white);
-            padding: 15px 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 3000; display: flex; align-items: center; gap: 10px;
-            border-left: 5px solid var(--primary-green);
-            transform: translateX(150%); transition: transform 0.4s;
-        }
-        .toast.show { transform: translateX(0); }
-        .toast i { color: var(--primary-green); font-size: 1.2rem; }
-
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE OPTIMIZATIONS (ZERO SCROLL) --- */
         @media (max-width: 900px) {
+            .section-padding { padding: 40px 0; }
+            .hero { min-height: 85vh; margin-top: 0; padding-top: 100px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            
+            /* Sticky Nav */
+            header { top: 0; }
             .nav-links {
-                position: fixed; right: -100%; top: 90px; height: calc(100vh - 90px);
+                position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px);
                 background: var(--white); flex-direction: column; width: 100%;
                 text-align: center; padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05);
                 gap: 30px;
             }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: block; }
+            .nav-btn { display: none; } /* Hide header button, use sticky footer */
+
+            /* Horizontal Swipe Containers */
+            .destinations-grid, .gallery-grid, .features-grid, .process-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 20px;
+                gap: 15px;
+                -webkit-overflow-scrolling: touch;
+                padding-left: 5px; padding-right: 5px;
+                margin-top: 20px;
+            }
+            
+            .destination-card, .gallery-item, .feature-card, .process-item {
+                min-width: 75vw; /* Show peeking next card */
+                scroll-snap-align: center;
+                flex-shrink: 0;
+            }
+
+            /* Visual Cues */
+            .mobile-swipe-hint { display: flex; justify-content: center; }
             .carousel-btn { opacity: 1; }
-        }
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.8rem; }
-            .modal-content { padding: 30px; width: 95%; }
-            .whatsapp-float { bottom: 20px; right: 20px; }
-            .scroll-top { bottom: 20px; left: 20px; }
-            .cta-content { flex-direction: column; text-align: center; gap: 20px; }
+
+            /* Sticky Footer CTA */
+            .mobile-sticky-cta { display: block; }
+            body { padding-bottom: 80px; } /* Space for sticky bar */
+
+            /* Adjust WhatsApp button for sticky CTA */
+            .whatsapp-float { bottom: 90px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- TOAST -->
-    <div class="toast" id="toast">
-        <i class="fa-solid fa-check-circle"></i>
-        <div>
-            <h5 style="margin:0; font-size: 0.9rem;">Success</h5>
-            <p style="margin:0; font-size: 0.8rem; color: #666;">Opening your app...</p>
-        </div>
-    </div>
 
     <!-- NAV -->
     <header>
@@ -433,10 +403,12 @@
                 </div>
                 <div class="nav-links" id="navLinks">
                     <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#destinations">Destinations</a>
                     <a href="#services">Services</a>
+                    <a href="#howitworks">How it Works</a>
+                    <a href="#destinations">Destinations</a>
                     <a href="#tours">Tours</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#about">About</a>
                     <a href="#contact">Contact</a>
                     <a href="javascript:void(0)" onclick="openModal()" class="btn btn-primary nav-btn">
                         <i class="fa-solid fa-phone"></i> Book Now
@@ -453,340 +425,238 @@
             <h1>Experience the <br><span class="jamaica-gradient-text">Real Jamaica</span></h1>
             <p>Start your vacation the moment you land. Authentic, private, and safe transportation tailored to you.</p>
             <div style="margin-top: 10px;">
-                <button onclick="openModal()" class="btn btn-secondary">
-                    Start Your Booking <i class="fa-solid fa-arrow-right"></i>
-                </button>
+                <button onclick="openModal()" class="btn btn-secondary">Start Booking</button>
             </div>
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="section-padding" style="background-color: var(--white); padding-bottom: 40px;">
+    <!-- SERVICES (Swipe on Mobile) -->
+    <section class="section-padding" style="background-color: var(--white);" id="services">
         <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 50px;">
-                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Simple & Secure</h4>
-                <h2>How to Book & Ride</h2>
-                <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
+            <div class="text-center">
+                <h2>Why Choose P&T Tours</h2>
+                <div style="width: 60px; height: 3px; background: var(--primary-green); margin: 15px auto;"></div>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
-                <!-- Steps with staggered reveal classes -->
-                <div class="reveal delay-100">
-                    <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">1. Send Inquiry</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Click "Book Now" to send your details via WhatsApp. We check availability.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-id-card feature-icon"></i></div>
+                    <h3>JTB Certified</h3>
+                    <p>Fully licensed by the Jamaica Tourist Board. Safe & Insured.</p>
                 </div>
-                <div class="reveal delay-200">
-                    <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
-                        <i class="fa-regular fa-credit-card"></i>
-                    </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">2. Secure Deposit</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Pay a small deposit via our secure <strong>EzeePayments</strong> link to lock in your driver.</p>
+                <div class="feature-card">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check feature-icon"></i></div>
+                    <h3>Flight Tracking</h3>
+                    <p>We monitor your flight. Early or late, we are there waiting.</p>
                 </div>
-                <div class="reveal delay-300">
-                    <div style="width: 70px; height: 70px; background: var(--primary-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-dark); font-size: 1.5rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
-                        <i class="fa-solid fa-sign-hanging"></i>
-                    </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">3. Meet Your Driver</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;"><strong>Look for the P&T Sign</strong> with <u>YOUR NAME</u> at the airport exit. We track your flight!</p>
-                </div>
-                <div class="reveal delay-400">
-                    <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
-                        <i class="fa-solid fa-car-side"></i>
-                    </div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">4. Pay Balance</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Pay the remaining balance in Cash (USD) when you arrive safely.</p>
+                <div class="feature-card">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-lock feature-icon"></i></div>
+                    <h3>100% Private</h3>
+                    <p>No sharing with strangers. The vehicle is yours.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DESTINATIONS SECTION -->
+    <!-- HOW IT WORKS (Swipe on Mobile) -->
+    <section class="section-padding" style="background-color: var(--light-bg);" id="howitworks">
+        <div class="container">
+            <div class="text-center">
+                <h2>How It Works</h2>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
+            </div>
+            <div class="process-grid">
+                <div class="process-item">
+                    <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h4>1. Inquire</h4>
+                    <p style="font-size: 0.9rem;">Send details via WhatsApp.</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon"><i class="fa-regular fa-credit-card"></i></div>
+                    <h4>2. Deposit</h4>
+                    <p style="font-size: 0.9rem;">Secure booking via EzeePayments.</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon"><i class="fa-solid fa-sign-hanging"></i></div>
+                    <h4>3. Meet</h4>
+                    <p style="font-size: 0.9rem;">Look for the <strong>P&T Sign</strong> at airport.</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
+                    <h4>4. Ride</h4>
+                    <p style="font-size: 0.9rem;">Pay balance (Cash USD) on arrival.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS (Swipe) -->
     <section class="section-padding" id="destinations">
         <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 60px;">
-                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">Airport Transfers</h4>
+            <div class="text-center">
+                <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TRANSFERS</h4>
                 <h2>Main Destinations</h2>
-                <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
 
             <div class="destinations-grid">
-                
-                <!-- Montego Bay (Carousel) -->
-                <article class="destination-card reveal">
-                    <div class="card-img-wrapper" id="mobay-carousel">
+                <!-- Montego Bay -->
+                <article class="destination-card">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Private Airport Van" onerror="this.src='https://via.placeholder.com/800x600?text=Montego+Bay+Transfer'">
-                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Luxury Resort Pool" onerror="this.style.display='none'">
-                            <img src="https://images.unsplash.com/photo-1537162999336-d08c5c994514?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Doctors Cave Beach" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Van">
+                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Montego Bay Transfer</h3>
-                        <p>Direct, private air-conditioned transfer from Sangster International Airport (MBJ) to any Montego Bay resort.</p>
+                        <p>Direct private transfer from Sangster Intl (MBJ) to resorts.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $40 (Vehicle)</span>
-                            <a href="#" onclick="openModalWithContext('Airport Transfer', 'Montego Bay')" class="card-link">Reserve <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="price-start">From $40 (1-4 people)</span>
+                            <a href="#" onclick="openModalWithContext('Airport Transfer', 'Montego Bay')" class="card-link">Reserve</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- Negril (Carousel) -->
-                <article class="destination-card reveal delay-100">
-                    <div class="card-img-wrapper" id="negril-carousel">
+                <!-- Negril -->
+                <article class="destination-card">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Negril</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Coastal Road" onerror="this.src='https://via.placeholder.com/800x600?text=Negril+Transfer'">
-                            <img src="https://images.unsplash.com/photo-1618600451426-38290da372d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Negril Sunset" onerror="this.style.display='none'">
-                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Seven Mile Beach" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beach">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Negril Transfer</h3>
-                        <p>Relax on the scenic coastal drive to Negril's famous Seven Mile Beach hotels. Drinks available upon request.</p>
+                        <p>Relax on the scenic drive to Seven Mile Beach.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $80 (Vehicle)</span>
-                            <a href="#" onclick="openModalWithContext('Airport Transfer', 'Negril')" class="card-link">Reserve <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="price-start">From $80 (1-4 people)</span>
+                            <a href="#" onclick="openModalWithContext('Airport Transfer', 'Negril')" class="card-link">Reserve</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- Ocho Rios (Carousel) -->
-                <article class="destination-card reveal delay-200">
-                    <div class="card-img-wrapper" id="ocho-carousel">
+                <!-- Ocho Rios -->
+                <article class="destination-card">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Fern Gully" onerror="this.src='https://via.placeholder.com/800x600?text=Ocho+Rios+Transfer'">
-                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Ocho Rios Coast" onerror="this.style.display='none'">
-                            <img src="https://images.unsplash.com/photo-1523365280197-f1783db9fe62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Cruise Port" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fern Gully">
+                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coast">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Ocho Rios Transfer</h3>
-                        <p>Enjoy the lush greenery as we transport you to Ocho Rios. We can stop for jerky or photos along the way.</p>
+                        <p>Enjoy the lush greenery on your way to Ochi resorts.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $100 (Vehicle)</span>
-                            <a href="#" onclick="openModalWithContext('Airport Transfer', 'Ocho Rios')" class="card-link">Reserve <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="price-start">From $100 (1-4 people)</span>
+                            <a href="#" onclick="openModalWithContext('Airport Transfer', 'Ocho Rios')" class="card-link">Reserve</a>
                         </div>
                     </div>
                 </article>
-
             </div>
         </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="section-padding" style="background-color: var(--white);" id="services">
+    <!-- TOURS (Swipe) -->
+    <section class="section-padding" id="tours" style="background-color: var(--light-bg);">
         <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 60px;">
-                <h2>Our Services</h2>
-                <div style="width: 60px; height: 3px; background: var(--primary-green); margin: 20px auto 0;"></div>
+            <div class="text-center">
+                <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TOURS</h4>
+                <h2>Top Experiences</h2>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe</div>
             </div>
-            <div class="features-grid">
-                <div class="feature-card reveal">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-id-card feature-icon"></i></div>
-                    <h3>JTB Certified</h3>
-                    <p>Fully licensed by the Jamaica Tourist Board and insured. Your safety is our absolute priority.</p>
-                </div>
-                <div class="feature-card reveal delay-100">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check feature-icon"></i></div>
-                    <h3>We Wait For You</h3>
-                    <p>Flight delayed? No worries. We track your arrival and wait for you at no extra cost.</p>
-                </div>
-                <div class="feature-card reveal delay-200">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-lock feature-icon"></i></div>
-                    <h3>100% Private</h3>
-                    <p>No sharing with strangers. The vehicle is exclusively yours for maximum comfort and privacy.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TOURS (CAROUSEL ENABLED) -->
-    <section class="section-padding" id="tours">
-        <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 60px;">
-                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">Unforgettable Experiences</h4>
-                <h2>Featured Tours</h2>
-                <div style="width: 60px; height: 3px; background: var(--primary-gold); margin: 20px auto 0;"></div>
-            </div>
-
             <div class="destinations-grid">
-                
-                <!-- Tour 1: Dunn's River -->
-                <article class="destination-card reveal">
-                    <div class="card-img-wrapper" id="dunns-carousel">
-                        <span class="location-badge">Adventure</span>
+                 <article class="destination-card">
+                    <div class="card-img-wrapper">
+                        <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Dunn's River Falls" onerror="this.src='https://via.placeholder.com/800x600?text=Dunns+River'">
-                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Climbing Falls" onerror="this.style.display='none'">
-                            <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="River Beach" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Falls">
+                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Climb">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
-                        <h3>Dunn's River Falls</h3>
-                        <p>Climb the famous falls and swim in the ocean. A must-do experience.</p>
+                        <h3>Dunn's River</h3>
+                        <p>Climb the famous falls and swim in the ocean.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $120 (1-4 pax)</span>
-                            <a href="#" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Book Adventure <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="price-start">From $120 (1-4 people)</span>
+                            <a href="#" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Book Now</a>
                         </div>
                     </div>
                 </article>
-
-                <!-- Tour 2: Bob Marley -->
-                <article class="destination-card reveal delay-100">
-                    <div class="card-img-wrapper" id="bob-carousel">
-                        <span class="location-badge">Culture</span>
+                 <article class="destination-card">
+                    <div class="card-img-wrapper">
+                        <span class="location-badge">Kingston</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Bob Marley Culture" onerror="this.src='https://via.placeholder.com/800x600?text=Bob+Marley+Museum'">
-                            <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Kingston Vibes" onerror="this.style.display='none'">
-                            <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Devon House" onerror="this.style.display='none'">
+                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mural">
+                            <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Devon">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
-                        <h3>Bob Marley Museum</h3>
-                        <p>A cultural journey to Kingston. See the home of the Legend + Devon House stop.</p>
+                        <h3>Bob Marley</h3>
+                        <p>Visit the home of the Legend + Devon House.</p>
                         <div class="card-footer">
-                            <span class="price-start">From $150 (1-4 pax)</span>
-                            <a href="#" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Culture <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="price-start">From $150 (1-4 people)</span>
+                            <a href="#" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
                         </div>
                     </div>
                 </article>
-
-                <!-- Tour 3: Blue Hole -->
-                <article class="destination-card reveal delay-200">
-                    <div class="card-img-wrapper" id="bluehole-carousel">
-                        <span class="location-badge">Nature</span>
-                        <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Blue Hole" onerror="this.src='https://via.placeholder.com/800x600?text=Blue+Hole'">
-                            <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Jumping" onerror="this.style.display='none'">
-                            <img src="https://images.unsplash.com/photo-1510006767664-4286dc57a80b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Jungle" onerror="this.style.display='none'">
-                        </div>
-                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
-                    </div>
-                    <div class="card-content">
-                        <h3>Blue Hole / Secret Falls</h3>
-                        <p>Jump, swim, and swing in the bright blue mineral waters. A true hidden gem.</p>
-                        <div class="card-footer">
-                            <span class="price-start">From $130 (1-4 pax)</span>
-                            <a href="#" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Nature <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </article>
-
             </div>
-
-            <!-- NEW: Custom Tour Builder (Directory) -->
-            <div class="directory-box" style="background:var(--primary-dark); color:white; padding:40px; border-radius:16px; margin-top:50px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
-                    <div>
-                        <h3 style="color:white; margin-bottom:10px;">Don't see what you're looking for?</h3>
-                        <p style="color:rgba(255,255,255,0.8);">We drive everywhere. Build your own custom itinerary.</p>
-                    </div>
-                    <button onclick="openModalWithContext('Private Tour', 'Custom')" class="btn btn-secondary">Request Custom Tour</button>
-                </div>
-                
-                <!-- Expanded Keyword Directory -->
-                <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.2); padding-top:20px;">
-                    <p style="font-size:0.9rem; font-weight:700; color:var(--primary-gold); margin-bottom:15px;">WE ALSO VISIT:</p>
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:15px; font-size:0.85rem;">
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')">Mystic Mountain</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Dolphin Cove', 'Ocho Rios')">Dolphin Cove</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Rick\'s Cafe', 'Negril')">Rick's Cafe</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')">YS Falls</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')">Floyd's Pelican Bar</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')">Rose Hall House</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')">Luminous Lagoon</span>
-                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Rafting', 'Martha Brae')">Martha Brae Rafting</span>
-                    </div>
-                </div>
+            
+            <!-- Directory / Custom Tour -->
+            <div style="background:var(--primary-dark); color:white; padding:25px; border-radius:12px; margin-top:30px; text-align:center;">
+                <h4 style="margin-bottom:10px;">Don't see it here?</h4>
+                <p style="font-size:0.9rem; opacity:0.8; margin-bottom:15px;">We visit Mystic Mountain, Pelican Bar, YS Falls & more.</p>
+                <button onclick="openModalWithContext('Private Tour', 'Custom')" class="btn btn-secondary" style="width:100%;">Custom Request</button>
             </div>
-
         </div>
     </section>
 
-    <!-- GALLERY (Captured Moments) -->
-    <section class="section-padding" style="background-color: var(--light-bg);" id="gallery">
+    <!-- GALLERY (SWIPEABLE) -->
+    <section class="section-padding" style="background-color: var(--white);" id="gallery">
         <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 40px;">
-                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Captured Moments</h4>
-                <h2>See the Vibe</h2>
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2>Captured Moments</h2>
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-arrow-right"></i> Swipe to see more</div>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Beach" onerror="this.style.display='none'" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Nature" onerror="this.style.display='none'" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Food" onerror="this.style.display='none'" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Waterfall" onerror="this.style.display='none'" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water"></div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ SECTION -->
-    <section class="section-padding" style="background-color: var(--white);">
+    <!-- FAQ (COLLAPSIBLE) -->
+    <section class="section-padding" style="background-color: var(--light-bg);">
         <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 40px;">
-                <h2>Common Questions</h2>
-            </div>
+            <div class="text-center" style="margin-bottom: 30px;"><h2>FAQ</h2></div>
             <div class="faq-grid">
-                <div class="faq-item reveal">
-                    <h4>How do I pay?</h4>
-                    <p>We accept <strong>Cash (USD)</strong> upon arrival. For deposits, we accept <strong>EzeePayments</strong> (Visa/Mastercard). Details provided after booking confirmation.</p>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">How do I pay? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">We accept Cash (USD) upon arrival. Deposits can be made via EzeePayments link.</div>
                 </div>
-                <div class="faq-item reveal delay-100">
-                    <h4>Where do I meet the driver?</h4>
-                    <p>At the airport, our driver will be holding a P&T Island Tours sign with <strong>YOUR NAME</strong> at the exit of the Arrivals terminal.</p>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Where do we meet? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Look for the P&T Island Tours sign with YOUR NAME at the airport exit.</div>
                 </div>
-                <div class="faq-item reveal delay-200">
-                    <h4>Is the price per person?</h4>
-                    <p>Private transfer prices are typically for the vehicle (1-4 passengers). Larger groups have a small per-person fee.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section class="section-padding" id="about" style="background-color: var(--light-bg);">
-        <div class="container text-center reveal">
-            <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px;">About P&T</h4>
-            <h2 style="margin-bottom: 20px;">Your Local Travel Family</h2>
-            <p class="about-text">
-                Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
-                Whether you need a safe ride to your resort or want to discover hidden gems off the beaten path, we treat every guest like family.
-                Experience the warmth, culture, and beauty of Jamaica with drivers who know every turn of the road.
-            </p>
-            <div style="margin-top: 30px;">
-                <i class="fa-solid fa-heart" style="color: var(--primary-gold); font-size: 2rem;"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- CALL TO ACTION AREA -->
-    <section class="section-padding cta-section" id="contact">
-        <div class="container">
-            <div class="cta-content reveal" style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
-                <div style="flex: 1; max-width: 600px;">
-                    <h2 style="color: white; margin-bottom: 15px;">Ready for the Real Jamaica?</h2>
-                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Secure your transportation today. No deposit required to inquire.</p>
-                </div>
-                <div>
-                    <button onclick="openModal()" class="btn btn-secondary" style="padding: 18px 40px; font-size: 1rem;">
-                        Send Inquiry
-                    </button>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Is price per person? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Private transfers are typically for the vehicle (1-4 passengers).</div>
                 </div>
             </div>
         </div>
@@ -794,150 +664,42 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        P&T <span style="color: var(--primary-green);">ISLAND TOURS</span>
-                    </div>
-                    <p>Authentic Jamaican hospitality from the moment you arrive. Serving Montego Bay, Negril, and Ocho Rios.</p>
-                    
-                    <h4 style="font-size: 0.9rem; margin-top: 20px; color: #999;">Payment Methods</h4>
-                    <div class="payment-icons">
-                        <span class="payment-badge"><i class="fa-solid fa-money-bill-wave"></i> Cash</span>
-                        <span class="payment-badge"><i class="fa-regular fa-credit-card"></i> EzeePayments</span>
-                    </div>
-
-                    <!-- Credibility Badge & Text -->
-                    <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; align-items: start; gap: 15px;">
-                        <i class="fa-solid fa-certificate" style="color: var(--primary-gold); font-size: 2rem; margin-top: 2px;"></i>
-                        <div>
-                            <span style="display: block; font-weight: 700; color: #fff; font-size: 0.9rem; margin-bottom: 2px;">JTB Certified</span>
-                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.4; display: block;">Proudly certified by the Jamaica Tourist Board (JTB).</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Explore</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#destinations">Destinations</a></li>
-                        <li><a href="#tours">Tours</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Popular Locations</h4>
-                    <ul>
-                        <li><a href="#destinations">Montego Bay</a></li>
-                        <li><a href="#destinations">Negril</a></li>
-                        <li><a href="#destinations">Ocho Rios</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--primary-gold); margin-right: 10px;"></i> ttgrindley@gmail.com</a></li>
-                        <li><a href="https://wa.me/18764453764"><i class="fa-brands fa-whatsapp" style="color: var(--primary-gold); margin-right: 10px;"></i> +1 (876) 445-3764</a></li>
-                    </ul>
-
-                    <!-- Social Media Links -->
-                    <h4 style="margin-top: 25px; font-size: 0.9rem; margin-bottom: 15px;">Follow Us</h4>
-                    <div style="display: flex; gap: 20px;">
-                        <a href="https://facebook.com" target="_blank" title="Follow us on Facebook" style="font-size: 1.5rem; color: white;">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" title="Follow us on Instagram" style="font-size: 1.5rem; color: white;">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
+        <div class="container text-center">
+            <div class="footer-logo">P&T <span style="color: var(--primary-green);">ISLAND TOURS</span></div>
+            <p style="margin-bottom:20px;">Serving Montego Bay, Negril, Ocho Rios.</p>
+            <div style="margin-bottom:20px;">
+                <a href="https://facebook.com" style="margin:0 10px;"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                <a href="https://instagram.com" style="margin:0 10px;"><i class="fa-brands fa-instagram fa-lg"></i></a>
             </div>
-            
-            <!-- Terms Link -->
-            <div class="text-center" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; display: flex; flex-direction: column; gap: 10px;">
-                <p>&copy; 2024 P&T Island Tours. Authentic Jamaica.</p>
-                <a href="#" onclick="openLegalModal()" style="font-size: 0.8rem; color: #888; text-decoration: underline;">Terms & Conditions</a>
-            </div>
+            <p style="font-size:0.8rem; opacity:0.6;">&copy; 2024 P&T Island Tours. JTB Certified. <a href="#" onclick="openLegalModal()" style="color:inherit; text-decoration: underline; margin-left: 5px;">Terms</a></p>
         </div>
     </footer>
 
-    <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/18764453764" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- SCROLL TO TOP BUTTON -->
-    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <i class="fa-solid fa-arrow-up"></i>
+    <!-- STICKY MOBILE CTA -->
+    <div class="mobile-sticky-cta">
+        <button onclick="openModal()" class="btn btn-primary" style="width:100%; box-shadow: 0 -5px 15px rgba(0,155,58,0.2);">Book Your Ride Now</button>
     </div>
 
-    <!-- MODAL POPUP (Booking) -->
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/18764453764" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+    <!-- MODAL -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
-            <div class="text-center" style="margin-bottom: 25px;">
-                <h3 style="color: var(--primary-dark); margin-bottom: 5px;">Plan Your Trip</h3>
-                <p style="font-size: 0.9rem; color: #666;">Choose your preferred contact method below.</p>
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <h3>Plan Your Trip</h3>
+                <p style="font-size:0.85rem; color:#888;">We'll confirm details via WhatsApp.</p>
             </div>
-
-            <!-- Integrated Micro-Flow for Order Form -->
-            <div class="modal-steps">
-                <div class="modal-step active"><i class="fa-regular fa-paper-plane"></i> 1. Send Details</div>
-                <div class="modal-step"><i class="fa-solid fa-check"></i> 2. We Confirm</div>
-                <div class="modal-step"><i class="fa-regular fa-credit-card"></i> 3. Pay Deposit</div>
-            </div>
-            
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="name" class="form-control" required placeholder="Your Name">
-                </div>
-                
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" class="form-control" required placeholder="name@example.com">
-                </div>
-                
-                <div class="form-group">
-                    <label>Service Type</label>
-                    <select id="service" class="form-control">
-                        <option value="Airport Transfer">Airport Transfer</option>
-                        <option value="Private Tour">Private Tour</option>
-                        <option value="Excursion">Excursion</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Primary Destination</label>
-                    <select id="location" class="form-control">
-                        <option value="Montego Bay">Montego Bay</option>
-                        <option value="Negril">Negril</option>
-                        <option value="Ocho Rios">Ocho Rios</option>
-                        <option value="Kingston">Kingston</option>
-                    </select>
-                </div>
-
-                <!-- NEW FIELDS -->
-                <div class="form-group"><label>Travel Date</label><input type="date" id="date" class="form-control" required></div>
-                <div class="form-group"><label>Flight Number / Time</label><input type="text" id="flight" class="form-control" placeholder="e.g. AA1492 (We track this!)"></div>
-                <div class="form-group"><label>Passengers</label><input type="number" id="pax" class="form-control" min="1" placeholder="Number of people" required></div>
-
-                <div class="modal-actions">
-                    <button type="button" onclick="sendToWhatsApp()" class="btn btn-primary" style="width: 100%;">
-                        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-                    </button>
-                    <button type="button" onclick="sendViaEmail()" class="btn btn-outline" style="width: 100%;">
-                        <i class="fa-regular fa-envelope"></i> Send Email Request
-                    </button>
-                </div>
-                
-                <p style="font-size: 0.75rem; text-align: center; margin-top: 15px; color: #999;">
-                    We typically reply within 1 hour.
-                </p>
+            <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
+                <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                <input type="email" id="email" class="form-control" placeholder="Email" required>
+                <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
+                <select id="location" class="form-control"><option>Montego Bay</option><option>Negril</option><option>Ocho Rios</option><option>Custom</option></select>
+                <input type="date" id="date" class="form-control" required>
+                <input type="text" id="flight" class="form-control" placeholder="Flight #">
+                <input type="number" id="pax" class="form-control" placeholder="Passengers" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Chat to Book</button>
             </form>
         </div>
     </div>
@@ -947,181 +709,98 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
             <div style="text-align: left;">
-                <h3 style="color: var(--primary-dark); margin-bottom: 15px;">Terms & Conditions</h3>
-                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem; color: #555; line-height: 1.6;">
-                    <p><strong>1. Bookings & Deposits:</strong> A deposit is required to secure all bookings. The remaining balance is due in cash (USD) or card upon arrival.</p>
-                    <p><strong>2. Cancellations:</strong> Cancellations made more than 24 hours in advance will receive a full refund of the deposit. Cancellations within 24 hours are non-refundable.</p>
-                    <p><strong>3. Waiting Policy:</strong> We monitor all flights. We will wait for delayed flights at no extra cost. For hotel pickups, we offer a 15-minute grace period.</p>
-                    <p><strong>4. Liability:</strong> P&T Island Tours is fully insured. However, we are not responsible for lost personal items left in vehicles.</p>
-                    <p><strong>5. Conduct:</strong> We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or vehicle.</p>
+                <h3>Terms & Conditions</h3>
+                <div style="height: 300px; overflow-y: auto; font-size: 0.9rem;">
+                    <p><strong>1. Bookings:</strong> Deposit required.</p>
+                    <p><strong>2. Cancellations:</strong> >24hrs = Refund.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script>
-        // --- 1. Reveal on Scroll (Motion Design) ---
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Trigger only once
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // --- 2. Mobile Menu ---
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                const navLinks = document.getElementById('navLinks');
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-
-        // --- 3. Modal Logic ---
-        function openModal() {
-            document.getElementById('bookingModal').classList.add('open');
-        }
-
-        function openLegalModal() {
-            document.getElementById('legalModal').classList.add('open');
-        }
-
-        function closeModal(modalId) {
-            const id = modalId || 'bookingModal'; 
-            document.getElementById(id).classList.remove('open');
-        }
-
-        function openModalWithContext(serviceType, locationValue) {
-            const serviceSelect = document.getElementById('service');
-            const locationSelect = document.getElementById('location');
+        // FAQ Accordion
+        function toggleFaq(item) {
+            const body = item.querySelector('.faq-body');
+            const isActive = item.classList.contains('active');
             
-            if (serviceType.includes("Tour")) {
-                serviceSelect.value = "Private Tour";
-            } else if (serviceType.includes("Airport")) {
-                serviceSelect.value = "Airport Transfer";
-            } else {
-                serviceSelect.value = "Excursion";
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.faq-body').style.maxHeight = null;
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+                body.style.maxHeight = body.scrollHeight + "px";
             }
-            
-            locationSelect.value = locationValue;
-            openModal();
         }
 
-        window.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay')) {
-                e.target.classList.remove('open');
-            }
-        });
-
-        // --- 4. Scroll Spy (Active Link) ---
-        // Robust selector to avoid null errors
-        const sections = document.querySelectorAll('section[id]');
-        
-        window.addEventListener('scroll', () => {
-            const scrollTopBtn = document.querySelector('.scroll-top');
-            if (window.scrollY > 300) {
-                scrollTopBtn.style.display = 'flex';
-            } else {
-                scrollTopBtn.style.display = 'none';
-            }
-
-            const navLi = document.querySelectorAll('.nav-links a');
-            let current = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 150;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLi.forEach(li => {
-                li.classList.remove('active');
-                // Use strict match to ensure correctness
-                if (li.getAttribute('href') === '#' + current) {
-                    li.classList.add('active');
-                }
-            });
-        });
-
-        // --- 5. Toast Notification ---
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
-        }
-
-        // --- 6. Contact Handlers ---
-        function getFormData() {
-            return {
-                name: document.getElementById('name').value || 'Traveler',
-                email: document.getElementById('email').value || 'Not provided',
-                service: document.getElementById('service').value,
-                location: document.getElementById('location').value,
-                date: document.getElementById('date').value || 'Not set',
-                flight: document.getElementById('flight').value || 'Not set',
-                pax: document.getElementById('pax').value || 'Not set'
-            };
-        }
-
-        function sendToWhatsApp() {
-            const data = getFormData();
-            const phoneNumber = "18764453764"; 
-            
-            // UPDATED: Using WhatsApp Markdown (*Bold*) for a cleaner "Ticket" look
-            const text = `*New Booking Inquiry* 🇯🇲%0A%0A*Name:* ${data.name}%0A*Email:* ${data.email}%0A*Service:* ${data.service}%0A*Destination:* ${data.location}%0A*Date:* ${data.date}%0A*Flight:* ${data.flight}%0A*Passengers:* ${data.pax}%0A%0A_Sent via P&T Website_`;
-            
-            showToast();
-            setTimeout(() => {
-                window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
-                closeModal(); 
-            }, 1000);
-        }
-
-        function sendViaEmail() {
-            const data = getFormData();
-            const email = "ttgrindley@gmail.com";
-            const subject = `Booking Request: ${data.service} - ${data.name}`;
-            
-            // UPDATED: Cleaner Email Body Layout
-            const body = `New Booking Request via Website%0D%0A%0D%0AName: ${data.name}%0D%0AEmail: ${data.email}%0D%0AService: ${data.service}%0D%0ADestination: ${data.location}%0D%0ADate: ${data.date}%0D%0AFlight: ${data.flight}%0D%0APassengers: ${data.pax}%0D%0A%0D%0APlease respond with availability and pricing.`;
-            
-            showToast();
-            setTimeout(() => {
-                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-                closeModal();
-            }, 1000);
-        }
-
-        // --- 7. Carousel Logic (NEW) ---
+        // Carousel
         function moveCarousel(btn, direction) {
             const wrapper = btn.closest('.card-img-wrapper');
             const track = wrapper.querySelector('.carousel-track');
             const slides = track.querySelectorAll('img');
-            
             let currentIndex = parseInt(track.getAttribute('data-index') || 0);
             let newIndex = currentIndex + direction;
-            
             if (newIndex < 0) newIndex = slides.length - 1;
             if (newIndex >= slides.length) newIndex = 0;
-            
             track.style.transform = `translateX(-${newIndex * 100}%)`;
             track.setAttribute('data-index', newIndex);
+        }
+
+        // Modal & Nav
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+        function openModal() { document.getElementById('bookingModal').classList.add('open'); }
+        function openLegalModal() { document.getElementById('legalModal').classList.add('open'); }
+        function closeModal(id) { document.getElementById(id || 'bookingModal').classList.remove('open'); }
+        
+        function openModalWithContext(service, loc) {
+            document.getElementById('service').value = service.includes("Tour") ? "Private Tour" : "Airport Transfer";
+            document.getElementById('location').value = loc;
+            openModal();
+        }
+        
+        window.addEventListener('click', e => {
+            if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
+        });
+
+        // SCROLL SPY FIX (Robust)
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            // Targeted selection to avoid null errors
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            let currentId = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (scrollY >= sectionTop) {
+                    currentId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (currentId && link.getAttribute('href') === '#' + currentId) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const service = document.getElementById('service').value;
+            const loc = document.getElementById('location').value;
+            const date = document.getElementById('date').value;
+            const flight = document.getElementById('flight').value;
+            const pax = document.getElementById('pax').value;
+            const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Service:* ${service}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${flight}%0A*Pax:* ${pax}`;
+            window.open(`https://wa.me/18764453764?text=${text}`, '_blank');
+            closeModal();
         }
     </script>
 </body>
