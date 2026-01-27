@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v17.2 (UNIFIED & CENTERED)
-    Features: Perfectly Centered Mobile Cards + High Contrast Sections
+    P&T ISLAND TOURS - PRODUCTION BUILD v18.0 (PERFECT UNIFORMITY)
+    Features: Standardized Mobile Classes .mobile-scroll-container
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -58,23 +58,18 @@
             --primary-gold: #FFD700;       
             --primary-dark: #1A1A1A;       
             --primary-green: #009B3A;      
-            
-            /* High Contrast Section Background (Darker Mint) */
-            --light-bg: #E0F2F1; 
-            
+            --light-bg: #E8F5E9; /* Increased contrast (Mint) */
             --text-dark: #222222;
             --text-light: #555555;
             --white: #FFFFFF;
             
-            --shadow-card: 0 8px 25px rgba(0,0,0,0.1);
-            --shadow-hover: 0 15px 35px rgba(0,0,0,0.2);
+            --shadow-card: 0 8px 20px rgba(0,0,0,0.06);
+            --shadow-hover: 0 15px 30px rgba(0,0,0,0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Hide Scrollbars Globally */
         html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         ::-webkit-scrollbar { display: none; }
         html, body { -ms-overflow-style: none; scrollbar-width: none; }
@@ -101,14 +96,9 @@
 
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        .section-padding { 
-            padding: 70px 0; 
-            border-top: 1px solid rgba(0,0,0,0.05); 
-        }
-        
+        .section-padding { padding: 70px 0; border-top: 1px solid rgba(0,0,0,0.05); }
         .text-center { text-align: center; }
-        
+
         /* --- BUTTONS --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
@@ -130,14 +120,12 @@
             transition: var(--transition); border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-
         .logo {
             font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800;
             color: var(--primary-dark); display: flex; align-items: center; gap: 5px;
             letter-spacing: -0.5px; cursor: pointer; user-select: none;
         }
         .logo:hover { opacity: 0.8; }
-
         .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { 
             font-weight: 600; font-size: 0.8rem; text-transform: uppercase; 
@@ -153,10 +141,8 @@
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark); }
         
-        /* Mobile Sticky CTA */
         .mobile-sticky-cta {
-            display: none;
-            position: fixed; bottom: 0; left: 0; width: 100%;
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--white); padding: 15px; z-index: 2000;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.1); border-top: 1px solid #eee;
         }
@@ -186,50 +172,45 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.5); color: #f0f0f0;
         }
 
-        /* --- HOW IT WORKS & SERVICES (ICONS) --- */
-        .process-icon, .feature-icon-circle {
-            width: 60px; height: 60px; background: var(--white); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;
-            color: var(--primary-green); font-size: 1.2rem; border: 2px solid var(--primary-green);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        /* --- DESKTOP GRID DEFAULTS --- */
+        .grid-container { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
         }
-        .feature-icon { font-size: 1.5rem; color: var(--primary-green); }
 
-        /* --- UNIFIED CARD STYLING --- */
-        .destination-card, .feature-card, .process-item, .gallery-item {
-            background: var(--white); border-radius: 16px; overflow: hidden;
+        /* --- UNIVERSAL CARD STYLING --- */
+        .universal-card {
+            background: var(--white); border-radius: 20px; overflow: hidden;
             box-shadow: var(--shadow-card); transition: transform 0.3s ease;
             position: relative; display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.05); 
-            /* Min-width handled by grid on desktop, scroll on mobile */
+            border: 1px solid rgba(0,0,0,0.05); min-width: 0; /* Reset */
         }
-        
-        .feature-card, .process-item { padding: 40px 20px; text-align: center; }
-        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--primary-gold); }
-        
-        .destination-card:hover, .feature-card:hover, .process-item:hover, .gallery-item:hover { 
-            transform: translateY(-5px); box-shadow: var(--shadow-hover); 
-        }
+        .universal-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 
-        /* Carousel Images */
-        .card-img-wrapper { position: relative; height: 220px; overflow: hidden; user-select: none; }
+        /* Card Content Types */
+        .card-img-wrapper { position: relative; height: 240px; overflow: hidden; user-select: none; }
         .carousel-track { display: flex; height: 100%; transition: transform 0.5s ease; }
         .carousel-track img { min-width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
-
-        /* Gallery */
-        .gallery-item { height: 250px; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .card-text-body { padding: 30px 25px; text-align: center; flex-grow: 1; }
+        .card-text-body h3, .card-text-body h4 { font-size: 1.25rem; margin-bottom: 10px; font-weight: 700; }
+        .card-text-body p { font-size: 0.9rem; color: var(--text-light); }
+        .feature-icon-circle, .process-icon {
+            width: 60px; height: 60px; background: var(--white); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
 
         /* Carousel Arrows */
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(255, 255, 255, 0.9); color: var(--primary-dark);
-            border: none; width: 30px; height: 30px; border-radius: 50%;
+            border: none; width: 35px; height: 35px; border-radius: 50%;
             cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
             font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); opacity: 0;
             transition: opacity 0.3s;
         }
-        .destination-card:hover .carousel-btn { opacity: 1; }
+        .universal-card:hover .carousel-btn { opacity: 1; }
         .carousel-btn:hover { background: var(--primary-gold); }
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
@@ -243,9 +224,9 @@
         .location-badge { left: 15px; background: rgba(255, 255, 255, 0.95); color: var(--primary-dark); }
         .popular-badge { right: 15px; background: var(--primary-gold); color: var(--primary-dark); }
 
-        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-content h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
-        .card-content p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
+        .card-content-bottom { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-content-bottom h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
+        .card-content-bottom p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
         .card-footer {
             border-top: 1px solid #f0f0f0; padding-top: 15px;
             display: flex; align-items: center; justify-content: space-between;
@@ -255,13 +236,12 @@
             color: var(--primary-dark); font-weight: 700; font-size: 0.85rem;
             text-transform: uppercase; display: flex; align-items: center; gap: 5px;
         }
+        
+        /* Gallery */
+        .gallery-item { height: 220px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- DESKTOP GRIDS --- */
-        .destinations-grid, .features-grid, .gallery-grid, .process-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; 
-        }
-
-        /* --- FAQ ACCORDION --- */
+        /* --- FAQ --- */
         .faq-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
         .faq-item {
             background: var(--white); border-radius: 12px; box-shadow: var(--shadow-card);
@@ -332,11 +312,11 @@
             background-color: var(--primary-dark); color: #FFF; border-radius: 50%;
             text-align: center; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: none; align-items: center; justify-content: center;
-            cursor: pointer; border: 2px solid var(--primary-gold);
+            transition: var(--transition); cursor: pointer; border: 2px solid var(--primary-gold);
         }
         .scroll-top:hover { background-color: var(--primary-green); }
 
-        /* --- RESPONSIVE OPTIMIZATIONS (UNIFIED CENTERED SWIPE) --- */
+        /* --- RESPONSIVE UNIFIED LAYOUT --- */
         @media (max-width: 900px) {
             .nav-links {
                 position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px);
@@ -352,34 +332,38 @@
             .hero { min-height: 85vh; margin-top: 0; padding-top: 90px; }
             .hero-content h1 { font-size: 2.5rem; }
 
-            /* UNIFIED MOBILE SWIPE CONTAINER */
-            .destinations-grid, .gallery-grid, .features-grid, .process-grid {
+            /* UNIFIED MOBILE SCROLL CONTAINER 
+               This applies to Services, Process, Destinations, Tours, Gallery 
+            */
+            .mobile-scroll-container {
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding-bottom: 25px;
+                padding-bottom: 25px; /* Room for shadow */
                 gap: 15px;
                 -webkit-overflow-scrolling: touch;
                 
                 /* PERFECT CENTERING MATH */
-                /* 100vw - 80vw = 20vw remaining. Divide by 2 = 10vw padding on each side. */
-                padding-left: 10vw; 
-                padding-right: 10vw;
+                /* Card Width: 85vw. Gap: 15vw (100-85). Padding side: 7.5vw. */
+                padding-left: 7.5vw; 
+                padding-right: 7.5vw;
                 
-                /* Break out of container padding */
+                /* Full Bleed */
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
             }
             
             /* UNIFIED MOBILE CARD SIZE */
-            .destination-card, .gallery-item, .feature-card, .process-item {
-                min-width: 80vw; /* 80% Screen Width */
+            .universal-card {
+                min-width: 85vw; /* 85% Screen Width */
+                width: 85vw; /* Strict width */
                 scroll-snap-align: center;
                 margin-right: 0;
                 flex-shrink: 0;
                 margin-top: 5px; 
                 margin-bottom: 5px;
+                border-radius: 20px; /* Softer, larger radius */
             }
 
             .carousel-btn { display: none; }
@@ -391,14 +375,7 @@
 </head>
 <body>
 
-    <div class="toast" id="toast">
-        <i class="fa-solid fa-check-circle"></i>
-        <div>
-            <h5 style="margin:0; font-size: 0.9rem;">Success</h5>
-            <p style="margin:0; font-size: 0.8rem; color: #666;">Opening your app...</p>
-        </div>
-    </div>
-
+    <!-- NAV -->
     <header>
         <div class="container">
             <nav>
@@ -440,18 +417,19 @@
                 <h2>Why Choose P&T Tours</h2>
                 <div style="width: 60px; height: 3px; background: var(--primary-green); margin: 15px auto;"></div>
             </div>
-            <div class="features-grid" id="featuresGrid">
-                <div class="feature-card">
+            <!-- Unified Grid Class + Mobile Scroll Class -->
+            <div class="grid-container mobile-scroll-container">
+                <div class="universal-card card-text-body">
                     <div class="feature-icon-circle"><i class="fa-solid fa-id-card feature-icon"></i></div>
                     <h3>JTB Certified</h3>
                     <p>Fully licensed by the Jamaica Tourist Board. Safe & Insured.</p>
                 </div>
-                <div class="feature-card">
+                <div class="universal-card card-text-body">
                     <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check feature-icon"></i></div>
                     <h3>Flight Tracking</h3>
                     <p>We monitor your flight. Early or late, we are there waiting.</p>
                 </div>
-                <div class="feature-card">
+                <div class="universal-card card-text-body">
                     <div class="feature-icon-circle"><i class="fa-solid fa-lock feature-icon"></i></div>
                     <h3>100% Private</h3>
                     <p>No sharing with strangers. The vehicle is yours.</p>
@@ -466,26 +444,26 @@
             <div class="text-center">
                 <h2>How It Works</h2>
             </div>
-            <div class="process-grid" id="processGrid">
-                <div class="process-item">
+            <div class="grid-container mobile-scroll-container">
+                <div class="universal-card card-text-body">
                     <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <h4>1. Inquire</h4>
-                    <p style="font-size: 0.9rem;">Send details via WhatsApp.</p>
+                    <p>Send details via WhatsApp.</p>
                 </div>
-                <div class="process-item">
+                <div class="universal-card card-text-body">
                     <div class="process-icon"><i class="fa-regular fa-credit-card"></i></div>
                     <h4>2. Deposit</h4>
-                    <p style="font-size: 0.9rem;">Secure booking via EzeePayments.</p>
+                    <p>Secure booking via EzeePayments.</p>
                 </div>
-                <div class="process-item">
+                <div class="universal-card card-text-body">
                     <div class="process-icon"><i class="fa-solid fa-sign-hanging"></i></div>
                     <h4>3. Meet</h4>
-                    <p style="font-size: 0.9rem;">Look for the <strong>P&T Sign</strong> at airport.</p>
+                    <p>Look for the <strong>P&T Sign</strong> at airport.</p>
                 </div>
-                <div class="process-item">
+                <div class="universal-card card-text-body">
                     <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
                     <h4>4. Ride</h4>
-                    <p style="font-size: 0.9rem;">Pay balance (Cash USD) on arrival.</p>
+                    <p>Pay balance (Cash USD) on arrival.</p>
                 </div>
             </div>
         </div>
@@ -499,20 +477,20 @@
                 <h2>Main Destinations</h2>
             </div>
 
-            <div class="destinations-grid" id="destGrid">
+            <div class="grid-container mobile-scroll-container">
                 <!-- Montego Bay -->
-                <article class="destination-card">
-                    <div class="card-img-wrapper" id="mobay-carousel">
+                <article class="universal-card">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
                         <div class="carousel-track">
-                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Van">
+                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Van">
                             <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort">
                         </div>
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-bottom">
                         <h3>Montego Bay Transfer</h3>
                         <p>Direct private transfer from Sangster Intl (MBJ) to resorts.</p>
                         <div class="card-footer">
@@ -523,8 +501,8 @@
                 </article>
 
                 <!-- Negril -->
-                <article class="destination-card">
-                    <div class="card-img-wrapper" id="negril-carousel">
+                <article class="universal-card">
+                    <div class="card-img-wrapper">
                         <span class="location-badge">Negril</span>
                         <div class="carousel-track">
                             <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Road">
@@ -533,7 +511,7 @@
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-bottom">
                         <h3>Negril Transfer</h3>
                         <p>Relax on the scenic coastal drive to Seven Mile Beach hotels.</p>
                         <div class="card-footer">
@@ -544,7 +522,7 @@
                 </article>
 
                 <!-- Ocho Rios -->
-                <article class="destination-card">
+                <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
@@ -554,7 +532,7 @@
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-bottom">
                         <h3>Ocho Rios Transfer</h3>
                         <p>Enjoy the lush greenery on your way to Ochi resorts.</p>
                         <div class="card-footer">
@@ -574,8 +552,8 @@
                 <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem;">TOURS</h4>
                 <h2>Top Experiences</h2>
             </div>
-            <div class="destinations-grid" id="toursGrid">
-                 <article class="destination-card">
+            <div class="grid-container mobile-scroll-container">
+                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
                         <div class="carousel-track">
@@ -585,7 +563,7 @@
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-bottom">
                         <h3>Dunn's River</h3>
                         <p>Climb the famous falls and swim in the ocean.</p>
                         <div class="card-footer">
@@ -594,7 +572,7 @@
                         </div>
                     </div>
                 </article>
-                 <article class="destination-card">
+                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Kingston</span>
                         <div class="carousel-track">
@@ -604,12 +582,31 @@
                         <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-bottom">
                         <h3>Bob Marley</h3>
                         <p>Visit the home of the Legend + Devon House.</p>
                         <div class="card-footer">
                             <span class="price-start">From $150</span>
                             <a href="#" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="universal-card">
+                    <div class="card-img-wrapper">
+                        <span class="location-badge">Ocho Rios</span>
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blue Hole">
+                            <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jump">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
+                    </div>
+                    <div class="card-content-bottom">
+                        <h3>Blue Hole</h3>
+                        <p>Jump and swim in bright blue mineral waters.</p>
+                        <div class="card-footer">
+                            <span class="price-start">From $130</span>
+                            <a href="#" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
                         </div>
                     </div>
                 </article>
@@ -630,11 +627,11 @@
             <div class="text-center" style="margin-bottom: 40px;">
                 <h2>Captured Moments</h2>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water"></div>
+            <div class="grid-container mobile-scroll-container">
+                <div class="universal-card gallery-item"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach"></div>
+                <div class="universal-card gallery-item"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature"></div>
+                <div class="universal-card gallery-item"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Food"></div>
+                <div class="universal-card gallery-item"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Water"></div>
             </div>
         </div>
     </section>
