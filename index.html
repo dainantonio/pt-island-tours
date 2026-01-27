@@ -3,14 +3,14 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - FINAL PRODUCTION BUILD v11.5
-    Features: UX Motion + SEO Schema + Legal + Error-Free Scroll Spy
+    P&T ISLAND TOURS - PRODUCTION BUILD v12.0
+    Features: "The Real Jamaica" Theme + Carousels + Attraction Directory
     ==================================================================== 
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Experience the real Jamaica with P&T Island Tours. Montego Bay, Negril, Ocho Rios.">
-    <meta name="keywords" content="Montego Bay airport transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions">
+    <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Experience the real Jamaica with P&T Island Tours. Montego Bay, Negril, Ocho Rios, YS Falls, Pelican Bar.">
+    <meta name="keywords" content="Montego Bay airport transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions, YS Falls, Pelican Bar">
     
     <!-- SOCIAL SHARING TAGS -->
     <meta property="og:title" content="P&T Island Tours | Experience the Real Jamaica">
@@ -18,7 +18,7 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:type" content="website">
 
-    <!-- GOOGLE ANALYTICS PLACEHOLDER (Uncomment and add ID to activate) -->
+    <!-- GOOGLE ANALYTICS PLACEHOLDER -->
     <!-- 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
@@ -139,7 +139,6 @@
             font-weight: 600; font-size: 0.8rem; text-transform: uppercase; 
             color: var(--primary-dark); letter-spacing: 0.5px; position: relative;
         }
-        /* Active/Hover State */
         .nav-links a::after {
             content: ''; position: absolute; width: 0; height: 2px;
             bottom: -5px; left: 0; background-color: var(--primary-green);
@@ -177,7 +176,7 @@
         }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- REVEAL ANIMATIONS (UX UPGRADE) --- */
+        /* --- REVEAL ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 0.1s; }
@@ -194,22 +193,45 @@
             border: 1px solid rgba(0,0,0,0.02);
         }
         .destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
-        .card-img-wrapper { position: relative; height: 240px; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .destination-card:hover .card-img { transform: scale(1.08); } /* Image Zoom */
 
+        /* CAROUSEL STYLES */
+        .card-img-wrapper { 
+            position: relative; height: 260px; overflow: hidden; 
+            user-select: none;
+        }
+        .carousel-track {
+            display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .carousel-track img {
+            min-width: 100%; height: 100%; object-fit: cover; flex-shrink: 0;
+        }
+
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9); color: var(--primary-dark);
+            border: none; width: 35px; height: 35px; border-radius: 50%;
+            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+        .destination-card:hover .carousel-btn { opacity: 1; }
+        .carousel-btn:hover { background: var(--primary-gold); transform: translateY(-50%) scale(1.1); }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+        
         .location-badge {
             position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.95);
             color: var(--primary-dark); padding: 6px 14px; border-radius: 20px;
             font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 5;
         }
         .popular-badge {
             position: absolute; top: 15px; right: 15px; background: var(--primary-gold);
             color: var(--primary-dark); padding: 6px 12px; border-radius: 4px;
             font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 5;
         }
+
         .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-content h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
         .card-content p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
@@ -224,7 +246,7 @@
         }
         .card-link:hover { color: var(--primary-gold); }
 
-        /* --- HOW IT WORKS (STAGGERED) --- */
+        /* --- TRUST SIGNALS --- */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
         .feature-card { 
             text-align: center; background: var(--white); padding: 50px 30px;
@@ -239,13 +261,52 @@
         }
         .feature-icon-circle {
             width: 80px; height: 80px; background: #F0F9F4; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 25px; transition: var(--transition);
+            display: flex; align-items: center; justify-content: center; margin-bottom: 25px;
+            transition: var(--transition);
         }
         .feature-card:hover .feature-icon-circle { background: var(--primary-green); }
         .feature-card:hover .feature-icon { color: var(--white); }
         .feature-icon { font-size: 2rem; color: var(--primary-green); transition: var(--transition); }
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 15px; font-weight: 700; }
+
+        /* --- DIRECTORY SECTION (NEW) --- */
+        .directory-section {
+            margin-top: 60px;
+            background: var(--primary-dark);
+            border-radius: 16px;
+            padding: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+        }
+        .directory-item {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .directory-item:hover { color: var(--primary-gold); transform: translateX(5px); }
+        .directory-item i { font-size: 0.8rem; color: var(--primary-green); }
+
+        /* --- GALLERY --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 40px; }
+        .gallery-item {
+            height: 250px; border-radius: 12px; overflow: hidden; position: relative;
+            box-shadow: var(--shadow-card); cursor: pointer;
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
 
         /* --- FAQ --- */
         .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
@@ -267,7 +328,7 @@
             opacity: 0.1;
         }
 
-        /* --- MODAL (POLISHED FORM UX) --- */
+        /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); z-index: 2000;
@@ -279,7 +340,7 @@
             background: var(--white); padding: 40px; width: 90%; max-width: 500px;
             border-radius: 15px; position: relative; transform: scale(0.95);
             transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            border-top: 8px solid var(--primary-green);
+            border-top: 8px solid var(--primary-green); max-height: 90vh; overflow-y: auto;
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
         .close-modal {
@@ -287,7 +348,6 @@
             cursor: pointer; color: #999; line-height: 0.8;
         }
         .close-modal:hover { color: var(--primary-dark); }
-        
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-dark); }
         .form-control {
@@ -295,8 +355,7 @@
             font-family: 'Montserrat', sans-serif; font-size: 1rem;
             transition: var(--transition); background: #FAFAFA;
         }
-        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; box-shadow: 0 0 0 4px rgba(0, 155, 58, 0.1); }
-        
+        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
         .modal-steps {
             display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 0.75rem; color: #888;
             border-bottom: 1px solid #eee; padding-bottom: 15px;
@@ -311,17 +370,14 @@
             background-color: #25d366; color: #FFF; border-radius: 50px;
             text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 999; display: flex; align-items: center; justify-content: center;
-            transition: var(--transition);
-            animation: pulse-green 2s infinite; 
+            transition: var(--transition); animation: pulse-green 2s infinite; 
         }
         .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
-        
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
-
         .scroll-top {
             position: fixed; width: 50px; height: 50px; bottom: 30px; left: 30px;
             background-color: var(--primary-dark); color: #FFF; border-radius: 50%;
@@ -356,7 +412,7 @@
             color: #fff; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 5px;
         }
 
-        /* --- TOAST --- */
+        /* --- NOTIFICATION TOAST --- */
         .toast {
             position: fixed; top: 20px; right: 20px; background: var(--white);
             padding: 15px 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -377,6 +433,8 @@
             }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: block; }
+            /* Always show arrows on mobile */
+            .carousel-btn { opacity: 1; }
         }
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.8rem; }
@@ -434,7 +492,7 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS (Visual Booking Flow) -->
+    <!-- HOW IT WORKS -->
     <section class="section-padding" style="background-color: var(--white); padding-bottom: 40px;">
         <div class="container">
             <div class="text-center reveal" style="margin-bottom: 50px;">
@@ -444,7 +502,7 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
-                <!-- Steps with staggered reveal classes -->
+                <!-- Step 1 -->
                 <div class="reveal delay-100">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-brands fa-whatsapp"></i>
@@ -452,6 +510,8 @@
                     <h3 style="font-size: 1.2rem; margin-bottom: 10px;">1. Send Inquiry</h3>
                     <p style="color: var(--text-light); font-size: 0.95rem;">Click "Book Now" to send your details via WhatsApp. We check availability.</p>
                 </div>
+
+                <!-- Step 2 -->
                 <div class="reveal delay-200">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-regular fa-credit-card"></i>
@@ -459,6 +519,8 @@
                     <h3 style="font-size: 1.2rem; margin-bottom: 10px;">2. Secure Deposit</h3>
                     <p style="color: var(--text-light); font-size: 0.95rem;">Pay a small deposit via our secure <strong>EzeePayments</strong> link to lock in your driver.</p>
                 </div>
+
+                <!-- Step 3 -->
                 <div class="reveal delay-300">
                     <div style="width: 70px; height: 70px; background: var(--primary-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-dark); font-size: 1.5rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
                         <i class="fa-solid fa-sign-hanging"></i>
@@ -466,6 +528,8 @@
                     <h3 style="font-size: 1.2rem; margin-bottom: 10px;">3. Meet Your Driver</h3>
                     <p style="color: var(--text-light); font-size: 0.95rem;"><strong>Look for the P&T Sign</strong> with <u>YOUR NAME</u> at the airport exit. We track your flight!</p>
                 </div>
+
+                <!-- Step 4 -->
                 <div class="reveal delay-400">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-solid fa-car-side"></i>
@@ -488,12 +552,18 @@
 
             <div class="destinations-grid">
                 
-                <!-- Montego Bay -->
+                <!-- Montego Bay (Carousel) -->
                 <article class="destination-card reveal">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Montego Bay</span>
                         <span class="popular-badge">Best Value</span>
-                        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Montego Bay Resort" class="card-img" loading="lazy">
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1562620701-35b8e404092b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Private Airport Van">
+                            <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Luxury Resort Pool">
+                            <img src="https://images.unsplash.com/photo-1537162999336-d08c5c994514?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Doctors Cave Beach">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Montego Bay Transfer</h3>
@@ -505,11 +575,17 @@
                     </div>
                 </article>
 
-                <!-- Negril -->
+                <!-- Negril (Carousel) -->
                 <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Negril</span>
-                        <img src="https://images.unsplash.com/photo-1618600451426-38290da372d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Negril Beach Sunset" class="card-img" loading="lazy">
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Coastal Road">
+                            <img src="https://images.unsplash.com/photo-1618600451426-38290da372d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Negril Sunset">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Seven Mile Beach">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Negril Transfer</h3>
@@ -521,11 +597,17 @@
                     </div>
                 </article>
 
-                <!-- Ocho Rios -->
+                <!-- Ocho Rios (Carousel) -->
                 <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
-                        <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ocho Rios View" class="card-img" loading="lazy">
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Fern Gully">
+                            <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Ocho Rios Coast">
+                            <img src="https://images.unsplash.com/photo-1523365280197-f1783db9fe62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Cruise Port">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Ocho Rios Transfer</h3>
@@ -550,17 +632,23 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card reveal">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-id-card feature-icon"></i></div>
+                    <div class="feature-icon-circle">
+                        <i class="fa-solid fa-id-card feature-icon"></i>
+                    </div>
                     <h3>JTB Certified</h3>
                     <p>Fully licensed by the Jamaica Tourist Board and insured. Your safety is our absolute priority.</p>
                 </div>
                 <div class="feature-card reveal delay-100">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check feature-icon"></i></div>
+                    <div class="feature-icon-circle">
+                        <i class="fa-solid fa-plane-circle-check feature-icon"></i>
+                    </div>
                     <h3>We Wait For You</h3>
                     <p>Flight delayed? No worries. We track your arrival and wait for you at no extra cost.</p>
                 </div>
                 <div class="feature-card reveal delay-200">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-lock feature-icon"></i></div>
+                    <div class="feature-icon-circle">
+                        <i class="fa-solid fa-lock feature-icon"></i>
+                    </div>
                     <h3>100% Private</h3>
                     <p>No sharing with strangers. The vehicle is exclusively yours for maximum comfort and privacy.</p>
                 </div>
@@ -579,11 +667,17 @@
 
             <div class="destinations-grid">
                 
-                <!-- Tour 1 -->
+                <!-- Tour 1: Dunn's River -->
                 <article class="destination-card reveal">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Adventure</span>
-                        <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dunn's River Falls" class="card-img" loading="lazy">
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Dunn's River Falls">
+                            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Climbing Falls">
+                            <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="River Beach">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Dunn's River Falls</h3>
@@ -595,11 +689,17 @@
                     </div>
                 </article>
 
-                <!-- Tour 2 -->
+                <!-- Tour 2: Bob Marley -->
                 <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Culture</span>
-                        <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kingston Culture" class="card-img" loading="lazy">
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Bob Marley Culture">
+                            <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Kingston Vibes">
+                            <img src="https://images.unsplash.com/photo-1568461759600-b6a4a0a03366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Devon House">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Bob Marley Museum</h3>
@@ -611,11 +711,17 @@
                     </div>
                 </article>
 
-                <!-- Tour 3 -->
+                <!-- Tour 3: Blue Hole -->
                 <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Nature</span>
-                        <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blue Hole" class="card-img" loading="lazy">
+                        <div class="carousel-track">
+                            <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Blue Hole">
+                            <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Jumping">
+                            <img src="https://images.unsplash.com/photo-1510006767664-4286dc57a80b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Jungle">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
                     </div>
                     <div class="card-content">
                         <h3>Blue Hole / Secret Falls</h3>
@@ -627,6 +733,49 @@
                     </div>
                 </article>
 
+            </div>
+
+            <!-- NEW: Custom Tour Builder (Directory) -->
+            <div class="directory-box" style="background:var(--primary-dark); color:white; padding:40px; border-radius:16px; margin-top:50px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+                    <div>
+                        <h3 style="color:white; margin-bottom:10px;">Don't see what you're looking for?</h3>
+                        <p style="color:rgba(255,255,255,0.8);">We drive everywhere. Build your own custom itinerary.</p>
+                    </div>
+                    <button onclick="openModalWithContext('Private Tour', 'Custom')" class="btn btn-secondary">Request Custom Tour</button>
+                </div>
+                
+                <!-- Expanded Keyword Directory -->
+                <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.2); padding-top:20px;">
+                    <p style="font-size:0.9rem; font-weight:700; color:var(--primary-gold); margin-bottom:15px;">WE ALSO VISIT:</p>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:15px; font-size:0.85rem;">
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')">Mystic Mountain</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Dolphin Cove', 'Ocho Rios')">Dolphin Cove</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Rick\'s Cafe', 'Negril')">Rick's Cafe</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')">YS Falls</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')">Floyd's Pelican Bar</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')">Rose Hall House</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')">Luminous Lagoon</span>
+                        <span style="cursor:pointer;" onclick="openModalWithContext('Tour: Rafting', 'Martha Brae')">Martha Brae Rafting</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- GALLERY (Captured Moments) -->
+    <section class="section-padding" style="background-color: var(--light-bg);" id="gallery">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 40px;">
+                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Captured Moments</h4>
+                <h2>See the Vibe</h2>
+            </div>
+            <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div class="gallery-item" style="height: 250px; border-radius: 12px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Beach" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="gallery-item" style="height: 250px; border-radius: 12px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Nature" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="gallery-item" style="height: 250px; border-radius: 12px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Food" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="gallery-item" style="height: 250px; border-radius: 12px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Waterfall" style="width:100%; height:100%; object-fit:cover;"></div>
             </div>
         </div>
     </section>
@@ -919,7 +1068,6 @@
         });
 
         // --- 4. Scroll Spy (Active Link) ---
-        // Robust selector to avoid null errors
         const sections = document.querySelectorAll('section[id]');
         
         window.addEventListener('scroll', () => {
@@ -968,8 +1116,6 @@
         function sendToWhatsApp() {
             const data = getFormData();
             const phoneNumber = "18764453764"; 
-            
-            // Using WhatsApp Markdown (*Bold*) for a cleaner "Ticket" look
             const text = `*New Booking Inquiry* 🇯🇲%0A%0A*Name:* ${data.name}%0A*Email:* ${data.email}%0A*Service:* ${data.service}%0A*Destination:* ${data.location}%0A%0A_Sent via P&T Website_`;
             
             showToast();
@@ -983,8 +1129,6 @@
             const data = getFormData();
             const email = "ttgrindley@gmail.com";
             const subject = `Booking Request: ${data.service} - ${data.name}`;
-            
-            // Cleaner Email Body Layout
             const body = `New Booking Request via Website%0D%0A%0D%0AName: ${data.name}%0D%0AEmail: ${data.email}%0D%0AService: ${data.service}%0D%0ADestination: ${data.location}%0D%0A%0D%0APlease respond with availability and pricing.`;
             
             showToast();
@@ -992,6 +1136,22 @@
                 window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
                 closeModal();
             }, 1000);
+        }
+
+        // --- 7. Carousel Logic (NEW) ---
+        function moveCarousel(btn, direction) {
+            const wrapper = btn.closest('.card-img-wrapper');
+            const track = wrapper.querySelector('.carousel-track');
+            const slides = track.querySelectorAll('img');
+            
+            let currentIndex = parseInt(track.getAttribute('data-index') || 0);
+            let newIndex = currentIndex + direction;
+            
+            if (newIndex < 0) newIndex = slides.length - 1;
+            if (newIndex >= slides.length) newIndex = 0;
+            
+            track.style.transform = `translateX(-${newIndex * 100}%)`;
+            track.setAttribute('data-index', newIndex);
         }
     </script>
 </body>
