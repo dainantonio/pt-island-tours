@@ -3,8 +3,8 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v6.0 (UX UPGRADE)
-    "The Real Jamaica" Theme + Motion Design + Smooth Reveal
+    P&T ISLAND TOURS - FINAL PRODUCTION BUILD v11.5
+    Features: UX Motion + SEO Schema + Legal + Error-Free Scroll Spy
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -18,14 +18,16 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:type" content="website">
 
-    <!-- GOOGLE ANALYTICS (Placeholder) -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- GOOGLE ANALYTICS PLACEHOLDER (Uncomment and add ID to activate) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-XXXXXXXXXX');
-    </script> -->
+    </script> 
+    -->
 
     <!-- APP ICONS & THEME -->
     <meta name="theme-color" content="#009B3A">
@@ -33,7 +35,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231A1A1A'/%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23009B3A' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23FFD700' stroke-width='4'/%3E%3Ctext x='50' y='63' font-family='Arial, sans-serif' font-weight='900' font-size='35' text-anchor='middle' fill='%23FFFFFF'%3EP%26T%3C/text%3E%3C/svg%3E">
     <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/fluency/192/palm-tree.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://img.icons8.com/fluency/192/palm-tree.png">
     
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
@@ -43,7 +44,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- SEO SCHEMA -->
+    <!-- SEO SCHEMA (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -72,6 +73,7 @@
             --text-dark: #222222;
             --text-light: #555555;
             --white: #FFFFFF;
+            
             --shadow-card: 0 10px 30px -5px rgba(0,0,0,0.1);
             --shadow-hover: 0 20px 40px -5px rgba(0,0,0,0.2);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -79,11 +81,7 @@
 
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { 
-            scroll-behavior: smooth; 
-            scroll-padding-top: 100px; 
-        }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -104,247 +102,121 @@
         img { max-width: 100%; display: block; }
         button { font-family: 'Montserrat', sans-serif; }
 
-        /* --- UTILITIES & ANIMATIONS --- */
+        /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-padding { padding: 90px 0; }
         .text-center { text-align: center; }
-        
-        /* Reveal on Scroll Animation Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
 
-        /* Staggered delay for grid items */
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 32px; border-radius: 50px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
+            cursor: pointer; border: none; transition: var(--transition); gap: 10px;
+        }
+        .btn-primary { background-color: var(--primary-green); color: var(--white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+        .btn-secondary { background-color: var(--primary-gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+        .btn-secondary:hover { background-color: #e6c200; transform: translateY(-3px); }
+        .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
+        .btn-outline:hover { background-color: var(--primary-dark); color: var(--white); }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
+            transition: var(--transition);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 90px; }
+
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800;
+            color: var(--primary-dark); display: flex; align-items: center; gap: 5px;
+            letter-spacing: -0.5px; cursor: pointer; user-select: none;
+        }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { 
+            font-weight: 600; font-size: 0.8rem; text-transform: uppercase; 
+            color: var(--primary-dark); letter-spacing: 0.5px; position: relative;
+        }
+        /* Active/Hover State */
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 0; background-color: var(--primary-green);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a.active { color: var(--primary-green); }
+
+        .nav-btn { padding: 12px 24px; font-size: 0.8rem; }
+        .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark); }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 90vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            color: var(--white); margin-top: 90px; padding: 20px; position: relative;
+        }
+        .hero-content { z-index: 2; animation: fadeInUp 1s ease-out; }
+        .hero-content h1 {
+            color: var(--white); font-size: 4rem; margin-bottom: 20px; font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); line-height: 1.1;
+        }
+        .jamaica-gradient-text {
+            background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            font-weight: 800; filter: drop-shadow(3px 3px 0px #000000); 
+        }
+        .hero-content p {
+            font-size: 1.3rem; margin-bottom: 35px; max-width: 650px;
+            margin-left: auto; margin-right: auto; font-weight: 400;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5); color: #f0f0f0;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- REVEAL ANIMATIONS (UX UPGRADE) --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 0.1s; }
         .delay-200 { transition-delay: 0.2s; }
         .delay-300 { transition-delay: 0.3s; }
         .delay-400 { transition-delay: 0.4s; }
 
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition);
-            gap: 10px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-green);
-            color: var(--white);
-            box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3);
-        }
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background-color: var(--primary-gold);
-            color: var(--primary-dark);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-        .btn-secondary:hover {
-            background-color: #e6c200;
-            transform: translateY(-3px);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--primary-dark);
-            color: var(--primary-dark);
-            background: transparent;
-        }
-        .btn-outline:hover {
-            background-color: var(--primary-dark);
-            color: var(--white);
-        }
-
-        /* --- HEADER & NAV --- */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 90px; 
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            gap: 5px; 
-            letter-spacing: -0.5px;
-            cursor: pointer;
-            user-select: none;
-        }
-        .logo:hover { opacity: 0.8; }
-
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { 
-            font-weight: 600; 
-            font-size: 0.8rem; 
-            text-transform: uppercase; 
-            color: var(--primary-dark); 
-            letter-spacing: 0.5px;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-green);
-            transition: width 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        /* Active State for Scroll Spy */
-        .nav-links a.active { color: var(--primary-green); }
-        .nav-links a.active::after { width: 100%; }
-
-        .nav-btn { padding: 12px 24px; font-size: 0.8rem; }
-        .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            min-height: 90vh; 
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
-                        url('https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            margin-top: 90px; 
-            padding: 20px;
-            position: relative;
-        }
-
-        .hero-content { z-index: 2; animation: fadeInUp 1s ease-out; }
-
-        .hero-content h1 {
-            color: var(--white);
-            font-size: 4rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            line-height: 1.1;
-        }
-
-        .jamaica-gradient-text {
-            background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-            filter: drop-shadow(3px 3px 0px #000000); 
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 35px;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 400;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            color: #f0f0f0;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         /* --- CARDS & GRID --- */
-        .destinations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
+        .destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
         .destination-card {
-            background: var(--white);
-            border-radius: 16px; 
-            overflow: hidden;
-            box-shadow: var(--shadow-card);
-            transition: var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
+            background: var(--white); border-radius: 16px; overflow: hidden;
+            box-shadow: var(--shadow-card); transition: var(--transition);
+            position: relative; display: flex; flex-direction: column;
             border: 1px solid rgba(0,0,0,0.02);
         }
-
-        /* Upgraded Hover Effect: Lift and Deep Shadow */
-        .destination-card:hover { 
-            transform: translateY(-12px); 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
-        }
-
+        .destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
         .card-img-wrapper { position: relative; height: 240px; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-        /* Image Zoom on Hover */
-        .destination-card:hover .card-img { transform: scale(1.1); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .destination-card:hover .card-img { transform: scale(1.08); } /* Image Zoom */
 
         .location-badge {
-            position: absolute; top: 15px; left: 15px;
-            background: rgba(255, 255, 255, 0.95); color: var(--primary-dark);
-            padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-dark); padding: 6px 14px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
         .popular-badge {
-            position: absolute; top: 15px; right: 15px;
-            background: var(--primary-gold); color: var(--primary-dark);
-            padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 800;
-            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; top: 15px; right: 15px; background: var(--primary-gold);
+            color: var(--primary-dark); padding: 6px 12px; border-radius: 4px;
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
         .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-content h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
         .card-content p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
-        
         .card-footer {
-            border-top: 1px solid #f0f0f0;
-            padding-top: 20px;
+            border-top: 1px solid #f0f0f0; padding-top: 20px;
             display: flex; align-items: center; justify-content: space-between;
         }
-
         .price-start { color: var(--primary-green); font-weight: 700; font-size: 1.1rem; }
         .card-link {
             color: var(--primary-dark); font-weight: 700; font-size: 0.9rem;
@@ -352,86 +224,50 @@
         }
         .card-link:hover { color: var(--primary-gold); }
 
-        /* --- TRUST SIGNALS --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
+        /* --- HOW IT WORKS (STAGGERED) --- */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
         .feature-card { 
             text-align: center; background: var(--white); padding: 50px 30px;
             border-radius: 16px; box-shadow: var(--shadow-card); transition: var(--transition);
             border: 1px solid rgba(0,0,0,0.03); position: relative; overflow: hidden;
             display: flex; flex-direction: column; align-items: center;
         }
-
         .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
         .feature-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
             background: var(--primary-gold);
         }
-
         .feature-icon-circle {
-            width: 80px; height: 80px; background: #F0F9F4; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            width: 80px; height: 80px; background: #F0F9F4; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
             margin-bottom: 25px; transition: var(--transition);
         }
-
         .feature-card:hover .feature-icon-circle { background: var(--primary-green); }
         .feature-card:hover .feature-icon { color: var(--white); }
         .feature-icon { font-size: 2rem; color: var(--primary-green); transition: var(--transition); }
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 15px; font-weight: 700; }
 
-        /* --- GALLERY GRID --- */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px; margin-top: 40px;
-        }
-        .gallery-item {
-            height: 250px; border-radius: 12px; overflow: hidden; position: relative;
-            box-shadow: var(--shadow-card); cursor: pointer;
-        }
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;
-        }
-        .gallery-item:hover img { transform: scale(1.1); }
-
-        /* --- FAQ SECTION --- */
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
+        /* --- FAQ --- */
+        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
         .faq-item {
             background: var(--white); padding: 30px; border-radius: 12px;
             box-shadow: var(--shadow-card); border-left: 4px solid var(--primary-gold);
-            transition: var(--transition);
         }
-        .faq-item:hover { transform: translateX(5px); } /* Subtle nudge interaction */
         .faq-item h4 { color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; }
         .faq-item p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0; }
 
-        /* --- ABOUT SECTION --- */
-        .about-text {
-            font-size: 1.1rem; line-height: 1.8; color: var(--text-light);
-            max-width: 800px; margin: 0 auto;
-        }
+        /* --- ABOUT --- */
+        .about-text { font-size: 1.1rem; line-height: 1.8; color: var(--text-light); max-width: 800px; margin: 0 auto; }
 
         /* --- CALL TO ACTION --- */
-        .cta-section {
-            background: var(--primary-dark); color: white; position: relative; overflow: hidden;
-        }
+        .cta-section { background: var(--primary-dark); color: white; position: relative; overflow: hidden; }
         .cta-section::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMWExYTFhIiAvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMjIyMjIyIiAvPjwvc3ZnPg==');
             opacity: 0.1;
         }
 
-        /* --- MODAL --- */
+        /* --- MODAL (POLISHED FORM UX) --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); z-index: 2000;
@@ -439,22 +275,19 @@
             transition: opacity 0.3s ease; backdrop-filter: blur(5px);
         }
         .modal-overlay.open { display: flex; opacity: 1; }
-
         .modal-content {
             background: var(--white); padding: 40px; width: 90%; max-width: 500px;
             border-radius: 15px; position: relative; transform: scale(0.95);
             transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             border-top: 8px solid var(--primary-green);
-            max-height: 90vh; overflow-y: auto;
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
-
         .close-modal {
             position: absolute; top: 15px; right: 20px; font-size: 2rem;
             cursor: pointer; color: #999; line-height: 0.8;
         }
         .close-modal:hover { color: var(--primary-dark); }
-
+        
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-dark); }
         .form-control {
@@ -462,22 +295,15 @@
             font-family: 'Montserrat', sans-serif; font-size: 1rem;
             transition: var(--transition); background: #FAFAFA;
         }
-        /* Better Focus State */
-        .form-control:focus { 
-            outline: none; border-color: var(--primary-green); background: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 155, 58, 0.1); 
-        }
-
-        .modal-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
-
-        /* Micro-Flow styles for Modal */
+        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; box-shadow: 0 0 0 4px rgba(0, 155, 58, 0.1); }
+        
         .modal-steps {
             display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 0.75rem; color: #888;
             border-bottom: 1px solid #eee; padding-bottom: 15px;
         }
         .modal-step { display: flex; align-items: center; gap: 5px; }
         .modal-step.active { color: var(--primary-green); font-weight: 700; }
-        .modal-step i { font-size: 0.9rem; }
+        .modal-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
 
         /* --- FLOATING BUTTONS --- */
         .whatsapp-float {
@@ -489,7 +315,7 @@
             animation: pulse-green 2s infinite; 
         }
         .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
-
+        
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
@@ -506,39 +332,31 @@
         .scroll-top:hover { background-color: var(--primary-green); }
 
         /* --- FOOTER --- */
-        footer {
-            background: var(--primary-dark); color: rgba(255,255,255,0.7);
-            padding: 80px 0 30px; font-size: 0.9rem;
-        }
-
+        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 80px 0 30px; font-size: 0.9rem; }
         .footer-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 40px; text-align: left; margin-bottom: 50px;
             border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 50px;
         }
-
         .footer-col h4 {
             color: var(--primary-gold); margin-bottom: 25px; font-size: 1.1rem;
             letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
         }
-
         .footer-col ul li { margin-bottom: 15px; }
         .footer-col a { color: rgba(255,255,255,0.7); transition: var(--transition); display: inline-block; }
         .footer-col a:hover { color: var(--primary-gold); transform: translateX(5px); }
-
         .footer-logo {
             font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800;
             color: #fff; display: flex; align-items: center; gap: 5px;
             letter-spacing: -0.5px; margin-bottom: 20px;
         }
-
         .payment-icons { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         .payment-badge {
             background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px;
             color: #fff; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 5px;
         }
 
-        /* --- NOTIFICATION TOAST --- */
+        /* --- TOAST --- */
         .toast {
             position: fixed; top: 20px; right: 20px; background: var(--white);
             padding: 15px 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -557,11 +375,9 @@
                 text-align: center; padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05);
                 gap: 30px;
             }
-            .nav-links a { font-size: 1rem; }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: block; }
         }
-
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.8rem; }
             .modal-content { padding: 30px; width: 95%; }
@@ -573,7 +389,7 @@
 </head>
 <body>
 
-    <!-- NOTIFICATION TOAST (Hidden by default) -->
+    <!-- TOAST -->
     <div class="toast" id="toast">
         <i class="fa-solid fa-check-circle"></i>
         <div>
@@ -582,7 +398,7 @@
         </div>
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- NAV -->
     <header>
         <div class="container">
             <nav>
@@ -600,14 +416,12 @@
                         <i class="fa-solid fa-phone"></i> Book Now
                     </a>
                 </div>
-                <div class="mobile-toggle" onclick="toggleMenu()">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                <div class="mobile-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <section class="hero" id="home">
         <div class="container hero-content">
             <h1>Experience the <br><span class="jamaica-gradient-text">Real Jamaica</span></h1>
@@ -620,7 +434,7 @@
         </div>
     </section>
 
-    <!-- NEW: HOW IT WORKS (Visual Booking Flow - Staggered Reveal) -->
+    <!-- HOW IT WORKS (Visual Booking Flow) -->
     <section class="section-padding" style="background-color: var(--white); padding-bottom: 40px;">
         <div class="container">
             <div class="text-center reveal" style="margin-bottom: 50px;">
@@ -630,7 +444,7 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
-                <!-- Step 1 -->
+                <!-- Steps with staggered reveal classes -->
                 <div class="reveal delay-100">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-brands fa-whatsapp"></i>
@@ -638,8 +452,6 @@
                     <h3 style="font-size: 1.2rem; margin-bottom: 10px;">1. Send Inquiry</h3>
                     <p style="color: var(--text-light); font-size: 0.95rem;">Click "Book Now" to send your details via WhatsApp. We check availability.</p>
                 </div>
-
-                <!-- Step 2 -->
                 <div class="reveal delay-200">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-regular fa-credit-card"></i>
@@ -647,8 +459,6 @@
                     <h3 style="font-size: 1.2rem; margin-bottom: 10px;">2. Secure Deposit</h3>
                     <p style="color: var(--text-light); font-size: 0.95rem;">Pay a small deposit via our secure <strong>EzeePayments</strong> link to lock in your driver.</p>
                 </div>
-
-                <!-- Step 3 -->
                 <div class="reveal delay-300">
                     <div style="width: 70px; height: 70px; background: var(--primary-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-dark); font-size: 1.5rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
                         <i class="fa-solid fa-sign-hanging"></i>
@@ -656,8 +466,6 @@
                     <h3 style="font-size: 1.2rem; margin-bottom: 10px;">3. Meet Your Driver</h3>
                     <p style="color: var(--text-light); font-size: 0.95rem;"><strong>Look for the P&T Sign</strong> with <u>YOUR NAME</u> at the airport exit. We track your flight!</p>
                 </div>
-
-                <!-- Step 4 -->
                 <div class="reveal delay-400">
                     <div style="width: 70px; height: 70px; background: var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary-green); font-size: 1.5rem; border: 2px solid var(--primary-green);">
                         <i class="fa-solid fa-car-side"></i>
@@ -680,7 +488,7 @@
 
             <div class="destinations-grid">
                 
-                <!-- Card 1: Montego Bay -->
+                <!-- Montego Bay -->
                 <article class="destination-card reveal">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Montego Bay</span>
@@ -697,7 +505,7 @@
                     </div>
                 </article>
 
-                <!-- Card 2: Negril -->
+                <!-- Negril -->
                 <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Negril</span>
@@ -713,7 +521,7 @@
                     </div>
                 </article>
 
-                <!-- Card 3: Ocho Rios -->
+                <!-- Ocho Rios -->
                 <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Ocho Rios</span>
@@ -742,23 +550,17 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card reveal">
-                    <div class="feature-icon-circle">
-                        <i class="fa-solid fa-id-card feature-icon"></i>
-                    </div>
+                    <div class="feature-icon-circle"><i class="fa-solid fa-id-card feature-icon"></i></div>
                     <h3>JTB Certified</h3>
                     <p>Fully licensed by the Jamaica Tourist Board and insured. Your safety is our absolute priority.</p>
                 </div>
                 <div class="feature-card reveal delay-100">
-                    <div class="feature-icon-circle">
-                        <i class="fa-solid fa-plane-circle-check feature-icon"></i>
-                    </div>
+                    <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check feature-icon"></i></div>
                     <h3>We Wait For You</h3>
                     <p>Flight delayed? No worries. We track your arrival and wait for you at no extra cost.</p>
                 </div>
                 <div class="feature-card reveal delay-200">
-                    <div class="feature-icon-circle">
-                        <i class="fa-solid fa-lock feature-icon"></i>
-                    </div>
+                    <div class="feature-icon-circle"><i class="fa-solid fa-lock feature-icon"></i></div>
                     <h3>100% Private</h3>
                     <p>No sharing with strangers. The vehicle is exclusively yours for maximum comfort and privacy.</p>
                 </div>
@@ -781,7 +583,7 @@
                 <article class="destination-card reveal">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Adventure</span>
-                        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dunn's River Falls" class="card-img" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1597157849842-835697621415?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dunn's River Falls" class="card-img" loading="lazy">
                     </div>
                     <div class="card-content">
                         <h3>Dunn's River Falls</h3>
@@ -797,7 +599,7 @@
                 <article class="destination-card reveal delay-100">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Culture</span>
-                        <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kingston Culture" class="card-img" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1596541577742-c65345722424?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kingston Culture" class="card-img" loading="lazy">
                     </div>
                     <div class="card-content">
                         <h3>Bob Marley Museum</h3>
@@ -813,7 +615,7 @@
                 <article class="destination-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="location-badge">Nature</span>
-                        <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blue Hole" class="card-img" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1563720223521-df34a3479603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blue Hole" class="card-img" loading="lazy">
                     </div>
                     <div class="card-content">
                         <h3>Blue Hole / Secret Falls</h3>
@@ -825,22 +627,6 @@
                     </div>
                 </article>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW: CAPTURED MOMENTS (Gallery) -->
-    <section class="section-padding" style="background-color: var(--light-bg);" id="gallery">
-        <div class="container">
-            <div class="text-center reveal" style="margin-bottom: 40px;">
-                <h4 style="color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Captured Moments</h4>
-                <h2>See the Vibe</h2>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Beach" loading="lazy"></div>
-                <div class="gallery-item reveal delay-100"><img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Nature" loading="lazy"></div>
-                <div class="gallery-item reveal delay-200"><img src="https://images.unsplash.com/photo-1533653896172-27357c327299?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Food" loading="lazy"></div>
-                <div class="gallery-item reveal delay-300"><img src="https://images.unsplash.com/photo-1555890737-290232230044?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jamaica Waterfall" loading="lazy"></div>
             </div>
         </div>
     </section>
@@ -1132,7 +918,8 @@
             }
         });
 
-        // --- 4. Scroll Spy ---
+        // --- 4. Scroll Spy (Active Link) ---
+        // Robust selector to avoid null errors
         const sections = document.querySelectorAll('section[id]');
         
         window.addEventListener('scroll', () => {
@@ -1143,31 +930,32 @@
                 scrollTopBtn.style.display = 'none';
             }
 
-            const navLi = document.querySelectorAll('.nav-links a');
-            let current = '';
+            const navLinks = document.querySelectorAll('.nav-links a');
+            let currentId = '';
 
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 120) {
-                    current = section.getAttribute('id');
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    currentId = section.getAttribute('id');
                 }
             });
 
-            navLi.forEach(li => {
-                li.classList.remove('active');
-                if (li.getAttribute('href') === '#' + current) {
-                    li.classList.add('active');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (currentId && link.getAttribute('href') === '#' + currentId) {
+                    link.classList.add('active');
                 }
             });
         });
 
-        // --- 5. Toast & Contact ---
+        // --- 5. Toast Notification ---
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
 
+        // --- 6. Contact Handlers ---
         function getFormData() {
             return {
                 name: document.getElementById('name').value || 'Traveler',
@@ -1180,6 +968,8 @@
         function sendToWhatsApp() {
             const data = getFormData();
             const phoneNumber = "18764453764"; 
+            
+            // Using WhatsApp Markdown (*Bold*) for a cleaner "Ticket" look
             const text = `*New Booking Inquiry* 🇯🇲%0A%0A*Name:* ${data.name}%0A*Email:* ${data.email}%0A*Service:* ${data.service}%0A*Destination:* ${data.location}%0A%0A_Sent via P&T Website_`;
             
             showToast();
@@ -1193,6 +983,8 @@
             const data = getFormData();
             const email = "ttgrindley@gmail.com";
             const subject = `Booking Request: ${data.service} - ${data.name}`;
+            
+            // Cleaner Email Body Layout
             const body = `New Booking Request via Website%0D%0A%0D%0AName: ${data.name}%0D%0AEmail: ${data.email}%0D%0AService: ${data.service}%0D%0ADestination: ${data.location}%0D%0A%0D%0APlease respond with availability and pricing.`;
             
             showToast();
