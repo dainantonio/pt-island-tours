@@ -3,12 +3,11 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v30.5
+    P&T ISLAND TOURS - PRODUCTION BUILD v31.1
     Features: 
-    - WhatsApp Business Integrated (1-876-485-9759)
-    - Full Booking Form Restored (Date/Flight/Pax)
-    - Smart Message Template
-    - Fixed Desktop Layouts & Mobile Swipe
+    - Fixed Date Field Placeholder (Text -> Date Toggle)
+    - Dynamic Modal Titles
+    - Smart Form Feedback
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -84,7 +83,6 @@
             padding: 16px 32px; border-radius: 50px; font-weight: 700;
             text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
             cursor: pointer; border: none; transition: var(--transition); gap: 8px;
-            min-height: 48px;
         }
         .btn.loading { opacity: 0.8; pointer-events: none; }
         .btn.loading i { display: none; }
@@ -148,7 +146,7 @@
             -webkit-background-clip: text; color: transparent; font-weight: 800; filter: drop-shadow(2px 2px 0px #000000); 
         }
 
-        /* --- COMPARISON SECTION (FIXED LAYOUT) --- */
+        /* --- COMPARISON SECTION --- */
         .comparison-grid {
             display: grid; 
             gap: 30px; 
@@ -267,6 +265,21 @@
             cursor: pointer; color: #999; line-height: 0.8;
         }
         
+        /* Form Validation & Feedback */
+        .form-control {
+            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin-bottom: 15px;
+        }
+        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
+        .form-control.error { border-color: var(--error-red); animation: shake 0.3s; }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+
+        .form-feedback {
+            color: var(--error-red); font-size: 0.85rem; margin-bottom: 15px;
+            text-align: center; font-weight: 600; display: none;
+            background: rgba(220, 38, 38, 0.1); padding: 10px; border-radius: 8px;
+        }
+        
         /* FAQ Accordion */
         .faq-item { border-bottom: 1px solid #eee; overflow: hidden; background: white; padding: 0 15px; margin-bottom: 10px; border-radius: 8px; }
         .faq-header {
@@ -278,14 +291,6 @@
             padding-bottom: 0; color: var(--text-light); font-size: 0.95rem; text-align: left;
         }
         .faq-item.active .faq-body { padding-bottom: 15px; }
-
-        .form-control {
-            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
-            font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin-bottom: 15px;
-        }
-        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
-        .form-control.error { border-color: var(--error-red); animation: shake 0.3s; }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
         /* --- FOOTER --- */
         footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 60px 0 30px; font-size: 0.9rem; }
@@ -300,6 +305,11 @@
         
         .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; }
         
+        /* COLORED FOOTER ICONS */
+        .contact-icon { color: var(--primary-gold); margin-right: 10px; font-size: 1.1rem; }
+        .social-icon-fb { color: var(--fb-blue); font-size: 1.5rem; transition: 0.3s; }
+        .social-icon-in { color: var(--insta-pink); font-size: 1.5rem; transition: 0.3s; }
+        
         .payment-icons { display: flex; gap: 10px; margin-top: 15px; align-items: center; flex-wrap: wrap; }
         .payment-badge { 
             padding: 8px 14px; border-radius: 4px; font-size: 0.8rem; 
@@ -307,6 +317,7 @@
             transition: all 0.3s;
         }
         .badge-ezee { background-color: #fff !important; color: #222 !important; border: 1px solid rgba(255,255,255,0.3); }
+        .badge-ezee:hover { background-color: #f0f0f0 !important; transform: translateY(-2px); }
         .badge-cash { background-color: var(--primary-green); color: #fff; cursor: default; }
 
         /* --- MOBILE STICKY & FLOATING --- */
@@ -322,6 +333,7 @@
             z-index: 3000; display: flex; align-items: center; justify-content: center;
             transition: var(--transition); animation: pulse-green 2s infinite;
         }
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
@@ -376,16 +388,6 @@
             
             /* Remove desktop line on mobile */
             .process-grid::before { display: none; }
-        }
-        
-        /* Desktop Connector Line */
-        @media (min-width: 901px) {
-            .process-grid { position: relative; }
-            .process-grid::before {
-                content: ''; position: absolute; top: 35px; left: 10%; width: 80%; height: 2px;
-                background: var(--primary-green); z-index: 0; opacity: 0.3;
-            }
-            .process-item, .universal-card { position: relative; z-index: 1; }
         }
     </style>
 </head>
@@ -509,7 +511,7 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <h3>1. Inquire</h3>
-                    <p>Send details via WhatsApp.</p>
+                    <p>Click "Book Now" to send details via WhatsApp.</p>
                 </div>
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-regular fa-credit-card"></i></div>
@@ -524,7 +526,7 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
                     <h3>4. Ride</h3>
-                    <p>Pay balance via Cash or Card.</p>
+                    <p>Pay balance via <span style="color:var(--primary-green); font-weight:700;">Cash</span> or <span style="color:var(--fb-blue); font-weight:700;">Card</span> <i class="fa-brands fa-cc-visa" style="color:var(--visa-blue);"></i> <i class="fa-brands fa-cc-mastercard" style="color:var(--mc-red);"></i></p>
                 </div>
             </div>
         </div>
@@ -631,75 +633,38 @@
         </div>
     </section>
 
-    <!-- GALLERY (White BG) -->
-    <section class="section-padding" style="background-color: var(--white);" id="gallery">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-title-wrapper">
-                    <h2>Captured Moments</h2>
-                    <div class="section-underline"></div>
-                </div>
-            </div>
-            <div class="grid-container mobile-scroll-container">
-                <div class="universal-card gallery-item">
-                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Beach+Vibes" class="card-img" alt="Beach">
-                    <div class="gallery-overlay"><span>Beach</span></div>
-                </div>
-                <div class="universal-card gallery-item">
-                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Jungle+Vibes" class="card-img" alt="Nature">
-                    <div class="gallery-overlay"><span>Nature</span></div>
-                </div>
-                <div class="universal-card gallery-item">
-                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Island+Food" class="card-img" alt="Food">
-                    <div class="gallery-overlay"><span>Food</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ / Modal Trigger (Mint BG) -->
-    <section class="section-padding" style="background-color: var(--light-bg);" id="faq">
+    <!-- FAQ / Modal Trigger (White BG) -->
+    <section class="section-padding" style="background-color: var(--white);" id="faq">
         <div class="container text-center">
             <div class="section-title-wrapper">
                 <h2>Got Questions?</h2>
                 <div class="section-underline"></div>
             </div>
             <p style="margin-bottom: 30px;">We have answers. Check out our common questions regarding payments, safety, and more.</p>
-            <button onclick="openModal('faqModal')" class="btn btn-outline" style="border-color:var(--primary-green); color:var(--primary-green);">Read Common Questions</button>
-        </div>
-    </section>
-
-    <!-- ABOUT & DRIVER TABS (White BG) -->
-    <section class="section-padding" id="about" style="background-color: var(--white);">
-        <div class="container text-center">
-            <div class="section-title-wrapper">
-                <h2>Who We Are</h2>
-                <div class="section-underline"></div>
-            </div>
-            
-            <div class="tabs-container">
-                <button class="tab-btn active" onclick="switchTab(event, 'about', 'info')">Our Story</button>
-                <button class="tab-btn" onclick="switchTab(event, 'driver', 'info')">Meet Pedro</button>
-            </div>
-
-            <!-- Tab: About -->
-            <div id="tab-about-info" class="tab-content active" style="max-width: 800px; margin: 0 auto; display: block;">
-                 <p class="about-text" style="font-size:1.1rem; line-height:1.8; color:var(--text-light);">
-                    Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
-                    Whether you need a safe ride to your resort or want to discover hidden gems off the beaten path, we treat every guest like family.
-                </p>
-                <div style="margin-top: 30px;"><i class="fa-solid fa-heart" style="color: var(--primary-gold); font-size: 2rem;"></i></div>
-            </div>
-
-            <!-- Tab: Driver -->
-            <div id="tab-driver-info" class="tab-content" style="max-width: 600px; margin: 0 auto;">
-                <div class="driver-card">
-                    <div style="width: 150px; height: 150px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid var(--primary-green);">
-                        <img src="https://placehold.co/300x300/009B3A/FFFFFF?text=Pedro" alt="Pedro" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <h3 style="margin-bottom: 10px;">Pedro</h3>
-                    <p style="color: var(--primary-green); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 20px;">Head Guide & Founder</p>
-                    <p style="color: var(--text-light);">"I've been driving these roads for over 20 years. My goal isn't just to get you from A to B, but to show you the heart of Jamaica along the way. Whether you need the best jerk chicken or a quiet beach, I got you."</p>
+            <div class="faq-grid">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">How do I pay? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">We accept Cash (USD) upon arrival. Deposits via EzeePayments. Remaining balance can also be paid via card.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Where do we meet? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Look for the P&T Island Tours sign with YOUR NAME at the airport exit.</div>
+                </div>
+                 <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Do you provide car seats? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Yes! Car seats are available upon request for a small fee.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Can we stop for food? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Absolutely! Since it's a private tour, we can stop for jerk chicken, patties, or groceries on the way.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">What if my flight is delayed? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">We track your flight and will be waiting for you when you land, at no extra cost.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">What is the cancellation policy? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Cancellations made more than 24 hours in advance receive a full refund of the deposit.</div>
                 </div>
             </div>
         </div>
@@ -760,53 +725,21 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
             <div class="text-center" style="margin-bottom: 20px;">
-                <h3>Plan Your Trip</h3>
+                <h3 id="modal-title">Plan Your Trip</h3>
             </div>
             <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
+                <div id="form-feedback" class="form-feedback"></div>
                 <input type="text" id="name" class="form-control" placeholder="Name" required>
                 <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
+                <select id="location" class="form-control"><option>Montego Bay</option><option>Negril</option><option>Ocho Rios</option><option>Custom</option></select>
                 <div class="form-group" style="text-align:left; margin-top:15px;">
                     <label>Trip Details</label>
-                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Pickup Time" required>
-                    <input type="date" id="date" class="form-control" required>
+                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Pickup Time">
+                    <input type="text" id="date" class="form-control" placeholder="Select Travel Date" onfocus="(this.type='date')" onblur="(this.value ? this.type='date' : this.type='text')" required>
                     <input type="number" id="pax" class="form-control" placeholder="Passengers" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Chat to Book</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Chat to Book</button>
             </form>
-        </div>
-    </div>
-
-    <!-- MODAL: FAQ -->
-    <div class="modal-overlay" id="faqModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('faqModal')">&times;</span>
-            <h3 class="text-center" style="margin-bottom: 20px;">Common Questions</h3>
-            <div class="faq-grid">
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">How do I pay? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">We accept Cash (USD) upon arrival. Deposits via EzeePayments. Remaining balance can also be paid via card.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">Where do we meet? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Look for the P&T Island Tours sign with YOUR NAME at the airport exit.</div>
-                </div>
-                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">Do you provide car seats? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Yes! Car seats are available upon request for a small fee.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">Can we stop for food? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Absolutely! Since it's a private tour, we can stop for jerk chicken, patties, or groceries on the way.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">What if my flight is delayed? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">We track your flight and will be waiting for you when you land, at no extra cost.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">What is the cancellation policy? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Cancellations made more than 24 hours in advance receive a full refund of the deposit.</div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -845,13 +778,6 @@
                 document.getElementById('tab-transfers-main').classList.remove('active');
                 document.getElementById('tab-tours-main').classList.remove('active');
             }
-            if(groupID === 'info') {
-                document.getElementById('tab-about-info').style.display = 'none';
-                document.getElementById('tab-about-info').classList.remove('active');
-                document.getElementById('tab-driver-info').style.display = 'none';
-                document.getElementById('tab-driver-info').classList.remove('active');
-            }
-
             if(e) {
                  const siblings = e.target.parentElement.querySelectorAll('.tab-btn');
                  siblings.forEach(btn => btn.classList.remove('active'));
@@ -861,9 +787,7 @@
             const targetId = 'tab-' + tabName + '-' + groupID;
             const target = document.getElementById(targetId);
             if(target) {
-                if(groupID === 'main') target.style.display = 'flex'; // grid/flex for cards
-                else target.style.display = 'block'; // block for text
-                
+                target.style.display = 'flex'; // Force flex for grid
                 setTimeout(() => target.classList.add('active'), 10);
             }
         }
@@ -895,6 +819,22 @@
         
         function openModalWithContext(srv, loc) {
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
+            
+            // Set Location in dropdown
+            const locSelect = document.getElementById('location');
+            let found = false;
+            for(let i=0; i<locSelect.options.length; i++) {
+                if(locSelect.options[i].value === loc) {
+                    locSelect.selectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) locSelect.value = "Custom";
+
+            // Dynamic Title
+            document.getElementById('modal-title').innerText = `Book: ${loc}`;
+            
             openModal('bookingModal');
         }
 
@@ -915,11 +855,38 @@
         // WHATSAPP
         function sendToWhatsApp(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const flight = document.getElementById('flight').value;
-            const date = document.getElementById('date').value;
-            window.open(`https://wa.me/18764859759?text=Booking Request:%0A${name}%0ADate:${date}%0AFlight:${flight}`, '_blank');
-            closeModal('bookingModal');
+            const btn = document.getElementById('submitBtn');
+            const feedback = document.getElementById('form-feedback');
+            
+            // Validate Flight
+            const flight = document.getElementById('flight');
+            if(document.getElementById('service').value === 'Airport Transfer' && !flight.value) {
+                flight.classList.add('error');
+                feedback.innerText = "⚠️ Flight number required for transfers.";
+                feedback.style.display = 'block';
+                setTimeout(() => flight.classList.remove('error'), 500);
+                return;
+            }
+            
+            const originalText = btn.innerText;
+            btn.innerText = "Opening WhatsApp...";
+            
+            setTimeout(() => {
+                const name = document.getElementById('name').value;
+                const email = "N/A"; // Simplified for revert
+                const service = document.getElementById('service').value;
+                const loc = document.getElementById('location').value;
+                const date = document.getElementById('date').value;
+                const flightVal = flight.value || "N/A";
+                const pax = document.getElementById('pax').value;
+
+                const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Service:* ${encodeURIComponent(service)}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${encodeURIComponent(flightVal)}%0A*Pax:* ${pax}`;
+                
+                window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
+                
+                btn.innerText = originalText;
+                closeModal('bookingModal');
+            }, 800);
         }
 
         // Menu
@@ -959,6 +926,12 @@
             el.addEventListener('scroll', handleScroll);
         });
         handleScroll();
+        
+        // Date Min
+        document.addEventListener('DOMContentLoaded', function() {
+            const d = document.getElementById('date');
+            if(d) d.min = new Date().toISOString().split("T")[0];
+        });
     </script>
 </body>
 </html>
