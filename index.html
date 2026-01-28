@@ -126,9 +126,27 @@
             margin-left: auto; margin-right: auto; text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
         
+        /* PULSATING "Real Jamaica" Text */
         .jamaica-text { 
             background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
-            -webkit-background-clip: text; color: transparent; font-weight: 800; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); 
+            background-size: 200% auto;
+            -webkit-background-clip: text; 
+            background-clip: text;
+            color: transparent; 
+            font-weight: 800; 
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            animation: pulse-gradient 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
+            to { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 20px rgba(0, 155, 58, 0.5)); }
         }
 
         /* --- COMPARISON SECTION --- */
@@ -360,12 +378,29 @@
             background: var(--pure-white); padding: 15px; z-index: 2000;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
         }
+        
+        /* IMPROVED WhatsApp Float with better mobile positioning */
         .whatsapp-float {
-            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 20px;
+            position: fixed; width: 60px; height: 60px; 
+            bottom: 30px; right: 20px;
             background-color: #25d366; color: #FFF; border-radius: 50px;
-            text-align: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-align: center; font-size: 30px; 
             z-index: 3000; display: flex; align-items: center; justify-content: center;
             transition: var(--transition);
+            /* Enhanced pulsating effect */
+            animation: pulse-green 2s infinite, float 3s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-green { 
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } 
         }
 
         /* SWIPE HINT STYLES */
@@ -385,12 +420,22 @@
         }
 
         @media (max-width: 900px) {
-            .nav-links { position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px); background: var(--pure-white); flex-direction: column; width: 100%; padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
+            .nav-links { 
+                position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px); 
+                background: var(--pure-white); flex-direction: column; width: 100%; 
+                padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05); 
+                z-index: 1000;
+            }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: block; }
             .nav-btn { display: none; } 
             .section-padding { padding: 60px 0; }
             .hero-content h1 { font-size: 2.8rem; }
+            
+            /* REMOVE "Start Booking" button on mobile */
+            .hero .btn-secondary {
+                display: none;
+            }
             
             /* SWIPE CONTAINERS */
             .grid-container, .tab-content.active, .comparison-grid {
@@ -403,7 +448,13 @@
             }
             .mobile-sticky-cta { display: block; }
             body { padding-bottom: 80px; }
-            .whatsapp-float { bottom: 90px; }
+            
+            /* IMPROVED WhatsApp button positioning - moved to left side to avoid conflict */
+            .whatsapp-float { 
+                bottom: 100px; 
+                right: auto;
+                left: 20px;
+            }
             
             /* Mobile touch feedback for cards */
             .universal-card:active, .comparison-card:active, .gallery-item:active, .faq-item:active, .driver-card:active {
@@ -421,6 +472,123 @@
                           box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
                           border 0.3s ease;
             }
+        }
+        
+        /* Improved booking flow - Clearer form labels and instructions */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 5px;
+            display: block;
+        }
+        
+        /* Step indicator for booking flow */
+        .booking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .booking-steps:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--off-white-sand);
+            z-index: 1;
+        }
+        
+        .booking-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--off-white-sand);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+            border: 2px solid var(--off-white-sand);
+        }
+        
+        .booking-step.active .step-number {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+        
+        .step-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-light);
+            text-align: center;
+        }
+        
+        .booking-step.active .step-label {
+            color: var(--primary-green);
+        }
+        
+        /* Success message after booking */
+        .booking-success {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .booking-success i {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        /* Navigation fixes */
+        .nav-links a {
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
         }
     </style>
 </head>
@@ -442,8 +610,8 @@
                     <a href="#home">Home</a>
                     <a href="#comparison">Services</a>
                     <a href="#howitworks">Process</a>
-                    <a href="#destinations" onclick="switchTab(event, 'transfers', 'main')">Transfers</a>
-                    <a href="#destinations" onclick="switchTab(event, 'tours', 'main')">Tours</a>
+                    <a href="#destinations" onclick="goToDestinations('transfers')">Transfers</a>
+                    <a href="#destinations" onclick="goToDestinations('tours')">Tours</a>
                     <a href="#gallery">Gallery</a>
                     <a href="#about">Who We Are</a>
                     <a href="#contact">Contact</a>
@@ -458,7 +626,8 @@
         <div class="container hero-content">
             <h1>Experience the <br><span class="jamaica-text">Real Jamaica</span></h1>
             <p>Start your vacation the moment you land. Authentic, private, and safe transportation tailored to you.</p>
-            <button onclick="openModal()" class="btn btn-secondary">Start Booking</button>
+            <!-- "Start Booking" button removed on mobile, kept on desktop -->
+            <button onclick="openModal()" class="btn btn-secondary" id="desktopBookingBtn">Start Booking</button>
         </div>
     </section>
 
@@ -485,7 +654,7 @@
                         <li><i class="fa-solid fa-check"></i> No Waiting for Others</li>
                         <li><i class="fa-solid fa-check"></i> Grocery Stops Available</li>
                     </ul>
-                    <button onclick="selectService('transfers')" class="btn btn-primary">View Destinations</button>
+                    <button onclick="goToDestinations('transfers')" class="btn btn-primary">View Destinations</button>
                 </div>
 
                 <!-- Tour Card -->
@@ -499,7 +668,7 @@
                         <li><i class="fa-solid fa-check"></i> Flexible Timings</li>
                         <li><i class="fa-solid fa-check"></i> Hidden Gems & Food</li>
                     </ul>
-                    <button onclick="selectService('tours')" class="btn btn-secondary">View Experiences</button>
+                    <button onclick="goToDestinations('tours')" class="btn btn-secondary">View Experiences</button>
                 </div>
             </div>
         </div>
@@ -783,15 +952,15 @@
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h4 onclick="toggleFooter(this)">Explore</h4>
+                    <h4>Explore</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#destinations" onclick="switchTab(null, 'transfers', 'main')">Transfers</a></li>
-                        <li><a href="#destinations" onclick="switchTab(null, 'tours', 'main')">Tours</a></li>
+                        <li><a href="#destinations" onclick="goToDestinations('transfers')">Transfers</a></li>
+                        <li><a href="#destinations" onclick="goToDestinations('tours')">Tours</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4 onclick="toggleFooter(this)">Contact</h4>
+                    <h4>Contact</h4>
                     <ul>
                         <li><a href="mailto:ttgrindley@gmail.com"><i class="fa-solid fa-envelope contact-icon"></i> Email Us</a></li>
                         <li><a href="tel:18764859759"><i class="fa-solid fa-phone contact-icon"></i> +1 (876) 485-9759</a></li>
@@ -813,35 +982,164 @@
         <button onclick="openModal('bookingModal')" class="btn btn-primary" style="width:100%;">Book Your Ride Now</button>
     </div>
 
-    <!-- WHATSAPP FLOAT -->
-    <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <!-- WHATSAPP FLOAT WITH ENHANCED PULSATING EFFECT -->
+    <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Chat with us on WhatsApp"
+       onclick="trackWhatsAppClick()">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-    <!-- MODAL: BOOKING -->
+    <!-- MODAL: BOOKING WITH IMPROVED FLOW -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
             <div class="text-center" style="margin-bottom: 20px;">
-                <h3>Plan Your Trip</h3>
+                <h3>Plan Your Jamaican Adventure</h3>
+                <p style="color: var(--text-light); margin-top: 10px; font-size: 0.95rem;">Fill in your details and we'll get back to you via WhatsApp in 5 minutes</p>
             </div>
-            <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
-                <input type="text" id="name" class="form-control" placeholder="Name" required>
-                <select id="service" class="form-control" onchange="calculatePrice()"><option>Airport Transfer</option><option>Private Tour</option></select>
-                <select id="location" class="form-control" onchange="calculatePrice()"><option>Montego Bay</option><option>Negril</option><option>Ocho Rios</option><option>Custom</option></select>
-                <!-- Price Calculator Display -->
-                <div id="price-estimate" class="price-estimate"></div>
-
-                <div class="form-group" style="text-align:left; margin-top:15px;">
-                    <label>Trip Details</label>
-                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Pickup Time" required>
-                    <input type="text" id="date" class="form-control" placeholder="Select Travel Date" onfocus="(this.type='date')" onblur="(this.value ? this.type='date' : this.type='text')" required>
-                    <input type="number" id="pax" class="form-control" placeholder="Passengers" required>
+            
+            <!-- Booking Steps Indicator -->
+            <div class="booking-steps">
+                <div class="booking-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Details</div>
                 </div>
-                <div class="form-group" style="text-align:left; margin-bottom:15px; font-size:0.9rem;">
-                     <input type="checkbox" id="roundtrip" value="Yes"> Round Trip? <br>
-                     <input type="checkbox" id="carseat" value="Yes"> Need Car Seat?
+                <div class="booking-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Confirm</div>
                 </div>
-                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Chat to Book</button>
+            </div>
+            
+            <!-- Main Booking Form -->
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div id="bookingFormStep1">
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Service Type</label>
+                        <select id="service" class="form-control" onchange="calculatePrice(); updateFormBasedOnService();">
+                            <option value="">Select service type</option>
+                            <option value="Airport Transfer">Airport Transfer</option>
+                            <option value="Private Tour">Private Tour</option>
+                            <option value="Custom Request">Custom Request</option>
+                        </select>
+                        <small class="form-hint">Airport transfer includes flight tracking</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Location / Destination</label>
+                        <select id="location" class="form-control" onchange="calculatePrice()">
+                            <option value="">Select destination</option>
+                            <option value="Montego Bay">Montego Bay</option>
+                            <option value="Negril">Negril</option>
+                            <option value="Ocho Rios">Ocho Rios</option>
+                            <option value="Kingston">Kingston</option>
+                            <option value="Other">Other (specify in notes)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Dynamic fields based on service type -->
+                    <div id="airportFields" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Flight Details</label>
+                            <input type="text" id="flight" class="form-control" placeholder="Flight number (e.g., AA123)">
+                            <small class="form-hint">We'll track your flight for delays</small>
+                        </div>
+                    </div>
+                    
+                    <div id="tourFields" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Tour Interests</label>
+                            <select id="tourInterest" class="form-control">
+                                <option value="">What type of tour?</option>
+                                <option value="Waterfalls & Nature">Waterfalls & Nature</option>
+                                <option value="Cultural & Historical">Cultural & Historical</option>
+                                <option value="Food & Local Experience">Food & Local Experience</option>
+                                <option value="Beach & Relaxation">Beach & Relaxation</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Travel Date</label>
+                        <input type="text" id="date" class="form-control" placeholder="Select date" onfocus="(this.type='date')" onblur="(this.value ? this.type='date' : this.type='text')" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Number of Passengers</label>
+                        <input type="number" id="pax" class="form-control" placeholder="How many people?" min="1" max="15" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Additional Notes (Optional)</label>
+                        <textarea id="notes" class="form-control" placeholder="Special requests, pickup location details, etc." rows="2"></textarea>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">Additional Options</label>
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="roundtrip" value="Yes"> Round Trip?
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="carseat" value="Yes"> Need Car Seat?
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="grocerystop" value="Yes"> Grocery Stop?
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Calculator Display -->
+                    <div id="price-estimate" class="price-estimate"></div>
+                    
+                    <button type="button" onclick="showBookingConfirmation()" class="btn btn-primary" id="nextStepBtn" style="width:100%; margin-top: 20px;" disabled>
+                        Continue to Review
+                    </button>
+                </div>
+                
+                <!-- Confirmation Step -->
+                <div id="bookingFormStep2" style="display: none;">
+                    <div class="text-center" style="margin-bottom: 20px;">
+                        <h4>Review Your Booking</h4>
+                        <p style="color: var(--text-light);">Check your details before sending</p>
+                    </div>
+                    
+                    <div id="confirmationDetails" style="background: var(--off-white-sand); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <!-- Details will be filled by JavaScript -->
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your WhatsApp Number</label>
+                        <input type="tel" id="whatsappNumber" class="form-control" placeholder="+1 (876) 123-4567" required>
+                        <small class="form-hint">We'll contact you on WhatsApp to confirm</small>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="button" onclick="goBackToStep1()" class="btn btn-outline" style="flex: 1;">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn" style="flex: 2;">
+                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                        </button>
+                    </div>
+                </div>
             </form>
+            
+            <!-- Success Message -->
+            <div id="bookingSuccess" class="booking-success" style="display: none;">
+                <i class="fas fa-check-circle"></i>
+                <h4>Booking Request Sent!</h4>
+                <p>We'll contact you on WhatsApp within 5 minutes to confirm your booking.</p>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 10px;">If you don't hear from us, please call <strong>+1 (876) 485-9759</strong></p>
+                <button onclick="closeModal('bookingModal')" class="btn btn-primary" style="margin-top: 20px;">Close</button>
+            </div>
         </div>
     </div>
 
@@ -904,6 +1202,281 @@
     </div>
 
     <script>
+        // ====== NAVIGATION FIXES ======
+        // Fix navigation link clicks
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                // Don't prevent default if it has onclick
+                if (!this.onclick || this.onclick.toString().includes('openModal')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#home') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                    
+                    // Close mobile menu if open
+                    const navLinks = document.getElementById('navLinks');
+                    const menuIcon = document.getElementById('menuIcon');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        // ====== ENHANCED BOOKING FLOW ======
+        let currentBookingStep = 1;
+        
+        function updateFormBasedOnService() {
+            const service = document.getElementById('service').value;
+            const airportFields = document.getElementById('airportFields');
+            const tourFields = document.getElementById('tourFields');
+            const flightInput = document.getElementById('flight');
+            
+            // Reset
+            airportFields.style.display = 'none';
+            tourFields.style.display = 'none';
+            
+            if (service === 'Airport Transfer') {
+                airportFields.style.display = 'block';
+                flightInput.required = true;
+            } else if (service === 'Private Tour') {
+                tourFields.style.display = 'block';
+                flightInput.required = false;
+            } else {
+                flightInput.required = false;
+            }
+            
+            // Enable/disable next button
+            validateStep1();
+        }
+        
+        function validateStep1() {
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const location = document.getElementById('location').value;
+            const date = document.getElementById('date').value;
+            const pax = document.getElementById('pax').value;
+            const nextBtn = document.getElementById('nextStepBtn');
+            
+            // Basic validation
+            if (name && service && location && date && pax) {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.6';
+            }
+        }
+        
+        function showBookingConfirmation() {
+            // Collect all form data
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const location = document.getElementById('location').value;
+            const date = document.getElementById('date').value;
+            const pax = document.getElementById('pax').value;
+            const flight = document.getElementById('flight').value;
+            const notes = document.getElementById('notes').value;
+            const roundtrip = document.getElementById('roundtrip').checked;
+            const carseat = document.getElementById('carseat').checked;
+            const grocerystop = document.getElementById('grocerystop').checked;
+            const tourInterest = document.getElementById('tourInterest') ? document.getElementById('tourInterest').value : '';
+            
+            // Format date nicely
+            const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Build confirmation HTML
+            let confirmationHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Service:</strong> ${service}</p>
+                <p><strong>Destination:</strong> ${location}</p>
+                <p><strong>Date:</strong> ${formattedDate}</p>
+                <p><strong>Passengers:</strong> ${pax}</p>
+            `;
+            
+            if (flight) {
+                confirmationHTML += `<p><strong>Flight:</strong> ${flight}</p>`;
+            }
+            
+            if (tourInterest) {
+                confirmationHTML += `<p><strong>Tour Interest:</strong> ${tourInterest}</p>`;
+            }
+            
+            if (notes) {
+                confirmationHTML += `<p><strong>Notes:</strong> ${notes}</p>`;
+            }
+            
+            // Add options
+            let options = [];
+            if (roundtrip) options.push('Round Trip');
+            if (carseat) options.push('Car Seat');
+            if (grocerystop) options.push('Grocery Stop');
+            
+            if (options.length > 0) {
+                confirmationHTML += `<p><strong>Options:</strong> ${options.join(', ')}</p>`;
+            }
+            
+            // Update confirmation display
+            document.getElementById('confirmationDetails').innerHTML = confirmationHTML;
+            
+            // Show step 2, hide step 1
+            document.getElementById('bookingFormStep1').style.display = 'none';
+            document.getElementById('bookingFormStep2').style.display = 'block';
+            
+            // Update step indicator
+            document.querySelectorAll('.booking-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelectorAll('.booking-step')[1].classList.add('active');
+            
+            currentBookingStep = 2;
+        }
+        
+        function goBackToStep1() {
+            document.getElementById('bookingFormStep1').style.display = 'block';
+            document.getElementById('bookingFormStep2').style.display = 'none';
+            
+            // Update step indicator
+            document.querySelectorAll('.booking-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelectorAll('.booking-step')[0].classList.add('active');
+            
+            currentBookingStep = 1;
+        }
+        
+        function submitBooking(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            
+            // Show loading state
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Collect all data
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const location = document.getElementById('location').value;
+            const date = document.getElementById('date').value;
+            const pax = document.getElementById('pax').value;
+            const flight = document.getElementById('flight').value;
+            const notes = document.getElementById('notes').value;
+            const whatsappNumber = document.getElementById('whatsappNumber').value;
+            const roundtrip = document.getElementById('roundtrip').checked ? "Yes" : "No";
+            const carseat = document.getElementById('carseat').checked ? "Yes" : "No";
+            const grocerystop = document.getElementById('grocerystop').checked ? "Yes" : "No";
+            const tourInterest = document.getElementById('tourInterest') ? document.getElementById('tourInterest').value : '';
+            
+            // Format message for WhatsApp
+            let message = `*New Booking Request* 🇯🇲%0A%0A`;
+            message += `*Name:* ${encodeURIComponent(name)}%0A`;
+            message += `*Service:* ${encodeURIComponent(service)}%0A`;
+            message += `*Destination:* ${encodeURIComponent(location)}%0A`;
+            message += `*Date:* ${encodeURIComponent(date)}%0A`;
+            message += `*Passengers:* ${encodeURIComponent(pax)}%0A`;
+            
+            if (flight) {
+                message += `*Flight:* ${encodeURIComponent(flight)}%0A`;
+            }
+            
+            if (tourInterest) {
+                message += `*Tour Interest:* ${encodeURIComponent(tourInterest)}%0A`;
+            }
+            
+            message += `*Round Trip:* ${roundtrip}%0A`;
+            message += `*Car Seat:* ${carseat}%0A`;
+            message += `*Grocery Stop:* ${grocerystop}%0A`;
+            
+            if (notes) {
+                message += `*Notes:* ${encodeURIComponent(notes)}%0A`;
+            }
+            
+            message += `%0A*Contact:* ${encodeURIComponent(whatsappNumber)}`;
+            
+            // Simulate sending delay
+            setTimeout(() => {
+                // Open WhatsApp
+                window.open(`https://wa.me/18764859759?text=${message}`, '_blank');
+                
+                // Show success message
+                document.getElementById('bookingFormStep2').style.display = 'none';
+                document.getElementById('bookingSuccess').style.display = 'block';
+                
+                // Reset button
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                
+                // Reset form after 5 seconds if modal is closed
+                setTimeout(() => {
+                    if (!document.getElementById('bookingModal').classList.contains('open')) {
+                        resetBookingForm();
+                    }
+                }, 5000);
+                
+            }, 1500);
+        }
+        
+        function resetBookingForm() {
+            document.getElementById('bookingForm').reset();
+            document.getElementById('bookingFormStep1').style.display = 'block';
+            document.getElementById('bookingFormStep2').style.display = 'none';
+            document.getElementById('bookingSuccess').style.display = 'none';
+            document.getElementById('price-estimate').style.display = 'none';
+            
+            // Reset step indicator
+            document.querySelectorAll('.booking-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelectorAll('.booking-step')[0].classList.add('active');
+            
+            currentBookingStep = 1;
+        }
+        
+        // ====== EXISTING FUNCTIONS (Updated) ======
+        function goToDestinations(type) {
+            const destSection = document.getElementById('destinations');
+            destSection.scrollIntoView({behavior: 'smooth'});
+            
+            // Switch tab after a short delay
+            setTimeout(() => {
+                switchTab(null, type, 'main');
+                
+                // Update tab buttons
+                const btns = document.querySelectorAll('.tab-btn');
+                if(type === 'transfers') { 
+                    btns[0].classList.add('active'); 
+                    btns[1].classList.remove('active'); 
+                } else { 
+                    btns[0].classList.remove('active'); 
+                    btns[1].classList.add('active'); 
+                }
+            }, 300);
+            
+            // Close mobile menu if open
+            const navLinks = document.getElementById('navLinks');
+            const menuIcon = document.getElementById('menuIcon');
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+        
         // SCOPED TABS LOGIC
         function switchTab(e, tabName, groupID) {
             if(groupID === 'main') {
@@ -933,17 +1506,6 @@
             }
         }
         
-        // SELECT SERVICE HELPER
-        function selectService(type) {
-            const destSection = document.getElementById('destinations');
-            destSection.scrollIntoView({behavior: 'smooth'});
-            switchTab(null, type, 'main');
-            
-            const btns = document.querySelectorAll('.tab-btn');
-            if(type === 'transfers') { btns[0].classList.add('active'); btns[1].classList.remove('active'); } 
-            else { btns[0].classList.remove('active'); btns[1].classList.add('active'); }
-        }
-
         // FOOTER TOGGLE (Mobile)
         function toggleFooter(header) {
             if(window.innerWidth > 900) return;
@@ -956,9 +1518,14 @@
             document.getElementById(id).classList.add('open'); 
             document.body.style.overflow = 'hidden';
         }
+        
         function closeModal(id) { 
             if(typeof id === 'string') {
                 document.getElementById(id).classList.remove('open');
+                // Reset booking form if closing booking modal
+                if (id === 'bookingModal') {
+                    setTimeout(resetBookingForm, 300);
+                }
             } else if(id && id.target) {
                 id.target.classList.remove('open');
             }
@@ -966,9 +1533,20 @@
         }
         
         function openModalWithContext(srv, loc) {
+            // Reset form first
+            resetBookingForm();
+            
+            // Pre-fill form
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
             document.getElementById('location').value = loc;
+            
+            // Update form based on service
+            updateFormBasedOnService();
+            
+            // Open modal
             openModal('bookingModal');
+            
+            // Calculate price
             calculatePrice();
         }
 
@@ -988,8 +1566,9 @@
 
         // Pricing Logic
         const prices = {
-            'Airport Transfer': { 'Montego Bay': 40, 'Negril': 80, 'Ocho Rios': 100 },
-            'Private Tour': { 'Montego Bay': 100, 'Negril': 140, 'Ocho Rios': 120 }
+            'Airport Transfer': { 'Montego Bay': 40, 'Negril': 80, 'Ocho Rios': 100, 'Kingston': 120, 'Other': 'Custom' },
+            'Private Tour': { 'Montego Bay': 100, 'Negril': 140, 'Ocho Rios': 120, 'Kingston': 150, 'Other': 'Custom' },
+            'Custom Request': { 'Montego Bay': 'Custom', 'Negril': 'Custom', 'Ocho Rios': 'Custom', 'Kingston': 'Custom', 'Other': 'Custom' }
         };
 
         function calculatePrice() {
@@ -997,51 +1576,15 @@
             const location = document.getElementById('location').value;
             const display = document.getElementById('price-estimate');
             
-            if (prices[service] && prices[service][location]) {
+            if (service && location && prices[service] && prices[service][location]) {
+                const price = prices[service][location];
                 display.style.display = 'block';
-                display.innerText = `Estimated Base Rate: $${prices[service][location]} USD`;
+                display.innerText = price === 'Custom' 
+                    ? 'Custom pricing - we\'ll provide a quote' 
+                    : `Estimated Rate: $${price} USD`;
             } else {
                 display.style.display = 'none';
             }
-        }
-
-        // WHATSAPP
-        function sendToWhatsApp(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
-            
-            // Validate Flight
-            const flight = document.getElementById('flight');
-            if(document.getElementById('service').value === 'Airport Transfer' && !flight.value) {
-                flight.classList.add('error');
-                setTimeout(() => flight.classList.remove('error'), 500);
-                return;
-            }
-
-            btn.classList.add('loading');
-            btn.innerText = "Opening WhatsApp...";
-            
-            setTimeout(() => {
-                const name = document.getElementById('name').value;
-                const email = "N/A"; 
-                const service = document.getElementById('service').value;
-                const loc = document.getElementById('location').value;
-                const date = document.getElementById('date').value;
-                const flightVal = flight.value || "N/A";
-                const pax = document.getElementById('pax').value;
-                const roundtrip = document.getElementById('roundtrip').checked ? "Yes" : "No";
-                const carseat = document.getElementById('carseat').checked ? "Yes" : "No";
-
-                const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Service:* ${encodeURIComponent(service)}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${encodeURIComponent(flightVal)}%0A*Pax:* ${pax}%0A*Round Trip:* ${roundtrip}%0A*Car Seat:* ${carseat}`;
-                
-                window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
-                
-                btn.classList.remove('loading');
-                btn.innerText = originalText;
-                closeModal('bookingModal');
-            }, 800);
         }
 
         // Menu
@@ -1092,6 +1635,12 @@
             });
         });
         
+        // WhatsApp tracking
+        function trackWhatsAppClick() {
+            // You can add analytics here
+            console.log('WhatsApp button clicked');
+        }
+        
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             // Observe reveal elements
@@ -1100,6 +1649,16 @@
             // Initialize scroll handlers
             document.querySelectorAll('.mobile-scroll-container').forEach(el => {
                 el.addEventListener('scroll', handleScroll);
+            });
+            
+            // Real-time validation for step 1
+            const step1Inputs = ['name', 'service', 'location', 'date', 'pax'];
+            step1Inputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('input', validateStep1);
+                    input.addEventListener('change', validateStep1);
+                }
             });
             
             handleScroll();
