@@ -3,11 +3,12 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v30.4 (LAYOUT FIX)
+    P&T ISLAND TOURS - PRODUCTION BUILD v30.5
     Features: 
-    - Fixed "What Do You Need" Desktop Grid (Side-by-Side)
-    - Centered Layouts
-    - Mobile Swipe + Desktop Grid Logic
+    - WhatsApp Business Integrated (1-876-485-9759)
+    - Full Booking Form Restored (Date/Flight/Pax)
+    - Smart Message Template
+    - Fixed Desktop Layouts & Mobile Swipe
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -83,9 +84,17 @@
             padding: 16px 32px; border-radius: 50px; font-weight: 700;
             text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
             cursor: pointer; border: none; transition: var(--transition); gap: 8px;
+            min-height: 48px;
         }
         .btn.loading { opacity: 0.8; pointer-events: none; }
         .btn.loading i { display: none; }
+        /* Simple spinner */
+        .btn.loading::after {
+            content: ""; width: 16px; height: 16px; border: 2px solid #fff; 
+            border-top-color: transparent; border-radius: 50%; 
+            animation: spin 0.8s linear infinite; display: inline-block; margin-left: 10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .btn-primary { background-color: var(--primary-green); color: var(--white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
         .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); }
@@ -152,7 +161,7 @@
         @media (min-width: 901px) {
             .comparison-grid {
                 display: grid !important; 
-                grid-template-columns: 1fr 1fr !important; /* Force side-by-side */
+                grid-template-columns: 1fr 1fr !important; 
                 max-width: 800px; 
                 margin-left: auto; margin-right: auto; 
             }
@@ -241,17 +250,6 @@
         .tab-content.active { display: grid; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- DRIVER PROFILE --- */
-        .driver-card {
-            background: var(--white); border-radius: 20px; box-shadow: var(--shadow-card);
-            padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
-        }
-        .driver-avatar {
-            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--primary-green); margin: 0 auto 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
         /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -277,7 +275,7 @@
         }
         .faq-body {
             max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
-            padding-bottom: 0; color: var(--text-light); font-size: 0.9rem; text-align: left;
+            padding-bottom: 0; color: var(--text-light); font-size: 0.95rem; text-align: left;
         }
         .faq-item.active .faq-body { padding-bottom: 15px; }
 
@@ -286,7 +284,9 @@
             font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin-bottom: 15px;
         }
         .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
-        
+        .form-control.error { border-color: var(--error-red); animation: shake 0.3s; }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+
         /* --- FOOTER --- */
         footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 60px 0 30px; font-size: 0.9rem; }
         .footer-grid {
@@ -300,11 +300,6 @@
         
         .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; }
         
-        /* COLORED FOOTER ICONS */
-        .contact-icon { color: var(--primary-gold); margin-right: 10px; font-size: 1.1rem; }
-        .social-icon-fb { color: var(--fb-blue); font-size: 1.5rem; transition: 0.3s; }
-        .social-icon-in { color: var(--insta-pink); font-size: 1.5rem; transition: 0.3s; }
-        
         .payment-icons { display: flex; gap: 10px; margin-top: 15px; align-items: center; flex-wrap: wrap; }
         .payment-badge { 
             padding: 8px 14px; border-radius: 4px; font-size: 0.8rem; 
@@ -312,7 +307,6 @@
             transition: all 0.3s;
         }
         .badge-ezee { background-color: #fff !important; color: #222 !important; border: 1px solid rgba(255,255,255,0.3); }
-        .badge-ezee:hover { background-color: #f0f0f0 !important; transform: translateY(-2px); }
         .badge-cash { background-color: var(--primary-green); color: #fff; cursor: default; }
 
         /* --- MOBILE STICKY & FLOATING --- */
@@ -328,7 +322,6 @@
             z-index: 3000; display: flex; align-items: center; justify-content: center;
             transition: var(--transition); animation: pulse-green 2s infinite;
         }
-        .whatsapp-float:hover { transform: scale(1.1); background-color: #128C7E; animation: none; }
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
@@ -516,7 +509,7 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <h3>1. Inquire</h3>
-                    <p>Click "Book Now" to send details via WhatsApp.</p>
+                    <p>Send details via WhatsApp.</p>
                 </div>
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-regular fa-credit-card"></i></div>
@@ -531,7 +524,7 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
                     <h3>4. Ride</h3>
-                    <p>Pay balance via <span style="color:var(--primary-green); font-weight:700;">Cash</span> or <span style="color:var(--fb-blue); font-weight:700;">Card</span> <i class="fa-brands fa-cc-visa" style="color:var(--visa-blue);"></i> <i class="fa-brands fa-cc-mastercard" style="color:var(--mc-red);"></i></p>
+                    <p>Pay balance via Cash or Card.</p>
                 </div>
             </div>
         </div>
@@ -631,20 +624,6 @@
                         <div class="card-footer">
                             <span class="price-start">From $150</span>
                             <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="universal-card">
-                    <div class="card-img-wrapper">
-                        <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole" class="card-img" alt="Blue Hole">
-                    </div>
-                    <div class="card-body">
-                        <h3>Blue Hole</h3>
-                        <p>Jump and swim in bright blue mineral waters.</p>
-                        <div class="card-footer">
-                            <span class="price-start">From $130</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
                         </div>
                     </div>
                 </article>
@@ -786,6 +765,12 @@
             <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
                 <input type="text" id="name" class="form-control" placeholder="Name" required>
                 <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
+                <div class="form-group" style="text-align:left; margin-top:15px;">
+                    <label>Trip Details</label>
+                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Pickup Time" required>
+                    <input type="date" id="date" class="form-control" required>
+                    <input type="number" id="pax" class="form-control" placeholder="Passengers" required>
+                </div>
                 <button type="submit" class="btn btn-primary" style="width:100%;">Chat to Book</button>
             </form>
         </div>
@@ -876,7 +861,9 @@
             const targetId = 'tab-' + tabName + '-' + groupID;
             const target = document.getElementById(targetId);
             if(target) {
-                target.style.display = 'flex'; // Force flex for grid
+                if(groupID === 'main') target.style.display = 'flex'; // grid/flex for cards
+                else target.style.display = 'block'; // block for text
+                
                 setTimeout(() => target.classList.add('active'), 10);
             }
         }
@@ -928,7 +915,10 @@
         // WHATSAPP
         function sendToWhatsApp(e) {
             e.preventDefault();
-            window.open('https://wa.me/18764859759', '_blank');
+            const name = document.getElementById('name').value;
+            const flight = document.getElementById('flight').value;
+            const date = document.getElementById('date').value;
+            window.open(`https://wa.me/18764859759?text=Booking Request:%0A${name}%0ADate:${date}%0AFlight:${flight}`, '_blank');
             closeModal('bookingModal');
         }
 
