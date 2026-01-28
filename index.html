@@ -3,12 +3,12 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v31.1
+    P&T ISLAND TOURS - PRODUCTION BUILD v31.1 - HIGH CONTRAST UPDATE
     Features: 
-    - Full Booking Form Restored (All Fields)
-    - Price Calculator Restored
-    - Premium Typography & Cinematic Animations
-    - Visual Hierarchy (Featured Cards, Price Pop)
+    - High-contrast alternating backgrounds (Off-White/Mint)
+    - Pure white reserved for cards only
+    - Enhanced visual hierarchy
+    - Better section differentiation
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -25,16 +25,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES --- */
+        /* --- VARIABLES (UPDATED) --- */
         :root {
             /* Palette */
             --primary-gold: #E6C200;       
             --primary-dark: #0A1F13;       
             --primary-green: #009B3A;      
             
-            /* Backgrounds */
-            --light-bg: #F4F9F6; /* Very subtle mint tint */
-            --white: #FFFFFF;
+            /* NEW: High-Contrast Backgrounds */
+            --off-white-sand: #F9F9F9;     /* Standard sections */
+            --soft-mint: #E0F2F1;          /* Feature sections */
+            --pure-white: #FFFFFF;         /* Cards only */
             
             /* Text & Fonts */
             --font-heading: 'Marcellus', serif;
@@ -64,7 +65,7 @@
             font-family: var(--font-body);
             color: var(--text-dark);
             line-height: 1.7;
-            background-color: var(--white); 
+            background-color: var(--off-white-sand); /* Changed from white */
             overflow-x: hidden;
             padding-bottom: 80px;
         }
@@ -94,14 +95,14 @@
             text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;
             cursor: pointer; border: none; transition: var(--transition); gap: 10px;
         }
-        .btn-primary { background-color: var(--primary-green); color: var(--white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
+        .btn-primary { background-color: var(--primary-green); color: var(--pure-white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
         .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
         
         .btn-secondary { background-color: var(--primary-gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
         .btn-secondary:hover { background-color: #e6c200; transform: translateY(-3px); }
 
         .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
-        .btn-outline:hover { background-color: var(--primary-dark); color: var(--white); }
+        .btn-outline:hover { background-color: var(--primary-dark); color: var(--pure-white); }
 
         /* --- ANIMATIONS (CINEMATIC) --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
@@ -138,11 +139,11 @@
                         url('https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?q=80&w=1920&auto=format&fit=crop');
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
-            color: var(--white); margin-top: 80px; position: relative;
+            color: var(--pure-white); margin-top: 80px; position: relative;
             border-bottom: 6px solid var(--primary-gold);
         }
         .hero-content h1 { 
-            font-family: var(--font-heading); color: var(--white); font-size: 4rem; margin-bottom: 20px; 
+            font-family: var(--font-heading); color: var(--pure-white); font-size: 4rem; margin-bottom: 20px; 
             text-shadow: 0 4px 15px rgba(0,0,0,0.6); animation: fadeInUp 1s ease-out;
         }
         .hero-content p { 
@@ -173,21 +174,21 @@
             }
         }
         .comparison-card {
-            background: var(--white); border-radius: 16px; padding: 40px 30px;
+            background: var(--pure-white); border-radius: 16px; padding: 40px 30px; /* Changed to pure white */
             box-shadow: var(--shadow-card); text-align: center; border: 1px solid rgba(0,0,0,0.05);
             transition: var(--transition); display: flex; flex-direction: column;
         }
         .comparison-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-pop); border-color: var(--primary-green); }
         .comp-icon { 
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; 
-            background: var(--light-bg); width: 80px; height: 80px; border-radius: 50%;
+            background: var(--off-white-sand); width: 80px; height: 80px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin-left: auto; margin-right: auto;
         }
         .comp-features { list-style: none; margin: 20px 0; text-align: left; flex-grow: 1; padding: 0; }
         .comp-features li { margin-bottom: 10px; font-size: 0.95rem; color: var(--text-light); border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
         .comp-features li i { color: var(--primary-gold); margin-right: 10px; }
         .comp-label { 
-            display: inline-block; background: var(--light-bg); color: var(--primary-dark);
+            display: inline-block; background: var(--off-white-sand); color: var(--primary-dark);
             padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 15px;
         }
 
@@ -197,8 +198,8 @@
             background: var(--primary-green); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; 
             margin: 0 auto 20px;
-            box-shadow: 0 8px 20px rgba(0, 155, 58, 0.3); border: 3px solid var(--white);
-            color: var(--white); font-size: 1.8rem; transition: transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 155, 58, 0.3); border: 3px solid var(--pure-white);
+            color: var(--pure-white); font-size: 1.8rem; transition: transform 0.3s ease;
         }
         .universal-card:hover .feature-icon-circle, .universal-card:hover .process-icon {
              transform: scale(1.1) rotate(5deg); background: var(--primary-gold);
@@ -208,7 +209,7 @@
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
         
         .universal-card {
-            background: var(--white); border-radius: 16px; overflow: hidden;
+            background: var(--pure-white); border-radius: 16px; overflow: hidden; /* Pure white for cards */
             box-shadow: var(--shadow-card); transition: var(--transition);
             position: relative; display: flex; flex-direction: column;
             border: 1px solid rgba(0,0,0,0.03); min-width: 300px;
@@ -257,14 +258,14 @@
         /* --- TABS --- */
         .tabs-container {
             display: flex; justify-content: center; gap: 15px; margin: 0 auto 50px;
-            background: var(--light-bg); padding: 8px; border-radius: 50px; width: fit-content;
+            background: var(--off-white-sand); padding: 8px; border-radius: 50px; width: fit-content;
         }
         .tab-btn {
             padding: 14px 32px; border-radius: 40px; font-weight: 700; cursor: pointer;
             border: none; background: transparent; color: var(--text-light); font-family: var(--font-body);
             transition: all 0.3s ease; font-size: 0.95rem; letter-spacing: 0.5px;
         }
-        .tab-btn.active { background: var(--white); color: var(--primary-green); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .tab-btn.active { background: var(--pure-white); color: var(--primary-green); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         .tab-content { display: none; }
         .tab-content.active { display: grid; animation: fadeInUp 0.5s ease forwards; }
 
@@ -287,7 +288,7 @@
         }
         .modal-overlay.open { display: flex; animation: fadeIn 0.3s; }
         .modal-content {
-            background: var(--white); padding: 40px; width: 90%; max-width: 500px;
+            background: var(--pure-white); padding: 40px; width: 90%; max-width: 500px;
             border-radius: 20px; position: relative; border-top: 6px solid var(--primary-gold);
             max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -315,7 +316,7 @@
 
         /* --- DRIVER PROFILE --- */
         .driver-card {
-            background: var(--white); border-radius: 20px; box-shadow: var(--shadow-card);
+            background: var(--pure-white); border-radius: 20px; box-shadow: var(--shadow-card);
             padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
         }
         .driver-avatar {
@@ -325,7 +326,7 @@
         }
 
         /* --- FAQ --- */
-        .faq-item { border-bottom: 1px solid #eee; overflow: hidden; background: white; padding: 5px 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: 0.3s; }
+        .faq-item { border-bottom: 1px solid #eee; overflow: hidden; background: var(--pure-white); padding: 5px 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: 0.3s; }
         .faq-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .faq-header { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; font-weight: 700; color: var(--primary-dark); }
         .faq-body { max-height: 0; overflow: hidden; transition: 0.4s; padding-bottom: 0; color: var(--text-light); }
@@ -345,7 +346,7 @@
         /* --- MOBILE OPTIMIZATIONS --- */
         .mobile-sticky-cta {
             display: none; position: fixed; bottom: 0; left: 0; width: 100%;
-            background: var(--white); padding: 15px; z-index: 2000;
+            background: var(--pure-white); padding: 15px; z-index: 2000;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
         }
         .whatsapp-float {
@@ -358,7 +359,7 @@
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
         @media (max-width: 900px) {
-            .nav-links { position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px); background: var(--white); flex-direction: column; width: 100%; padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
+            .nav-links { position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px); background: var(--pure-white); flex-direction: column; width: 100%; padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: block; }
             .nav-btn { display: none; } 
@@ -422,8 +423,8 @@
         </div>
     </section>
 
-    <!-- NEW: SERVICE COMPARISON -->
-    <section class="section-padding reveal" style="background-color: var(--white);" id="comparison">
+    <!-- SERVICE COMPARISON - OFF-WHITE SAND BACKGROUND -->
+    <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="comparison">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
@@ -465,8 +466,8 @@
         </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="section-padding reveal" style="background-color: var(--light-bg);" id="services">
+    <!-- SERVICES - SOFT MINT BACKGROUND (FEATURE SECTION) -->
+    <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="services">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
@@ -495,8 +496,8 @@
         </div>
     </section>
 
-    <!-- PROCESS -->
-    <section class="section-padding reveal" style="background-color: var(--white);" id="howitworks">
+    <!-- PROCESS - OFF-WHITE SAND BACKGROUND -->
+    <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="howitworks">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
@@ -530,8 +531,8 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS -->
-    <section class="section-padding reveal" id="destinations" style="background-color: var(--light-bg);">
+    <!-- DESTINATIONS - SOFT MINT BACKGROUND (FEATURE SECTION) -->
+    <section class="section-padding reveal" id="destinations" style="background-color: var(--soft-mint);">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
@@ -645,8 +646,8 @@
         </div>
     </section>
 
-    <!-- GALLERY (White BG) -->
-    <section class="section-padding reveal" style="background-color: var(--white);" id="gallery">
+    <!-- GALLERY - OFF-WHITE SAND BACKGROUND -->
+    <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="gallery">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
@@ -672,8 +673,8 @@
         </div>
     </section>
 
-    <!-- FAQ (Mint BG) -->
-    <section class="section-padding reveal" style="background-color: var(--light-bg);" id="faq">
+    <!-- FAQ - SOFT MINT BACKGROUND (FEATURE SECTION) -->
+    <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="faq">
         <div class="container text-center">
             <div class="section-title-wrapper">
                 <h4>GOT QUESTIONS?</h4>
@@ -685,8 +686,8 @@
         </div>
     </section>
 
-    <!-- ABOUT & DRIVER TABS (White BG) -->
-    <section class="section-padding reveal" id="about" style="background-color: var(--white);">
+    <!-- ABOUT & DRIVER TABS - OFF-WHITE SAND BACKGROUND -->
+    <section class="section-padding reveal" id="about" style="background-color: var(--off-white-sand);">
         <div class="container text-center">
             <div class="section-title-wrapper">
                 <h4>WHO WE ARE</h4>
