@@ -1,41 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- 
-    ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v31.1 - HIGH CONTRAST UPDATE
-    Features: 
-    - High-contrast alternating backgrounds (Off-White/Mint)
-    - Pure white reserved for cards only
-    - Enhanced visual hierarchy
-    - Better section differentiation
-    ==================================================================== 
-    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Ride with locals who know the real Jamaica. Montego Bay, Negril, Ocho Rios. JTB Certified.">
-    <meta name="keywords" content="Montego Bay airport transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions, YS Falls, Pelican Bar">
-    
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
-    <!-- FONTS: Premium Selection -->
+    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Marcellus&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES (UPDATED) --- */
+        /* --- VARIABLES --- */
         :root {
             /* Palette */
             --primary-gold: #E6C200;       
             --primary-dark: #0A1F13;       
             --primary-green: #009B3A;      
             
-            /* NEW: High-Contrast Backgrounds */
-            --off-white-sand: #F9F9F9;     /* Standard sections */
-            --soft-mint: #E0F2F1;          /* Feature sections */
-            --pure-white: #FFFFFF;         /* Cards only */
+            /* Backgrounds */
+            --off-white-sand: #F9F9F9;
+            --soft-mint: #E0F2F1;
+            --pure-white: #FFFFFF;
             
             /* Text & Fonts */
             --font-heading: 'Marcellus', serif;
@@ -48,14 +36,8 @@
             /* UI Elements */
             --shadow-card: 0 15px 35px -5px rgba(0, 0, 0, 0.08);
             --shadow-pop: 0 20px 40px -5px rgba(0, 155, 58, 0.2);
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth luxury feel */
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             --error-red: #d32f2f;
-            
-            /* Brand Colors for Icons */
-            --fb-blue: #1877F2;
-            --insta-pink: #E4405F;
-            --visa-blue: #1A1F71;
-            --mc-red: #EB001B;
         }
 
         /* --- RESET & BASE --- */
@@ -65,9 +47,8 @@
             font-family: var(--font-body);
             color: var(--text-dark);
             line-height: 1.7;
-            background-color: var(--off-white-sand); /* Changed from white */
+            background-color: var(--off-white-sand);
             overflow-x: hidden;
-            padding-bottom: 80px;
         }
 
         h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--primary-dark); line-height: 1.2; letter-spacing: 0.5px; }
@@ -79,7 +60,7 @@
         
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 100px 0; border-top: 1px solid rgba(0,0,0,0.03); }
+        .section-padding { padding: 100px 0; }
         .text-center { text-align: center; }
         
         /* Section Titles */
@@ -104,14 +85,9 @@
         .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
         .btn-outline:hover { background-color: var(--primary-dark); color: var(--pure-white); }
 
-        /* --- ANIMATIONS (CINEMATIC) --- */
+        /* --- ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        /* Stagger Delays */
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
 
         /* --- HEADER --- */
         header {
@@ -127,7 +103,6 @@
         .nav-links a { 
             font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; 
             color: var(--primary-dark); letter-spacing: 1px; position: relative;
-            transition: color 0.3s ease;
         }
         .nav-links a.active, .nav-links a:hover { color: var(--primary-green); }
         .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; padding: 10px; color: var(--primary-dark); }
@@ -144,41 +119,43 @@
         }
         .hero-content h1 { 
             font-family: var(--font-heading); color: var(--pure-white); font-size: 4rem; margin-bottom: 20px; 
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6); animation: fadeInUp 1s ease-out;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
         .hero-content p { 
             font-family: var(--font-sub); font-style: italic; font-size: 1.4rem; margin-bottom: 35px; max-width: 700px; 
-            margin-left: auto; margin-right: auto; text-shadow: 0 2px 8px rgba(0,0,0,0.6); animation: fadeInUp 1s ease-out 0.2s backwards;
+            margin-left: auto; margin-right: auto; text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
-        .hero-content button { animation: fadeInUp 1s ease-out 0.4s backwards; }
         
         .jamaica-text { 
             background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
             -webkit-background-clip: text; color: transparent; font-weight: 800; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); 
         }
-        
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- COMPARISON SECTION (WHAT DO YOU NEED) --- */
+        /* --- COMPARISON SECTION --- */
         .comparison-grid {
             display: grid; gap: 30px; margin-top: 40px;
-            grid-template-columns: 1fr; /* Default Mobile */
+            grid-template-columns: 1fr;
         }
-        /* Desktop Layout Force */
         @media (min-width: 901px) {
             .comparison-grid {
-                display: grid !important; 
-                grid-template-columns: 1fr 1fr !important; 
+                grid-template-columns: 1fr 1fr; 
                 max-width: 800px; 
                 margin-left: auto; margin-right: auto; 
             }
         }
         .comparison-card {
-            background: var(--pure-white); border-radius: 16px; padding: 40px 30px; /* Changed to pure white */
+            background: var(--pure-white); border-radius: 16px; padding: 40px 30px;
             box-shadow: var(--shadow-card); text-align: center; border: 1px solid rgba(0,0,0,0.05);
             transition: var(--transition); display: flex; flex-direction: column;
+            position: relative;
         }
-        .comparison-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-pop); border-color: var(--primary-green); }
+        /* GREEN BORDER HIGHLIGHT - Applied to all cards on hover/touch */
+        .comparison-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: var(--shadow-pop); 
+            border: 2px solid var(--primary-green);
+            border-top: 6px solid var(--primary-green);
+        }
         .comp-icon { 
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; 
             background: var(--off-white-sand); width: 80px; height: 80px; border-radius: 50%;
@@ -209,18 +186,28 @@
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
         
         .universal-card {
-            background: var(--pure-white); border-radius: 16px; overflow: hidden; /* Pure white for cards */
+            background: var(--pure-white); border-radius: 16px; overflow: hidden;
             box-shadow: var(--shadow-card); transition: var(--transition);
             position: relative; display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.03); min-width: 300px;
+            border: 1px solid rgba(0,0,0,0.03);
         }
-        .universal-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-pop); }
+        /* GREEN BORDER HIGHLIGHT - Applied to all cards on hover/touch */
+        .universal-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: var(--shadow-pop); 
+            border: 2px solid var(--primary-green);
+            border-top: 6px solid var(--primary-green);
+        }
 
-        /* Featured Card Style (Best Value) */
+        /* Featured Card Style */
         .featured-card {
             border: 2px solid var(--primary-gold); transform: scale(1.02);
         }
-        .featured-card:hover { transform: scale(1.02) translateY(-10px); }
+        .featured-card:hover { 
+            transform: scale(1.02) translateY(-10px); 
+            border: 2px solid var(--primary-green);
+            border-top: 6px solid var(--primary-green);
+        }
 
         .card-img-wrapper { position: relative; height: 260px; overflow: hidden; background: #eee; }
         .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
@@ -267,10 +254,19 @@
         }
         .tab-btn.active { background: var(--pure-white); color: var(--primary-green); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         .tab-content { display: none; }
-        .tab-content.active { display: grid; animation: fadeInUp 0.5s ease forwards; }
+        .tab-content.active { display: grid; }
 
         /* --- GALLERY --- */
-        .gallery-item { height: 300px; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; }
+        .gallery-item { 
+            height: 300px; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;
+            transition: var(--transition);
+        }
+        /* GREEN BORDER HIGHLIGHT - Applied to gallery items on hover/touch */
+        .gallery-item:hover { 
+            transform: translateY(-10px); 
+            box-shadow: var(--shadow-pop); 
+            border: 2px solid var(--primary-green);
+        }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
         .gallery-item:hover img { transform: scale(1.1); }
         .gallery-overlay {
@@ -280,20 +276,18 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* --- MODAL (WIZARD) --- */
+        /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 31, 19, 0.9); z-index: 3000;
             justify-content: center; align-items: center; backdrop-filter: blur(8px);
         }
-        .modal-overlay.open { display: flex; animation: fadeIn 0.3s; }
+        .modal-overlay.open { display: flex; }
         .modal-content {
             background: var(--pure-white); padding: 40px; width: 90%; max-width: 500px;
             border-radius: 20px; position: relative; border-top: 6px solid var(--primary-gold);
             max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #999; }
         
@@ -305,8 +299,7 @@
             outline: none; border-color: var(--primary-green); background: #fff; 
             box-shadow: 0 0 0 4px rgba(0, 155, 58, 0.1); transform: translateY(-2px);
         }
-        .form-control.error { border-color: var(--error-red); animation: shake 0.3s; }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+        .form-control.error { border-color: var(--error-red); }
 
         .price-estimate {
             background: #EFFDF5; padding: 12px; border-radius: 10px;
@@ -318,6 +311,14 @@
         .driver-card {
             background: var(--pure-white); border-radius: 20px; box-shadow: var(--shadow-card);
             padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
+            transition: var(--transition);
+        }
+        /* GREEN BORDER HIGHLIGHT - Applied to driver card on hover/touch */
+        .driver-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: var(--shadow-pop); 
+            border: 2px solid var(--primary-green);
+            border-top: 6px solid var(--primary-green);
         }
         .driver-avatar {
             width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
@@ -326,8 +327,18 @@
         }
 
         /* --- FAQ --- */
-        .faq-item { border-bottom: 1px solid #eee; overflow: hidden; background: var(--pure-white); padding: 5px 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: 0.3s; }
-        .faq-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .faq-item { 
+            border-bottom: 1px solid #eee; overflow: hidden; background: var(--pure-white); 
+            padding: 5px 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            transition: var(--transition);
+        }
+        /* GREEN BORDER HIGHLIGHT - Applied to FAQ items on hover/touch */
+        .faq-item:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-pop); 
+            border: 2px solid var(--primary-green);
+            border-top: 6px solid var(--primary-green);
+        }
         .faq-header { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; font-weight: 700; color: var(--primary-dark); }
         .faq-body { max-height: 0; overflow: hidden; transition: 0.4s; padding-bottom: 0; color: var(--text-light); }
         .faq-item.active .faq-body { padding-bottom: 20px; max-height: 200px; }
@@ -354,9 +365,24 @@
             background-color: #25d366; color: #FFF; border-radius: 50px;
             text-align: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             z-index: 3000; display: flex; align-items: center; justify-content: center;
-            transition: var(--transition); animation: pulse-green 2s infinite;
+            transition: var(--transition);
         }
-        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* SWIPE HINT STYLES */
+        .mobile-swipe-hint { 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            font-size: 0.8rem; color: var(--primary-green); font-weight: 700; 
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; 
+            margin-top: 20px;
+        }
+        .mobile-swipe-hint i { 
+            animation: swipeAnim 1.5s infinite; 
+            color: var(--primary-green);
+        }
+        @keyframes swipeAnim { 
+            0%, 100% { transform: translateX(0); } 
+            50% { transform: translateX(10px); } 
+        }
 
         @media (max-width: 900px) {
             .nav-links { position: fixed; right: -100%; top: 80px; height: calc(100vh - 80px); background: var(--pure-white); flex-direction: column; width: 100%; padding-top: 40px; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
@@ -379,9 +405,22 @@
             body { padding-bottom: 80px; }
             .whatsapp-float { bottom: 90px; }
             
-            .mobile-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem; color: var(--primary-green); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-            .mobile-swipe-hint i { animation: swipeAnim 1.5s infinite; }
-            @keyframes swipeAnim { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
+            /* Mobile touch feedback for cards */
+            .universal-card:active, .comparison-card:active, .gallery-item:active, .faq-item:active, .driver-card:active {
+                transform: translateY(-5px) scale(0.98); 
+                border: 2px solid var(--primary-green);
+                border-top: 6px solid var(--primary-green);
+            }
+        }
+
+        /* Desktop hover enhancement */
+        @media (min-width: 901px) {
+            /* Smooth green border transition */
+            .universal-card, .comparison-card, .gallery-item, .faq-item, .driver-card {
+                transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                          box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                          border 0.3s ease;
+            }
         }
     </style>
 </head>
@@ -396,7 +435,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo" onclick="window.location.reload()" title="Refresh Page">
+                <div class="logo" onclick="window.location.reload()">
                     P&T <span style="color: var(--primary-green);">ISLAND TOURS</span>
                 </div>
                 <div class="nav-links" id="navLinks">
@@ -423,7 +462,7 @@
         </div>
     </section>
 
-    <!-- SERVICE COMPARISON - OFF-WHITE SAND BACKGROUND -->
+    <!-- SERVICE COMPARISON -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="comparison">
         <div class="container">
             <div class="text-center">
@@ -466,7 +505,7 @@
         </div>
     </section>
 
-    <!-- SERVICES - SOFT MINT BACKGROUND (FEATURE SECTION) -->
+    <!-- SERVICES -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="services">
         <div class="container">
             <div class="text-center">
@@ -496,7 +535,7 @@
         </div>
     </section>
 
-    <!-- PROCESS - OFF-WHITE SAND BACKGROUND -->
+    <!-- PROCESS -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="howitworks">
         <div class="container">
             <div class="text-center">
@@ -505,6 +544,8 @@
                     <h2>How It Works</h2>
                     <div class="section-underline"></div>
                 </div>
+                <!-- ADDED: Swipe hint for "How It Works" -->
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card card-body">
@@ -531,7 +572,7 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS - SOFT MINT BACKGROUND (FEATURE SECTION) -->
+    <!-- DESTINATIONS -->
     <section class="section-padding reveal" id="destinations" style="background-color: var(--soft-mint);">
         <div class="container">
             <div class="text-center">
@@ -555,7 +596,7 @@
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Montego Bay</span>
                         <span class="badge badge-val">Best Value</span>
-                        <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?auto=format&fit=crop&w=800&q=80" alt="Montego Bay" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Montego+Bay+Transfer'">
+                        <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?auto=format&fit=crop&w=800&q=80" alt="Montego Bay" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Montego Bay</h3>
@@ -570,7 +611,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Negril</span>
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Negril" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Negril+Transfer'">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Negril" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Negril</h3>
@@ -585,7 +626,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?auto=format&fit=crop&w=800&q=80" alt="Ocho Rios" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Ocho+Rios+Transfer'">
+                        <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?auto=format&fit=crop&w=800&q=80" alt="Ocho Rios" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Ocho Rios</h3>
@@ -603,7 +644,7 @@
                  <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=800&q=80" alt="Falls" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Dunns+River+Falls'">
+                        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=800&q=80" alt="Falls" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Dunn's River Falls</h3>
@@ -617,7 +658,7 @@
                  <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Kingston</span>
-                        <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?auto=format&fit=crop&w=800&q=80" alt="Bob Marley" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Bob+Marley+Museum'">
+                        <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?auto=format&fit=crop&w=800&q=80" alt="Bob Marley" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Bob Marley Museum</h3>
@@ -631,7 +672,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole" class="card-img" alt="Blue Hole" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole'">
+                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole" class="card-img" alt="Blue Hole">
                     </div>
                     <div class="card-body">
                         <h3>Blue Hole</h3>
@@ -646,7 +687,7 @@
         </div>
     </section>
 
-    <!-- GALLERY - OFF-WHITE SAND BACKGROUND -->
+    <!-- GALLERY -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="gallery">
         <div class="container">
             <div class="text-center">
@@ -655,25 +696,27 @@
                     <h2>See the Vibe</h2>
                     <div class="section-underline"></div>
                 </div>
+                <!-- ADDED: Swipe hint for "See the Vibe" -->
+                <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card gallery-item">
-                    <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=600&q=80" alt="Beach" class="card-img" onerror="this.src='https://placehold.co/600x400/009B3A/FFFFFF?text=Beach';">
+                    <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=600&q=80" alt="Beach" class="card-img">
                     <div class="gallery-overlay"><span>Beach</span></div>
                 </div>
                 <div class="universal-card gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?auto=format&fit=crop&w=600&q=80" alt="Nature" class="card-img" onerror="this.src='https://placehold.co/600x400/009B3A/FFFFFF?text=Nature';">
+                    <img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?auto=format&fit=crop&w=600&q=80" alt="Nature" class="card-img">
                     <div class="gallery-overlay"><span>Nature</span></div>
                 </div>
                 <div class="universal-card gallery-item">
-                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Island+Food" class="card-img" alt="Food" onerror="this.src='https://placehold.co/600x400/009B3A/FFFFFF?text=Food';">
+                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Island+Food" class="card-img" alt="Food">
                     <div class="gallery-overlay"><span>Food</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ - SOFT MINT BACKGROUND (FEATURE SECTION) -->
+    <!-- FAQ -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="faq">
         <div class="container text-center">
             <div class="section-title-wrapper">
@@ -686,7 +729,7 @@
         </div>
     </section>
 
-    <!-- ABOUT & DRIVER TABS - OFF-WHITE SAND BACKGROUND -->
+    <!-- ABOUT & DRIVER -->
     <section class="section-padding reveal" id="about" style="background-color: var(--off-white-sand);">
         <div class="container text-center">
             <div class="section-title-wrapper">
@@ -723,7 +766,7 @@
         </div>
     </section>
 
-    <!-- FOOTER (Dark) -->
+    <!-- FOOTER -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
@@ -734,7 +777,7 @@
                     <h4 style="color: var(--primary-gold); margin-bottom: 15px; font-size: 1rem;">Payment Options</h4>
                     <div class="payment-icons">
                         <a href="https://ezeepayments.com" target="_blank" class="payment-badge badge-ezee" style="text-decoration: none;">
-                            EzeePayments <i class="fa-brands fa-cc-visa" style="margin-left:5px; font-size:1.1em; color:var(--visa-blue);"></i> <i class="fa-brands fa-cc-mastercard" style="margin-left:5px; font-size:1.1em; color:var(--mc-red);"></i>
+                            EzeePayments <i class="fa-brands fa-cc-visa" style="margin-left:5px; font-size:1.1em; color:#1A1F71;"></i> <i class="fa-brands fa-cc-mastercard" style="margin-left:5px; font-size:1.1em; color:#EB001B;"></i>
                         </a>
                         <span class="payment-badge badge-cash">Cash (USD)</span>
                     </div>
@@ -754,8 +797,8 @@
                         <li><a href="tel:18764859759"><i class="fa-solid fa-phone contact-icon"></i> +1 (876) 485-9759</a></li>
                     </ul>
                      <div style="margin-top: 20px; display: flex; gap: 15px;">
-                        <a href="https://facebook.com/ptislandtours" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook fa-lg social-icon-fb"></i></a>
-                        <a href="https://instagram.com/ptislandtours" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram fa-lg social-icon-in"></i></a>
+                        <a href="https://facebook.com/ptislandtours" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                        <a href="https://instagram.com/ptislandtours" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram fa-lg"></i></a>
                     </div>
                 </div>
             </div>
@@ -836,7 +879,7 @@
         </div>
     </div>
 
-    <!-- MODAL: LEGAL (FULL CONTENT) -->
+    <!-- MODAL: LEGAL -->
     <div class="modal-overlay" id="legalModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
@@ -854,10 +897,7 @@
                 <h4>4. Liability & Insurance</h4>
                 <p>P&T Island Tours is a JTB-certified and fully insured operator. We prioritize your safety above all else. However, we are not responsible for any lost, stolen, or damaged personal items left in our vehicles. Passengers are responsible for ensuring they have all their belongings before exiting the vehicle.</p>
                 
-                <h4>5. Passenger Conduct</h4>
-                <p>We reserve the right to refuse service to any passenger who poses a threat to the safety of our driver or the vehicle. Consumption of illegal substances or excessive alcohol that impairs judgment or safety is strictly prohibited. In such cases, the service will be terminated immediately without refund.</p>
-                
-                <h4>6. Privacy Policy</h4>
+                <h4>5. Privacy Policy</h4>
                 <p>We respect your privacy. Any personal information collected (Name, Phone, Flight Details) is used solely for the purpose of facilitating your transfer or tour. We do not sell or share your data with third parties, except as required for payment processing.</p>
             </div>
         </div>
@@ -912,16 +952,24 @@
         }
 
         // MODAL SYSTEM
-        function openModal(id = 'bookingModal') { document.getElementById(id).classList.add('open'); }
+        function openModal(id = 'bookingModal') { 
+            document.getElementById(id).classList.add('open'); 
+            document.body.style.overflow = 'hidden';
+        }
         function closeModal(id) { 
-            if(typeof id === 'string') document.getElementById(id).classList.remove('open');
-            else if(id && id.target) id.target.classList.remove('open');
+            if(typeof id === 'string') {
+                document.getElementById(id).classList.remove('open');
+            } else if(id && id.target) {
+                id.target.classList.remove('open');
+            }
+            document.body.style.overflow = 'auto';
         }
         
         function openModalWithContext(srv, loc) {
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
+            document.getElementById('location').value = loc;
             openModal('bookingModal');
-            calculatePrice(); // Ensure price shows on open
+            calculatePrice();
         }
 
         // FAQ Logic
@@ -1002,14 +1050,20 @@
             const icon = document.getElementById('menuIcon');
             nav.classList.toggle('active');
             if(nav.classList.contains('active')) {
-                icon.classList.remove('fa-bars'); icon.classList.add('fa-times');
+                icon.classList.remove('fa-bars'); 
+                icon.classList.add('fa-times');
             } else {
-                icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times'); 
+                icon.classList.add('fa-bars');
             }
         }
         
         // Listeners
-        window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) closeModal(e.target.id); }
+        window.onclick = function(e) { 
+            if(e.target.classList.contains('modal-overlay')) {
+                closeModal(e.target.id); 
+            }
+        }
         
         // Mobile Scroll Focus
         function handleScroll() {
@@ -1028,19 +1082,28 @@
                 });
             });
         }
-        document.querySelectorAll('.mobile-scroll-container').forEach(el => {
-            el.addEventListener('scroll', handleScroll);
-        });
         
-        // Reveal
+        // Reveal Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) entry.target.classList.add('active');
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
         });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        handleScroll();
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe reveal elements
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            // Initialize scroll handlers
+            document.querySelectorAll('.mobile-scroll-container').forEach(el => {
+                el.addEventListener('scroll', handleScroll);
+            });
+            
+            handleScroll();
+        });
         
         // Lightbox
         function openLightbox(src) {
