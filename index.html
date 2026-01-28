@@ -449,11 +449,11 @@
             .mobile-sticky-cta { display: block; }
             body { padding-bottom: 80px; }
             
-            /* IMPROVED WhatsApp button positioning - moved to left side to avoid conflict */
+            /* CHANGED: WhatsApp button now on the RIGHT side on mobile */
             .whatsapp-float { 
                 bottom: 100px; 
-                right: auto;
-                left: 20px;
+                right: 20px;
+                left: auto; /* Remove left positioning */
             }
             
             /* Mobile touch feedback for cards */
@@ -982,7 +982,7 @@
         <button onclick="openModal('bookingModal')" class="btn btn-primary" style="width:100%;">Book Your Ride Now</button>
     </div>
 
-    <!-- WHATSAPP FLOAT WITH ENHANCED PULSATING EFFECT -->
+    <!-- WHATSAPP FLOAT WITH ENHANCED PULSATING EFFECT - NOW ON RIGHT SIDE ON MOBILE -->
     <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." 
        class="whatsapp-float" 
        target="_blank" 
