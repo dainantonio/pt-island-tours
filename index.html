@@ -3,11 +3,12 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v31.1
+    P&T ISLAND TOURS - PRODUCTION BUILD v31.0 (PREMIUM CINEMATIC)
     Features: 
-    - Fixed Date Field Placeholder (Text -> Date Toggle)
-    - Dynamic Modal Titles
-    - Smart Form Feedback
+    - Premium Typography (Marcellus, Lora, Source Sans Pro)
+    - Cinematic Scroll & Load Animations
+    - Visual Hierarchy (Featured Cards, Price Pop)
+    - Form Micro-interactions
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -17,31 +18,37 @@
     
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
-    <!-- FONTS -->
+    <!-- FONTS: Premium Selection -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Marcellus&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- VARIABLES --- */
         :root {
+            /* Palette */
             --primary-gold: #E6C200;       
             --primary-dark: #0A1F13;       
-            --primary-green: #008542;      
+            --primary-green: #009B3A;      
             
             /* Backgrounds */
-            --light-bg: #E8F5E9; /* Soft Mint */
+            --light-bg: #F4F9F6; /* Very subtle mint tint for premium feel */
             --white: #FFFFFF;
             
-            /* Text */
-            --text-dark: #222222;
-            --text-light: #555555;
+            /* Typography */
+            --font-heading: 'Marcellus', serif;
+            --font-sub: 'Lora', serif;
+            --font-body: 'Source Sans Pro', sans-serif;
+            
+            /* Text Colors */
+            --text-dark: #1A1A1A;
+            --text-light: #4A4A4A;
             
             /* UI Elements */
-            --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
-            --shadow-pop: 0 10px 25px rgba(0, 155, 58, 0.25);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-card: 0 15px 35px -5px rgba(0, 0, 0, 0.08);
+            --shadow-pop: 0 20px 40px -5px rgba(0, 155, 58, 0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth luxury feel */
             --error-red: #d32f2f;
             
             /* Brand Colors for Icons */
@@ -54,48 +61,69 @@
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: var(--font-body);
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.7;
             background-color: var(--white); 
             overflow-x: hidden;
             padding-bottom: 80px;
         }
 
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--primary-dark); line-height: 1.2; }
+        h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--primary-dark); line-height: 1.2; letter-spacing: 0.5px; }
+        p { font-size: 1.05rem; }
+
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
-        
+
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 80px 0; border-top: 1px solid rgba(0,0,0,0.05); }
+        .section-padding { padding: 100px 0; border-top: 1px solid rgba(0,0,0,0.03); }
         .text-center { text-align: center; }
         
         /* Section Titles */
-        .section-title-wrapper { margin-bottom: 50px; display: flex; flex-direction: column; align-items: center; }
-        .section-underline { width: 80px; height: 4px; background: var(--primary-green); margin: 15px auto 0; border-radius: 2px; }
+        .section-title-wrapper { margin-bottom: 60px; display: flex; flex-direction: column; align-items: center; }
+        .section-title-wrapper h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .section-title-wrapper h4 { font-family: var(--font-body); font-weight: 700; color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+        .section-underline { width: 60px; height: 3px; background: var(--primary-gold); margin: 15px auto 0; border-radius: 2px; }
+
+        /* --- ANIMATIONS --- */
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Staggered Load */
+        .stagger-load > * { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
+        .stagger-load > *:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-load > *:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-load > *:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* --- BUTTONS --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 32px; border-radius: 50px; font-weight: 700;
+            padding: 16px 32px; border-radius: 50px; font-weight: 600; font-family: var(--font-body);
             text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
             cursor: pointer; border: none; transition: var(--transition); gap: 8px;
+            min-height: 48px;
         }
         .btn.loading { opacity: 0.8; pointer-events: none; }
         .btn.loading i { display: none; }
-        /* Simple spinner */
         .btn.loading::after {
             content: ""; width: 16px; height: 16px; border: 2px solid #fff; 
             border-top-color: transparent; border-radius: 50%; 
-            animation: spin 0.8s linear infinite; display: inline-block; margin-left: 10px;
+            animation: spin 1s linear infinite; display: inline-block; margin-left: 10px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         .btn-primary { background-color: var(--primary-green); color: var(--white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
-        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
         
         .btn-secondary { background-color: var(--primary-gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
         .btn-secondary:hover { background-color: #e6c200; transform: translateY(-3px); }
@@ -110,13 +138,13 @@
             transition: var(--transition);
         }
         nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { font-family: 'Playfair Display'; font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); letter-spacing: -0.5px; cursor: pointer; }
-        .logo span { color: var(--primary-green); }
+        .logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 400; color: var(--primary-dark); letter-spacing: 1px; cursor: pointer; }
+        .logo span { color: var(--primary-green); font-weight: 700; }
         
         .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { 
-            font-weight: 600; font-size: 0.8rem; text-transform: uppercase; 
-            color: var(--primary-dark); letter-spacing: 0.5px; position: relative;
+            font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; 
+            color: var(--primary-dark); letter-spacing: 1px; position: relative;
             transition: color 0.3s ease;
         }
         .nav-links a.active, .nav-links a:hover { color: var(--primary-green); }
@@ -125,36 +153,32 @@
         /* --- HERO --- */
         .hero {
             min-height: 90vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
                         url('https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
             color: var(--white); margin-top: 80px; position: relative;
-            border-bottom: 5px solid var(--primary-gold);
+            border-bottom: 6px solid var(--primary-gold);
         }
         .hero-content h1 { 
-            color: var(--white); font-size: 3.5rem; margin-bottom: 20px; font-weight: 800; 
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+            font-family: var(--font-heading); color: var(--white); font-size: 4rem; margin-bottom: 20px; 
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6); 
         }
         .hero-content p { 
-            font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; 
+            font-family: var(--font-sub); font-style: italic; font-size: 1.3rem; margin-bottom: 35px; max-width: 650px; 
             margin-left: auto; margin-right: auto; 
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6); 
         }
         .jamaica-text { 
             background: linear-gradient(90deg, #FFD700 0%, #009B3A 50%, #FFD700 100%);
-            -webkit-background-clip: text; color: transparent; font-weight: 800; filter: drop-shadow(2px 2px 0px #000000); 
+            -webkit-background-clip: text; color: transparent; font-weight: 800; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); 
         }
 
-        /* --- COMPARISON SECTION --- */
+        /* --- COMPARISON SECTION (WHAT DO YOU NEED) --- */
         .comparison-grid {
-            display: grid; 
-            gap: 30px; 
-            margin-top: 40px;
-            /* Default Mobile */
-            grid-template-columns: 1fr; 
+            display: grid; gap: 30px; margin-top: 40px;
+            grid-template-columns: 1fr; /* Default Mobile */
         }
-        
         /* Desktop Layout Force */
         @media (min-width: 901px) {
             .comparison-grid {
@@ -164,24 +188,20 @@
                 margin-left: auto; margin-right: auto; 
             }
         }
-        
         .comparison-card {
             background: var(--white); border-radius: 16px; padding: 40px 30px;
             box-shadow: var(--shadow-card); text-align: center; border: 1px solid rgba(0,0,0,0.05);
             transition: var(--transition); display: flex; flex-direction: column;
         }
         .comparison-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-pop); border-color: var(--primary-green); }
-        
         .comp-icon { 
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; 
             background: var(--light-bg); width: 80px; height: 80px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin-left: auto; margin-right: auto;
         }
-        
         .comp-features { list-style: none; margin: 20px 0; text-align: left; flex-grow: 1; padding: 0; }
-        .comp-features li { margin-bottom: 10px; font-size: 0.9rem; color: var(--text-light); border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
+        .comp-features li { margin-bottom: 10px; font-size: 0.95rem; color: var(--text-light); border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
         .comp-features li i { color: var(--primary-gold); margin-right: 10px; }
-        
         .comp-label { 
             display: inline-block; background: var(--light-bg); color: var(--primary-dark);
             padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 15px;
@@ -196,6 +216,9 @@
             box-shadow: 0 8px 20px rgba(0, 155, 58, 0.3); border: 3px solid var(--white);
             color: var(--white); font-size: 1.8rem; transition: transform 0.3s ease;
         }
+        .universal-card:hover .feature-icon-circle, .universal-card:hover .process-icon {
+             transform: scale(1.1) rotate(5deg); background: var(--primary-gold);
+        }
 
         /* --- CARDS & GRID --- */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
@@ -204,29 +227,48 @@
             background: var(--white); border-radius: 16px; overflow: hidden;
             box-shadow: var(--shadow-card); transition: transform 0.3s ease;
             position: relative; display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.05); min-width: 300px;
+            border: 1px solid rgba(0,0,0,0.03); min-width: 300px;
         }
-        .universal-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .universal-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-pop); }
 
-        .card-img-wrapper { position: relative; height: 240px; overflow: hidden; background: #eee; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
-        
+        /* FEATURED CARD (Visual Hierarchy) */
+        .featured-card {
+            border: 2px solid var(--primary-gold); transform: scale(1.02);
+        }
+        .featured-card:hover { transform: scale(1.02) translateY(-8px); }
+
+        .card-img-wrapper { position: relative; height: 260px; overflow: hidden; background: #eee; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .universal-card:hover .card-img { transform: scale(1.05); }
+
+        /* Centered Card Text */
         .card-body { 
-            padding: 30px 25px; flex-grow: 1; display: flex; 
+            padding: 35px 25px; flex-grow: 1; display: flex; 
             flex-direction: column; text-align: center; align-items: center;
         }
-        .card-body h3 { font-size: 1.4rem; margin-bottom: 10px; width: 100%; }
-        .card-body p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; width: 100%; }
+        .card-body h3 { font-size: 1.5rem; margin-bottom: 15px; width: 100%; text-align: center; }
+        .card-body p { font-size: 1rem; color: var(--text-light); margin-bottom: 25px; width: 100%; text-align: center; }
         
         .card-footer {
-            width: 100%; border-top: 1px solid #f0f0f0; padding-top: 15px;
+            width: 100%; border-top: 1px solid #f0f0f0; padding-top: 20px;
             display: flex; align-items: center; justify-content: space-between;
         }
 
+        /* Price Pop */
+        .price-start { 
+            color: var(--primary-green); font-family: var(--font-heading); 
+            font-weight: 700; font-size: 1.25rem; letter-spacing: -0.5px;
+        }
+        .card-link {
+            color: var(--primary-dark); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;
+            text-transform: uppercase; display: flex; align-items: center; gap: 5px; cursor: pointer;
+        }
+        .card-link:hover { color: var(--primary-gold); }
+
         /* Badges */
         .badge {
-            position: absolute; top: 15px; padding: 6px 14px; border-radius: 50px;
-            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            position: absolute; top: 15px; padding: 8px 16px; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 5;
         }
         .badge-loc { left: 15px; background: rgba(255,255,255,0.95); color: var(--primary-dark); }
@@ -240,66 +282,84 @@
         }
         .tab-btn {
             padding: 12px 28px; border-radius: 40px; font-weight: 700; cursor: pointer;
-            border: none; background: transparent; color: var(--text-light);
+            border: none; background: transparent; color: var(--text-light); font-family: var(--font-body);
             transition: all 0.3s ease; font-size: 0.9rem;
         }
         .tab-btn.active { background: var(--white); color: var(--primary-green); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
         .tab-content.active { display: grid; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- DRIVER PROFILE --- */
+        .driver-card {
+            background: var(--white); border-radius: 20px; box-shadow: var(--shadow-card);
+            padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
+        }
+        .driver-avatar {
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--primary-green); margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- GALLERY OVERLAY (CENTERED) --- */
+        .gallery-item { height: 260px; border-radius: 16px; overflow: hidden; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            display: flex; justify-content: center; align-items: center; text-align: center;
+        }
 
         /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); z-index: 3000;
-            justify-content: center; align-items: center;
+            justify-content: center; align-items: center; backdrop-filter: blur(5px);
         }
-        .modal-overlay.open { display: flex; }
+        .modal-overlay.open { display: flex; animation: fadeIn 0.3s; }
         .modal-content {
-            background: var(--white); padding: 30px; width: 90%; max-width: 450px;
-            border-radius: 15px; position: relative; border-top: 6px solid var(--primary-green);
-            max-height: 90vh; overflow-y: auto;
+            background: var(--white); padding: 40px; width: 90%; max-width: 500px;
+            border-radius: 20px; position: relative; border-top: 6px solid var(--primary-green);
+            max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
         .close-modal {
-            position: absolute; top: 10px; right: 20px; font-size: 2rem;
+            position: absolute; top: 15px; right: 20px; font-size: 2rem;
             cursor: pointer; color: #999; line-height: 0.8;
         }
         
-        /* Form Validation & Feedback */
+        /* Form Micro-interactions */
         .form-control {
-            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
-            font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin-bottom: 15px;
+            width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 10px;
+            font-family: var(--font-body); font-size: 1rem; margin-bottom: 15px; transition: all 0.3s ease;
         }
-        .form-control:focus { outline: none; border-color: var(--primary-green); background: #fff; }
+        .form-control:focus { 
+            outline: none; border-color: var(--primary-green); background: #fff;
+            transform: translateX(5px); box-shadow: -3px 0 0 var(--primary-gold);
+        }
         .form-control.error { border-color: var(--error-red); animation: shake 0.3s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
-
-        .form-feedback {
-            color: var(--error-red); font-size: 0.85rem; margin-bottom: 15px;
-            text-align: center; font-weight: 600; display: none;
-            background: rgba(220, 38, 38, 0.1); padding: 10px; border-radius: 8px;
-        }
         
         /* FAQ Accordion */
         .faq-item { border-bottom: 1px solid #eee; overflow: hidden; background: white; padding: 0 15px; margin-bottom: 10px; border-radius: 8px; }
         .faq-header {
-            padding: 15px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-            font-weight: 700; color: var(--primary-dark); font-size: 0.95rem;
+            padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-weight: 700; color: var(--primary-dark); font-size: 1rem;
         }
         .faq-body {
             max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
             padding-bottom: 0; color: var(--text-light); font-size: 0.95rem; text-align: left;
         }
-        .faq-item.active .faq-body { padding-bottom: 15px; }
+        .faq-item.active .faq-body { padding-bottom: 20px; }
 
         /* --- FOOTER --- */
-        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 60px 0 30px; font-size: 0.9rem; }
+        footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 80px 0 30px; font-size: 0.95rem; }
         .footer-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;
+            gap: 40px; margin-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;
         }
-        .footer-col h4 { color: var(--primary-gold); margin-bottom: 20px; font-weight: 700; letter-spacing: 1px; }
-        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col h4 { color: var(--primary-gold); margin-bottom: 25px; letter-spacing: 1px; font-family: var(--font-body); font-weight: 700; }
+        .footer-col ul li { margin-bottom: 15px; }
         .footer-col a { color: rgba(255,255,255,0.8); transition: 0.3s; }
         .footer-col a:hover { color: var(--primary-gold); padding-left: 5px; }
         
@@ -351,7 +411,7 @@
             .mobile-toggle { display: block; }
             .nav-btn { display: none; } 
             
-            .section-padding { padding: 50px 0; }
+            .section-padding { padding: 60px 0; }
             .hero-content h1 { font-size: 2.5rem; }
             
             /* INFO BANNER MOBILE */
@@ -389,6 +449,16 @@
             /* Remove desktop line on mobile */
             .process-grid::before { display: none; }
         }
+        
+        /* Desktop Connector Line */
+        @media (min-width: 901px) {
+            .process-grid { position: relative; }
+            .process-grid::before {
+                content: ''; position: absolute; top: 35px; left: 10%; width: 80%; height: 2px;
+                background: var(--primary-green); z-index: 0; opacity: 0.3;
+            }
+            .process-item, .universal-card { position: relative; z-index: 1; }
+        }
     </style>
 </head>
 <body>
@@ -414,22 +484,20 @@
         </div>
     </header>
 
-    <section class="hero" id="home">
+    <section class="hero stagger-load" id="home">
         <div class="container hero-content">
             <h1>Experience the <br><span class="jamaica-text">Real Jamaica</span></h1>
             <p>Start your vacation the moment you land. Authentic, private, and safe transportation tailored to you.</p>
-            <div style="margin-top: 10px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-                <button onclick="selectService('transfers')" class="btn btn-secondary"><i class="fa-solid fa-plane-arrival"></i> Airport Transfer</button>
-                <button onclick="selectService('tours')" class="btn btn-outline"><i class="fa-solid fa-map-location-dot"></i> Tours & Excursions</button>
-            </div>
+            <button onclick="openModal()" class="btn btn-secondary">Start Booking</button>
         </div>
     </section>
 
     <!-- NEW: SERVICE COMPARISON -->
-    <section class="section-padding" style="background-color: var(--white);" id="comparison">
+    <section class="section-padding reveal" style="background-color: var(--white);" id="comparison">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
+                    <h4>SERVICES</h4>
                     <h2>What Do You Need?</h2>
                     <div class="section-underline"></div>
                 </div>
@@ -468,14 +536,14 @@
     </section>
 
     <!-- SERVICES (Why Us) -->
-    <section class="section-padding" style="background-color: var(--light-bg);" id="services">
+    <section class="section-padding reveal" style="background-color: var(--light-bg);" id="services">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
+                    <h4>PREMIUM SERVICE</h4>
                     <h2>Why Choose P&T Tours</h2>
                     <div class="section-underline"></div>
                 </div>
-                <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card card-body">
@@ -498,14 +566,14 @@
     </section>
 
     <!-- PROCESS (White BG) -->
-    <section class="section-padding" style="background-color: var(--white);" id="howitworks">
+    <section class="section-padding reveal" style="background-color: var(--white);" id="howitworks">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
+                    <h4>SIMPLE & SECURE</h4>
                     <h2>How It Works</h2>
                     <div class="section-underline"></div>
                 </div>
-                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card card-body">
@@ -521,7 +589,7 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-sign-hanging"></i></div>
                     <h3>3. Meet</h3>
-                    <p>Look for the <strong>P&T Sign</strong>.</p>
+                    <p>Look for the <strong>P&T Sign</strong> at airport.</p>
                 </div>
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
@@ -533,11 +601,11 @@
     </section>
 
     <!-- DESTINATIONS (Mint BG) -->
-    <section class="section-padding" id="destinations" style="background-color: var(--light-bg);">
+    <section class="section-padding reveal" id="destinations" style="background-color: var(--light-bg);">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
-                    <h4 style="color: var(--primary-green); letter-spacing: 2px; font-size: 0.8rem; margin-bottom:10px;">EXPLORE JAMAICA</h4>
+                    <h4>EXPLORE JAMAICA</h4>
                     <h2>Choose Your Experience</h2>
                     <div class="section-underline"></div>
                 </div>
@@ -552,11 +620,11 @@
 
             <!-- TAB: TRANSFERS -->
             <div id="tab-transfers-main" class="tab-content active grid-container mobile-scroll-container">
-                <article class="universal-card">
+                <article class="universal-card featured-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Montego Bay</span>
                         <span class="badge badge-val">Best Value</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Montego+Bay+Transfer" class="card-img" alt="MoBay">
+                        <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?auto=format&fit=crop&w=800&q=80" alt="Montego Bay" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Montego+Bay+Transfer'">
                     </div>
                     <div class="card-body">
                         <h3>Montego Bay</h3>
@@ -571,7 +639,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Negril</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Negril+Transfer" class="card-img" alt="Negril">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Negril" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Negril+Transfer'">
                     </div>
                     <div class="card-body">
                         <h3>Negril</h3>
@@ -586,7 +654,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Ocho+Rios+Transfer" class="card-img" alt="Ocho Rios">
+                        <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?auto=format&fit=crop&w=800&q=80" alt="Ocho Rios" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Ocho+Rios+Transfer'">
                     </div>
                     <div class="card-body">
                         <h3>Ocho Rios</h3>
@@ -604,7 +672,7 @@
                  <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Dunns+River+Falls" class="card-img" alt="Falls">
+                        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=800&q=80" alt="Falls" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Dunns+River+Falls'">
                     </div>
                     <div class="card-body">
                         <h3>Dunn's River Falls</h3>
@@ -618,7 +686,7 @@
                  <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Kingston</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Bob+Marley+Museum" class="card-img" alt="Bob Marley">
+                        <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?auto=format&fit=crop&w=800&q=80" alt="Bob Marley" class="card-img" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Bob+Marley+Museum'">
                     </div>
                     <div class="card-body">
                         <h3>Bob Marley Museum</h3>
@@ -629,42 +697,96 @@
                         </div>
                     </div>
                 </article>
+                <article class="universal-card">
+                    <div class="card-img-wrapper">
+                        <span class="badge badge-loc">Ocho Rios</span>
+                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole" class="card-img" alt="Blue Hole" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole'">
+                    </div>
+                    <div class="card-body">
+                        <h3>Blue Hole</h3>
+                        <p>Jump and swim in bright blue mineral waters.</p>
+                        <div class="card-footer">
+                            <span class="price-start">From $130</span>
+                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- FAQ / Modal Trigger (White BG) -->
-    <section class="section-padding" style="background-color: var(--white);" id="faq">
+    <!-- GALLERY (White BG) -->
+    <section class="section-padding reveal" style="background-color: var(--white);" id="gallery">
+        <div class="container">
+            <div class="text-center">
+                <div class="section-title-wrapper">
+                    <h4>CAPTURED MOMENTS</h4>
+                    <h2>See the Vibe</h2>
+                    <div class="section-underline"></div>
+                </div>
+            </div>
+            <div class="grid-container mobile-scroll-container">
+                <div class="universal-card gallery-item">
+                    <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=600&q=80" alt="Beach" class="card-img" onerror="this.src='https://placehold.co/600x400/009B3A/FFFFFF?text=Beach';">
+                    <div class="gallery-overlay"><span>Beach</span></div>
+                </div>
+                <div class="universal-card gallery-item">
+                    <img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?auto=format&fit=crop&w=600&q=80" alt="Nature" class="card-img" onerror="this.src='https://placehold.co/600x400/009B3A/FFFFFF?text=Nature';">
+                    <div class="gallery-overlay"><span>Nature</span></div>
+                </div>
+                <div class="universal-card gallery-item">
+                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Island+Food" class="card-img" alt="Food" onerror="this.src='https://placehold.co/600x400/009B3A/FFFFFF?text=Food';">
+                    <div class="gallery-overlay"><span>Food</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (Mint BG) -->
+    <section class="section-padding reveal" style="background-color: var(--light-bg);" id="faq">
         <div class="container text-center">
             <div class="section-title-wrapper">
-                <h2>Got Questions?</h2>
+                <h4>GOT QUESTIONS?</h4>
+                <h2>Common Questions</h2>
                 <div class="section-underline"></div>
             </div>
             <p style="margin-bottom: 30px;">We have answers. Check out our common questions regarding payments, safety, and more.</p>
-            <div class="faq-grid">
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">How do I pay? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">We accept Cash (USD) upon arrival. Deposits via EzeePayments. Remaining balance can also be paid via card.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">Where do we meet? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Look for the P&T Island Tours sign with YOUR NAME at the airport exit.</div>
-                </div>
-                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">Do you provide car seats? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Yes! Car seats are available upon request for a small fee.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">Can we stop for food? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Absolutely! Since it's a private tour, we can stop for jerk chicken, patties, or groceries on the way.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">What if my flight is delayed? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">We track your flight and will be waiting for you when you land, at no extra cost.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-header">What is the cancellation policy? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-body">Cancellations made more than 24 hours in advance receive a full refund of the deposit.</div>
+            <button onclick="openModal('faqModal')" class="btn btn-outline" style="border-color:var(--primary-green); color:var(--primary-green);">Read Common Questions</button>
+        </div>
+    </section>
+
+    <!-- ABOUT & DRIVER TABS (White BG) -->
+    <section class="section-padding reveal" id="about" style="background-color: var(--white);">
+        <div class="container text-center">
+            <div class="section-title-wrapper">
+                <h4>WHO WE ARE</h4>
+                <h2>Your Local Travel Family</h2>
+                <div class="section-underline"></div>
+            </div>
+            
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchTab(event, 'about', 'info')">Our Story</button>
+                <button class="tab-btn" onclick="switchTab(event, 'driver', 'info')">Meet Pedro</button>
+            </div>
+
+            <!-- Tab: About -->
+            <div id="tab-about-info" class="tab-content active" style="max-width: 800px; margin: 0 auto; display: block;">
+                 <p class="about-text" style="font-size:1.1rem; line-height:1.8; color:var(--text-light);">
+                    Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
+                    Whether you need a safe ride to your resort or want to discover hidden gems off the beaten path, we treat every guest like family.
+                </p>
+                <div style="margin-top: 30px;"><i class="fa-solid fa-heart" style="color: var(--primary-gold); font-size: 2rem;"></i></div>
+            </div>
+
+            <!-- Tab: Driver -->
+            <div id="tab-driver-info" class="tab-content" style="max-width: 600px; margin: 0 auto;">
+                <div class="driver-card">
+                    <div class="driver-avatar">
+                        <img src="https://placehold.co/300x300/009B3A/FFFFFF?text=Pedro" alt="Pedro" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Pedro</h3>
+                    <p style="color: var(--primary-green); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 20px;">Head Guide & Founder</p>
+                    <p style="color: var(--text-light);">"I've been driving these roads for over 20 years. My goal isn't just to get you from A to B, but to show you the heart of Jamaica along the way. Whether you need the best jerk chicken or a quiet beach, I got you."</p>
                 </div>
             </div>
         </div>
@@ -725,21 +847,47 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
             <div class="text-center" style="margin-bottom: 20px;">
-                <h3 id="modal-title">Plan Your Trip</h3>
+                <h3>Plan Your Trip</h3>
             </div>
             <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
-                <div id="form-feedback" class="form-feedback"></div>
                 <input type="text" id="name" class="form-control" placeholder="Name" required>
                 <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
-                <select id="location" class="form-control"><option>Montego Bay</option><option>Negril</option><option>Ocho Rios</option><option>Custom</option></select>
-                <div class="form-group" style="text-align:left; margin-top:15px;">
-                    <label>Trip Details</label>
-                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Pickup Time">
-                    <input type="text" id="date" class="form-control" placeholder="Select Travel Date" onfocus="(this.type='date')" onblur="(this.value ? this.type='date' : this.type='text')" required>
-                    <input type="number" id="pax" class="form-control" placeholder="Passengers" required>
-                </div>
-                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Chat to Book</button>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Chat to Book</button>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL: FAQ -->
+    <div class="modal-overlay" id="faqModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('faqModal')">&times;</span>
+            <h3 class="text-center" style="margin-bottom: 20px;">Common Questions</h3>
+            <div class="faq-grid">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">How do I pay? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">We accept Cash (USD) upon arrival. Deposits via EzeePayments. Remaining balance can also be paid via card.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Where do we meet? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Look for the P&T Island Tours sign with YOUR NAME at the airport exit.</div>
+                </div>
+                 <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Do you provide car seats? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Yes! Car seats are available upon request for a small fee.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">Can we stop for food? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Absolutely! Since it's a private tour, we can stop for jerk chicken, patties, or groceries on the way.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">What if my flight is delayed? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">We track your flight and will be waiting for you when you land, at no extra cost.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-header">What is the cancellation policy? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Cancellations made more than 24 hours in advance receive a full refund of the deposit.</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -778,6 +926,13 @@
                 document.getElementById('tab-transfers-main').classList.remove('active');
                 document.getElementById('tab-tours-main').classList.remove('active');
             }
+            if(groupID === 'info') {
+                document.getElementById('tab-about-info').style.display = 'none';
+                document.getElementById('tab-about-info').classList.remove('active');
+                document.getElementById('tab-driver-info').style.display = 'none';
+                document.getElementById('tab-driver-info').classList.remove('active');
+            }
+
             if(e) {
                  const siblings = e.target.parentElement.querySelectorAll('.tab-btn');
                  siblings.forEach(btn => btn.classList.remove('active'));
@@ -787,7 +942,10 @@
             const targetId = 'tab-' + tabName + '-' + groupID;
             const target = document.getElementById(targetId);
             if(target) {
-                target.style.display = 'flex'; // Force flex for grid
+                // If it's a grid (destinations), use flex/grid. If text (about), use block.
+                if(groupID === 'main') target.style.display = 'flex'; // for mobile swipe
+                if(groupID === 'info') target.style.display = 'block';
+                
                 setTimeout(() => target.classList.add('active'), 10);
             }
         }
@@ -819,22 +977,6 @@
         
         function openModalWithContext(srv, loc) {
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
-            
-            // Set Location in dropdown
-            const locSelect = document.getElementById('location');
-            let found = false;
-            for(let i=0; i<locSelect.options.length; i++) {
-                if(locSelect.options[i].value === loc) {
-                    locSelect.selectedIndex = i;
-                    found = true;
-                    break;
-                }
-            }
-            if(!found) locSelect.value = "Custom";
-
-            // Dynamic Title
-            document.getElementById('modal-title').innerText = `Book: ${loc}`;
-            
             openModal('bookingModal');
         }
 
@@ -855,38 +997,8 @@
         // WHATSAPP
         function sendToWhatsApp(e) {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const feedback = document.getElementById('form-feedback');
-            
-            // Validate Flight
-            const flight = document.getElementById('flight');
-            if(document.getElementById('service').value === 'Airport Transfer' && !flight.value) {
-                flight.classList.add('error');
-                feedback.innerText = "⚠️ Flight number required for transfers.";
-                feedback.style.display = 'block';
-                setTimeout(() => flight.classList.remove('error'), 500);
-                return;
-            }
-            
-            const originalText = btn.innerText;
-            btn.innerText = "Opening WhatsApp...";
-            
-            setTimeout(() => {
-                const name = document.getElementById('name').value;
-                const email = "N/A"; // Simplified for revert
-                const service = document.getElementById('service').value;
-                const loc = document.getElementById('location').value;
-                const date = document.getElementById('date').value;
-                const flightVal = flight.value || "N/A";
-                const pax = document.getElementById('pax').value;
-
-                const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Service:* ${encodeURIComponent(service)}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${encodeURIComponent(flightVal)}%0A*Pax:* ${pax}`;
-                
-                window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
-                
-                btn.innerText = originalText;
-                closeModal('bookingModal');
-            }, 800);
+            window.open('https://wa.me/18764859759', '_blank');
+            closeModal('bookingModal');
         }
 
         // Menu
@@ -925,13 +1037,16 @@
         document.querySelectorAll('.mobile-scroll-container').forEach(el => {
             el.addEventListener('scroll', handleScroll);
         });
-        handleScroll();
         
-        // Date Min
-        document.addEventListener('DOMContentLoaded', function() {
-            const d = document.getElementById('date');
-            if(d) d.min = new Date().toISOString().split("T")[0];
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('active');
+            });
         });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        handleScroll();
     </script>
 </body>
 </html>
