@@ -6,6 +6,7 @@
     <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Ride with locals who know the real Jamaica. Montego Bay, Negril, Ocho Rios. JTB Certified.">
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
+    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Marcellus&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -83,6 +84,9 @@
 
         .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
         .btn-outline:hover { background-color: var(--primary-dark); color: var(--pure-white); }
+        
+        .btn-blue { background-color: #0077b5; color: white; box-shadow: 0 4px 15px rgba(0, 119, 181, 0.3); }
+        .btn-blue:hover { background-color: #005f93; transform: translateY(-3px); }
 
         /* --- ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
@@ -110,7 +114,7 @@
         .hero {
             min-height: 90vh;
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
-                        url('gallery-beach.jpg'); /* Using gallery beach image as hero background fallback/main */
+                        url('gallery-beach.jpg'); /* Using local image */
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
             color: var(--pure-white); margin-top: 80px; position: relative;
@@ -135,6 +139,16 @@
             font-weight: 800; 
             filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
             animation: pulse-gradient 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+        }
+        
+        /* Trust Badges in Hero */
+        .trust-badges {
+            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px;
+        }
+        .trust-item {
+            display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem;
+            background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 30px;
+            backdrop-filter: blur(5px);
         }
         
         @keyframes pulse-gradient {
@@ -164,9 +178,9 @@
             background: var(--pure-white); border-radius: 16px; padding: 40px 30px;
             box-shadow: var(--shadow-card); text-align: center; border: 1px solid rgba(0,0,0,0.05);
             transition: var(--transition); display: flex; flex-direction: column;
-            position: relative;
+            position: relative; cursor: pointer;
         }
-        /* GREEN BORDER HIGHLIGHT - Applied to all cards on hover/touch */
+        /* GREEN BORDER HIGHLIGHT */
         .comparison-card:hover { 
             transform: translateY(-10px); 
             box-shadow: var(--shadow-pop); 
@@ -206,9 +220,8 @@
             background: var(--pure-white); border-radius: 16px; overflow: hidden;
             box-shadow: var(--shadow-card); transition: var(--transition);
             position: relative; display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.03); cursor: pointer;
         }
-        /* GREEN BORDER HIGHLIGHT - Applied to all cards on hover/touch */
         .universal-card:hover { 
             transform: translateY(-10px); 
             box-shadow: var(--shadow-pop); 
@@ -258,6 +271,7 @@
         }
         .badge-loc { left: 20px; background: rgba(255,255,255,0.98); color: var(--primary-dark); }
         .badge-val { right: 20px; background: var(--primary-gold); color: var(--primary-dark); }
+        /* badge-trust removed from here as per request */
 
         /* --- TABS --- */
         .tabs-container {
@@ -278,7 +292,7 @@
             height: 300px; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;
             transition: var(--transition);
         }
-        /* GREEN BORDER HIGHLIGHT - Applied to gallery items on hover/touch */
+        /* GREEN BORDER HIGHLIGHT */
         .gallery-item:hover { 
             transform: translateY(-10px); 
             box-shadow: var(--shadow-pop); 
@@ -330,7 +344,6 @@
             padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
             transition: var(--transition);
         }
-        /* GREEN BORDER HIGHLIGHT - Applied to driver card on hover/touch */
         .driver-card:hover { 
             transform: translateY(-10px); 
             box-shadow: var(--shadow-pop); 
@@ -349,7 +362,6 @@
             padding: 5px 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
             transition: var(--transition);
         }
-        /* GREEN BORDER HIGHLIGHT - Applied to FAQ items on hover/touch */
         .faq-item:hover { 
             transform: translateY(-5px); 
             box-shadow: var(--shadow-pop); 
@@ -378,7 +390,7 @@
             box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
         }
         
-        /* IMPROVED WhatsApp Float with better mobile positioning */
+        /* IMPROVED WhatsApp Float */
         .whatsapp-float {
             position: fixed; width: 60px; height: 60px; 
             bottom: 30px; right: 20px;
@@ -386,7 +398,6 @@
             text-align: center; font-size: 30px; 
             z-index: 3000; display: flex; align-items: center; justify-content: center;
             transition: var(--transition);
-            /* Enhanced pulsating effect */
             animation: pulse-green 2s infinite, float 3s ease-in-out infinite;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
@@ -432,30 +443,28 @@
             .hero-content h1 { font-size: 2.8rem; }
             
             /* REMOVE "Start Booking" button on mobile */
-            .hero .btn-secondary {
-                display: none;
-            }
+            .hero .btn-secondary { display: none; }
             
-            /* SWIPE CONTAINERS */
+            /* SWIPE CONTAINERS - FIXED: using 80vw and padding to prevent clipping */
             .grid-container, .tab-content.active, .comparison-grid {
                 display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory;
-                padding-bottom: 40px; gap: 20px; -webkit-overflow-scrolling: touch;
+                padding-bottom: 40px; padding-top: 20px; gap: 20px; -webkit-overflow-scrolling: touch;
                 padding-left: 20px; padding-right: 20px; margin: 0 -20px; width: calc(100% + 40px);
             }
             .universal-card, .gallery-item, .comparison-card {
-                min-width: 85vw; scroll-snap-align: center; flex-shrink: 0;
+                width: 80vw; min-width: 80vw; scroll-snap-align: center; flex-shrink: 0;
             }
             .mobile-sticky-cta { display: block; }
             body { padding-bottom: 80px; }
             
-            /* CHANGED: WhatsApp button now on the RIGHT side on mobile */
+            /* WhatsApp button positioning */
             .whatsapp-float { 
                 bottom: 100px; 
                 right: 20px;
-                left: auto; /* Remove left positioning */
+                left: auto; 
             }
             
-            /* Mobile touch feedback for cards */
+            /* Mobile touch feedback */
             .universal-card:active, .comparison-card:active, .gallery-item:active, .faq-item:active, .driver-card:active {
                 transform: translateY(-5px) scale(0.98); 
                 border: 2px solid var(--primary-green);
@@ -465,7 +474,6 @@
 
         /* Desktop hover enhancement */
         @media (min-width: 901px) {
-            /* Smooth green border transition */
             .universal-card, .comparison-card, .gallery-item, .faq-item, .driver-card {
                 transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
                           box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -473,126 +481,77 @@
             }
         }
         
-        /* Improved booking flow - Clearer form labels and instructions */
-        .form-group {
-            margin-bottom: 20px;
-        }
+        /* Improved booking flow - Clearer form labels */
+        .form-group { margin-bottom: 20px; }
         
         .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--primary-dark);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: block; margin-bottom: 8px; font-weight: 600;
+            color: var(--primary-dark); font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         
         .form-hint {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 5px;
-            display: block;
+            font-size: 0.85rem; color: var(--text-light);
+            margin-top: 5px; display: block;
         }
         
         /* Step indicator for booking flow */
         .booking-steps {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            position: relative;
+            display: flex; justify-content: space-between;
+            margin-bottom: 30px; position: relative;
         }
         
         .booking-steps:before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--off-white-sand);
-            z-index: 1;
+            content: ''; position: absolute; top: 15px; left: 10%; right: 10%;
+            height: 2px; background: var(--off-white-sand); z-index: 1;
         }
         
         .booking-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-            flex: 1;
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; z-index: 2; flex: 1;
         }
         
         .step-number {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--off-white-sand);
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin-bottom: 8px;
-            border: 2px solid var(--off-white-sand);
+            width: 30px; height: 30px; border-radius: 50%;
+            background: var(--off-white-sand); color: var(--text-light);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; margin-bottom: 8px; border: 2px solid var(--off-white-sand);
         }
         
         .booking-step.active .step-number {
-            background: var(--primary-green);
-            color: white;
-            border-color: var(--primary-green);
+            background: var(--primary-green); color: white; border-color: var(--primary-green);
         }
         
         .step-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--text-light);
-            text-align: center;
+            font-size: 0.75rem; text-transform: uppercase; font-weight: 600;
+            color: var(--text-light); text-align: center;
         }
         
-        .booking-step.active .step-label {
-            color: var(--primary-green);
-        }
+        .booking-step.active .step-label { color: var(--primary-green); }
         
-        /* Success message after booking */
-        .booking-success {
-            text-align: center;
-            padding: 20px;
-            display: none;
-        }
+        /* Success message */
+        .booking-success { text-align: center; padding: 20px; display: none; }
         
         .booking-success i {
-            font-size: 3rem;
-            color: var(--primary-green);
-            margin-bottom: 15px;
-            display: block;
+            font-size: 3rem; color: var(--primary-green);
+            margin-bottom: 15px; display: block;
         }
         
         /* Navigation fixes */
-        .nav-links a {
-            position: relative;
-        }
+        .nav-links a { position: relative; }
         
         .nav-links a:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-green);
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px; background: var(--primary-green);
             transition: width 0.3s ease;
         }
         
-        .nav-links a:hover:after,
-        .nav-links a.active:after {
-            width: 100%;
-        }
+        .nav-links a:hover:after, .nav-links a.active:after { width: 100%; }
     </style>
 </head>
 <body>
 
+    <!-- LIGHTBOX -->
     <div id="lightbox" style="position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:4000; display:none; align-items:center; justify-content:center;">
         <span style="position:absolute; top:30px; right:30px; color:white; font-size:2.5rem; cursor:pointer;" onclick="document.getElementById('lightbox').style.display='none'">&times;</span>
         <img id="lightbox-img" src="" style="max-width:95%; max-height:90vh; border-radius:4px; box-shadow: 0 0 30px rgba(0,0,0,0.5);">
@@ -624,10 +583,18 @@
         <div class="container hero-content">
             <h1>Experience the <br><span class="jamaica-text">Real Jamaica</span></h1>
             <p>Start your vacation the moment you land. Authentic, private, and safe transportation tailored to you.</p>
-            <button onclick="openModal()" class="btn btn-secondary" id="desktopBookingBtn">Start Booking</button>
+            
+            <div class="trust-badges">
+                <div class="trust-item"><i class="fa-solid fa-check"></i> No Hidden Fees</div>
+                <div class="trust-item"><i class="fa-solid fa-check"></i> Pay on Arrival</div>
+            </div>
+
+            <!-- "Start Booking" button removed on mobile, kept on desktop -->
+            <button onclick="openModal()" class="btn btn-secondary" id="desktopBookingBtn" style="margin-top: 30px;">Start Booking</button>
         </div>
     </section>
 
+    <!-- SERVICE COMPARISON -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="comparison">
         <div class="container">
             <div class="text-center">
@@ -639,7 +606,8 @@
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="comparison-grid">
-                <div class="comparison-card">
+                <!-- Transfer Card -->
+                <div class="comparison-card" onclick="goToDestinations('transfers')">
                     <div class="comp-icon"><i class="fa-solid fa-plane-arrival"></i></div>
                     <h3>Airport Transfers</h3>
                     <div class="comp-label">Best for Arrivals</div>
@@ -649,10 +617,11 @@
                         <li><i class="fa-solid fa-check"></i> No Waiting for Others</li>
                         <li><i class="fa-solid fa-check"></i> Grocery Stops Available</li>
                     </ul>
-                    <button onclick="goToDestinations('transfers')" class="btn btn-primary">View Destinations</button>
+                    <button class="btn btn-primary">View Destinations</button>
                 </div>
 
-                <div class="comparison-card">
+                <!-- Tour Card -->
+                <div class="comparison-card" onclick="goToDestinations('tours')">
                     <div class="comp-icon"><i class="fa-solid fa-camera"></i></div>
                     <h3>Tours & Excursions</h3>
                     <div class="comp-label">Best for Day Trips</div>
@@ -662,12 +631,13 @@
                         <li><i class="fa-solid fa-check"></i> Flexible Timings</li>
                         <li><i class="fa-solid fa-check"></i> Hidden Gems & Food</li>
                     </ul>
-                    <button onclick="goToDestinations('tours')" class="btn btn-secondary">View Experiences</button>
+                    <button class="btn btn-secondary">View Experiences</button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SERVICES -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="services">
         <div class="container">
             <div class="text-center">
@@ -678,17 +648,17 @@
                 </div>
             </div>
             <div class="grid-container mobile-scroll-container">
-                <div class="universal-card card-body">
+                <div class="universal-card card-body" onclick="openModal()">
                     <div class="feature-icon-circle"><i class="fa-solid fa-id-card"></i></div>
                     <h3>JTB Certified</h3>
                     <p>Fully licensed by the Jamaica Tourist Board. Safe & Insured.</p>
                 </div>
-                <div class="universal-card card-body">
+                <div class="universal-card card-body" onclick="openModal()">
                     <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check"></i></div>
                     <h3>Flight Tracking</h3>
                     <p>We monitor your flight. Early or late, we are there waiting.</p>
                 </div>
-                <div class="universal-card card-body">
+                <div class="universal-card card-body" onclick="openModal()">
                     <div class="feature-icon-circle"><i class="fa-solid fa-lock"></i></div>
                     <h3>100% Private</h3>
                     <p>No sharing with strangers. The vehicle is yours.</p>
@@ -697,6 +667,7 @@
         </div>
     </section>
 
+    <!-- PROCESS -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="howitworks">
         <div class="container">
             <div class="text-center">
@@ -705,18 +676,19 @@
                     <h2>How It Works</h2>
                     <div class="section-underline"></div>
                 </div>
+                <!-- ADDED: Swipe hint for "How It Works" -->
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <h3>1. Inquire</h3>
-                    <p>Click "Book Now" to send details via WhatsApp.</p>
+                    <p>Tap "Book Now" on any tour to start a WhatsApp chat.</p>
                 </div>
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-regular fa-credit-card"></i></div>
                     <h3>2. Deposit</h3>
-                    <p>Secure booking via EzeePayments.</p>
+                    <p>Secure your date with a small deposit.</p>
                 </div>
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-sign-hanging"></i></div>
@@ -726,12 +698,13 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
                     <h3>4. Ride</h3>
-                    <p>Pay balance via Cash or Card.</p>
+                    <p>Pay the balance in Cash or Card when you arrive.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- DESTINATIONS -->
     <section class="section-padding reveal" id="destinations" style="background-color: var(--soft-mint);">
         <div class="container">
             <div class="text-center">
@@ -749,11 +722,11 @@
                 </div>
             </div>
 
+            <!-- TAB: TRANSFERS -->
             <div id="tab-transfers-main" class="tab-content active grid-container mobile-scroll-container">
-                <article class="universal-card featured-card">
+                <article class="universal-card featured-card" onclick="openModalWithContext('Airport Transfer', 'Montego Bay')">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Montego Bay</span>
-                        <span class="badge badge-val">Best Value</span>
                         <img src="mobay-transfer.jpg" alt="Montego Bay" class="card-img">
                     </div>
                     <div class="card-body">
@@ -761,12 +734,12 @@
                         <p>Direct private transfer from Sangster Intl (MBJ).</p>
                         <div class="card-footer">
                             <span class="price-start">From $40</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Airport Transfer', 'Montego Bay')" class="card-link">Reserve</a>
+                            <span class="card-link">Reserve via WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
                 
-                <article class="universal-card">
+                <article class="universal-card" onclick="openModalWithContext('Airport Transfer', 'Negril')">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Negril</span>
                         <img src="negril-transfer.jpg" alt="Negril" class="card-img">
@@ -776,12 +749,12 @@
                         <p>Relax on the scenic drive to Seven Mile Beach.</p>
                         <div class="card-footer">
                             <span class="price-start">From $80</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Airport Transfer', 'Negril')" class="card-link">Reserve</a>
+                            <span class="card-link">Reserve via WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
                 
-                <article class="universal-card">
+                <article class="universal-card" onclick="openModalWithContext('Airport Transfer', 'Ocho Rios')">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
                         <img src="ochorios-transfer.jpg" alt="Ocho Rios" class="card-img">
@@ -791,14 +764,15 @@
                         <p>Enjoy the lush greenery on your way to Ochi resorts.</p>
                         <div class="card-footer">
                             <span class="price-start">From $100</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Airport Transfer', 'Ocho Rios')" class="card-link">Reserve</a>
+                            <span class="card-link">Reserve via WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
             </div>
 
+            <!-- TAB: TOURS -->
             <div id="tab-tours-main" class="tab-content grid-container mobile-scroll-container">
-                 <article class="universal-card">
+                 <article class="universal-card" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
                         <img src="dunns-river.jpg" alt="Dunn's River Falls" class="card-img">
@@ -808,11 +782,11 @@
                         <p>Climb the famous falls and swim in the ocean.</p>
                         <div class="card-footer">
                             <span class="price-start">From $120</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Book Now</a>
+                            <span class="card-link">Get Quote <i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </div>
                 </article>
-                 <article class="universal-card">
+                 <article class="universal-card" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Kingston</span>
                         <img src="bob-marley.jpg" alt="Bob Marley Mural" class="card-img">
@@ -822,11 +796,11 @@
                         <p>Visit the home of the Legend + Devon House stop.</p>
                         <div class="card-footer">
                             <span class="price-start">From $150</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
+                            <span class="card-link">Get Quote <i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </div>
                 </article>
-                <article class="universal-card">
+                <article class="universal-card" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
                         <img src="blue-hole.jpg" class="card-img" alt="Blue Hole">
@@ -836,7 +810,7 @@
                         <p>Jump and swim in bright blue mineral waters.</p>
                         <div class="card-footer">
                             <span class="price-start">From $130</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
+                            <span class="card-link">Get Quote <i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </div>
                 </article>
@@ -844,6 +818,7 @@
         </div>
     </section>
 
+    <!-- GALLERY -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="gallery">
         <div class="container">
             <div class="text-center">
@@ -852,6 +827,7 @@
                     <h2>See the Vibe</h2>
                     <div class="section-underline"></div>
                 </div>
+                <!-- ADDED: Swipe hint for "See the Vibe" -->
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
@@ -871,6 +847,7 @@
         </div>
     </section>
 
+    <!-- FAQ -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="faq">
         <div class="container text-center">
             <div class="section-title-wrapper">
@@ -883,6 +860,7 @@
         </div>
     </section>
 
+    <!-- ABOUT & DRIVER -->
     <section class="section-padding reveal" id="about" style="background-color: var(--off-white-sand);">
         <div class="container text-center">
             <div class="section-title-wrapper">
@@ -896,6 +874,7 @@
                 <button class="tab-btn" onclick="switchTab(event, 'driver', 'info')">Meet Pedro</button>
             </div>
 
+            <!-- Tab: About -->
             <div id="tab-about-info" class="tab-content active" style="max-width: 800px; margin: 0 auto; display: block;">
                  <p class="about-text" style="font-size:1.1rem; line-height:1.8; color:var(--text-light);">
                     Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
@@ -904,6 +883,7 @@
                 <div style="margin-top: 30px;"><i class="fa-solid fa-heart" style="color: var(--primary-gold); font-size: 2rem;"></i></div>
             </div>
 
+            <!-- Tab: Driver -->
             <div id="tab-driver-info" class="tab-content" style="max-width: 600px; margin: 0 auto;">
                 <div class="driver-card">
                     <div class="driver-avatar">
@@ -917,6 +897,7 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
@@ -958,10 +939,12 @@
         </div>
     </footer>
 
+    <!-- STICKY MOBILE CTA -->
     <div class="mobile-sticky-cta">
         <button onclick="openModal('bookingModal')" class="btn btn-primary" style="width:100%;">Book Your Ride Now</button>
     </div>
 
+    <!-- WHATSAPP FLOAT WITH ENHANCED PULSATING EFFECT - NOW ON RIGHT SIDE ON MOBILE -->
     <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." 
        class="whatsapp-float" 
        target="_blank" 
@@ -971,6 +954,7 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
+    <!-- MODAL: BOOKING WITH IMPROVED FLOW -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
@@ -979,6 +963,7 @@
                 <p style="color: var(--text-light); margin-top: 10px; font-size: 0.95rem;">Fill in your details and we'll get back to you via WhatsApp in 5 minutes</p>
             </div>
             
+            <!-- Booking Steps Indicator -->
             <div class="booking-steps">
                 <div class="booking-step active">
                     <div class="step-number">1</div>
@@ -990,11 +975,17 @@
                 </div>
             </div>
             
-            <form id="bookingForm" onsubmit="submitBooking(event)">
+            <!-- Main Booking Form -->
+            <form id="bookingForm" onsubmit="return false;">
                 <div id="bookingFormStep1">
                     <div class="form-group">
                         <label class="form-label">Your Name</label>
                         <input type="text" id="name" class="form-control" placeholder="Full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
                     </div>
                     
                     <div class="form-group">
@@ -1020,6 +1011,7 @@
                         </select>
                     </div>
                     
+                    <!-- Dynamic fields based on service type -->
                     <div id="airportFields" style="display: none;">
                         <div class="form-group">
                             <label class="form-label">Flight Details</label>
@@ -1071,6 +1063,7 @@
                         </div>
                     </div>
                     
+                    <!-- Price Calculator Display -->
                     <div id="price-estimate" class="price-estimate"></div>
                     
                     <button type="button" onclick="showBookingConfirmation()" class="btn btn-primary" id="nextStepBtn" style="width:100%; margin-top: 20px;" disabled>
@@ -1078,6 +1071,7 @@
                     </button>
                 </div>
                 
+                <!-- Confirmation Step -->
                 <div id="bookingFormStep2" style="display: none;">
                     <div class="text-center" style="margin-bottom: 20px;">
                         <h4>Review Your Booking</h4>
@@ -1085,35 +1079,43 @@
                     </div>
                     
                     <div id="confirmationDetails" style="background: var(--off-white-sand); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                        </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Your WhatsApp Number</label>
-                        <input type="tel" id="whatsappNumber" class="form-control" placeholder="+1 (876) 123-4567" required>
-                        <small class="form-hint">We'll contact you on WhatsApp to confirm</small>
+                        <!-- Details will be filled by JavaScript -->
                     </div>
                     
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button type="button" onclick="goBackToStep1()" class="btn btn-outline" style="flex: 1;">
-                            <i class="fas fa-arrow-left"></i> Back
+                    <div class="form-group">
+                        <label class="form-label">Contact Number (WhatsApp)</label>
+                        <input type="tel" id="whatsappNumber" class="form-control" placeholder="+1 (876) 123-4567" required>
+                        <small class="form-hint">Required for WhatsApp bookings</small>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                        <button type="button" onclick="submitBooking('whatsapp')" class="btn btn-primary" id="btnWhatsapp">
+                            <i class="fab fa-whatsapp"></i> Book via WhatsApp
                         </button>
-                        <button type="submit" class="btn btn-primary" id="submitBtn" style="flex: 2;">
-                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                        
+                        <button type="button" onclick="submitBooking('email')" class="btn btn-blue" id="btnEmail">
+                            <i class="fa-solid fa-envelope"></i> Book via Email
+                        </button>
+                        
+                        <button type="button" onclick="goBackToStep1()" class="btn btn-outline" style="margin-top: 5px;">
+                            <i class="fas fa-arrow-left"></i> Back to Details
                         </button>
                     </div>
                 </div>
             </form>
             
+            <!-- Success Message -->
             <div id="bookingSuccess" class="booking-success" style="display: none;">
                 <i class="fas fa-check-circle"></i>
                 <h4>Booking Request Sent!</h4>
-                <p>We'll contact you on WhatsApp within 5 minutes to confirm your booking.</p>
+                <p id="successText">We'll contact you within 5 minutes to confirm your booking.</p>
                 <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 10px;">If you don't hear from us, please call <strong>+1 (876) 485-9759</strong></p>
                 <button onclick="closeModal('bookingModal')" class="btn btn-primary" style="margin-top: 20px;">Close</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL: FAQ -->
     <div class="modal-overlay" id="faqModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('faqModal')">&times;</span>
@@ -1147,6 +1149,7 @@
         </div>
     </div>
 
+    <!-- MODAL: LEGAL -->
     <div class="modal-overlay" id="legalModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
@@ -1229,14 +1232,15 @@
         
         function validateStep1() {
             const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
             const service = document.getElementById('service').value;
             const location = document.getElementById('location').value;
             const date = document.getElementById('date').value;
             const pax = document.getElementById('pax').value;
             const nextBtn = document.getElementById('nextStepBtn');
             
-            // Basic validation
-            if (name && service && location && date && pax) {
+            // Basic validation with Email check
+            if (name && email && service && location && date && pax) {
                 nextBtn.disabled = false;
                 nextBtn.style.opacity = '1';
             } else {
@@ -1248,6 +1252,7 @@
         function showBookingConfirmation() {
             // Collect all form data
             const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
             const service = document.getElementById('service').value;
             const location = document.getElementById('location').value;
             const date = document.getElementById('date').value;
@@ -1270,6 +1275,7 @@
             // Build confirmation HTML
             let confirmationHTML = `
                 <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Service:</strong> ${service}</p>
                 <p><strong>Destination:</strong> ${location}</p>
                 <p><strong>Date:</strong> ${formattedDate}</p>
@@ -1327,10 +1333,9 @@
             currentBookingStep = 1;
         }
         
-        function submitBooking(e) {
-            e.preventDefault();
+        function submitBooking(method) {
             
-            const btn = document.getElementById('submitBtn');
+            const btn = method === 'whatsapp' ? document.getElementById('btnWhatsapp') : document.getElementById('btnEmail');
             const originalText = btn.innerHTML;
             
             // Show loading state
@@ -1339,6 +1344,7 @@
             
             // Collect all data
             const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
             const service = document.getElementById('service').value;
             const location = document.getElementById('location').value;
             const date = document.getElementById('date').value;
@@ -1351,53 +1357,104 @@
             const grocerystop = document.getElementById('grocerystop').checked ? "Yes" : "No";
             const tourInterest = document.getElementById('tourInterest') ? document.getElementById('tourInterest').value : '';
             
-            // Format message for WhatsApp
-            let message = `*New Booking Request* 🇯🇲%0A%0A`;
-            message += `*Name:* ${encodeURIComponent(name)}%0A`;
-            message += `*Service:* ${encodeURIComponent(service)}%0A`;
-            message += `*Destination:* ${encodeURIComponent(location)}%0A`;
-            message += `*Date:* ${encodeURIComponent(date)}%0A`;
-            message += `*Passengers:* ${encodeURIComponent(pax)}%0A`;
-            
-            if (flight) {
-                message += `*Flight:* ${encodeURIComponent(flight)}%0A`;
-            }
-            
-            if (tourInterest) {
-                message += `*Tour Interest:* ${encodeURIComponent(tourInterest)}%0A`;
-            }
-            
-            message += `*Round Trip:* ${roundtrip}%0A`;
-            message += `*Car Seat:* ${carseat}%0A`;
-            message += `*Grocery Stop:* ${grocerystop}%0A`;
-            
-            if (notes) {
-                message += `*Notes:* ${encodeURIComponent(notes)}%0A`;
-            }
-            
-            message += `%0A*Contact:* ${encodeURIComponent(whatsappNumber)}`;
-            
-            // Simulate sending delay
-            setTimeout(() => {
-                // Open WhatsApp
-                window.open(`https://wa.me/18764859759?text=${message}`, '_blank');
+            if(method === 'whatsapp') {
+                if(!whatsappNumber) {
+                    alert('Please enter your WhatsApp number.');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    return;
+                }
+
+                // Format message for WhatsApp
+                let message = `*New Booking Request* 🇯🇲%0A%0A`;
+                message += `*Name:* ${encodeURIComponent(name)}%0A`;
+                message += `*Email:* ${encodeURIComponent(email)}%0A`;
+                message += `*Service:* ${encodeURIComponent(service)}%0A`;
+                message += `*Destination:* ${encodeURIComponent(location)}%0A`;
+                message += `*Date:* ${encodeURIComponent(date)}%0A`;
+                message += `*Passengers:* ${encodeURIComponent(pax)}%0A`;
                 
-                // Show success message
-                document.getElementById('bookingFormStep2').style.display = 'none';
-                document.getElementById('bookingSuccess').style.display = 'block';
+                if (flight) message += `*Flight:* ${encodeURIComponent(flight)}%0A`;
+                if (tourInterest) message += `*Tour Interest:* ${encodeURIComponent(tourInterest)}%0A`;
                 
-                // Reset button
-                btn.disabled = false;
-                btn.innerHTML = originalText;
+                message += `*Round Trip:* ${roundtrip}%0A`;
+                message += `*Car Seat:* ${carseat}%0A`;
+                message += `*Grocery Stop:* ${grocerystop}%0A`;
                 
-                // Reset form after 5 seconds if modal is closed
+                if (notes) message += `*Notes:* ${encodeURIComponent(notes)}%0A`;
+                
+                message += `%0A*Contact:* ${encodeURIComponent(whatsappNumber)}`;
+                
+                // Simulate delay then open WhatsApp
                 setTimeout(() => {
-                    if (!document.getElementById('bookingModal').classList.contains('open')) {
-                        resetBookingForm();
-                    }
-                }, 5000);
+                    window.open(`https://wa.me/18764859759?text=${message}`, '_blank');
+                    finishBookingProcess(btn, originalText, 'whatsapp');
+                }, 1000);
+            } 
+            else if (method === 'email') {
+                // Email Subject & Body
+                const subject = `Booking Request: ${service} - ${name}`;
+                let body = `Hello P&T Island Tours,%0D%0A%0D%0AI would like to book a trip.%0D%0A%0D%0A`;
+                body += `Name: ${name}%0D%0A`;
+                body += `Email: ${email}%0D%0A`;
+                body += `Service: ${service}%0D%0A`;
+                body += `Destination: ${location}%0D%0A`;
+                body += `Date: ${date}%0D%0A`;
+                body += `Passengers: ${pax}%0D%0A`;
                 
-            }, 1500);
+                if(flight) body += `Flight: ${flight}%0D%0A`;
+                if(tourInterest) body += `Tour Interest: ${tourInterest}%0D%0A`;
+                
+                body += `Round Trip: ${roundtrip}%0D%0A`;
+                body += `Car Seat: ${carseat}%0D%0A`;
+                body += `Grocery Stop: ${grocerystop}%0D%0A`;
+                
+                if(notes) body += `Notes: ${notes}%0D%0A`;
+                if(whatsappNumber) body += `Phone/WhatsApp: ${whatsappNumber}%0D%0A`;
+
+                // Simulate delay then open Email Client
+                setTimeout(() => {
+                    window.location.href = `mailto:ttgrindley@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`; // No encoding needed for body as we used manual codes, but to be safe usually better to encode
+                    // Actually standard mailto usually needs component encoding
+                    // Let's redo the body assignment for safety in href
+                    // Re-constructing cleaner version for proper encoding
+                    let cleanBody = `Hello P&T Island Tours,\n\nI would like to book a trip.\n\n`;
+                    cleanBody += `Name: ${name}\nEmail: ${email}\nService: ${service}\nDestination: ${location}\nDate: ${date}\nPassengers: ${pax}\n`;
+                    if(flight) cleanBody += `Flight: ${flight}\n`;
+                    if(tourInterest) cleanBody += `Tour Interest: ${tourInterest}\n`;
+                    if(notes) cleanBody += `Notes: ${notes}\n`;
+                    if(whatsappNumber) cleanBody += `Phone: ${whatsappNumber}\n`;
+                    
+                    window.location.href = `mailto:ttgrindley@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(cleanBody)}`;
+
+                    finishBookingProcess(btn, originalText, 'email');
+                }, 1000);
+            }
+        }
+
+        function finishBookingProcess(btn, originalText, type) {
+            // Show success message
+            document.getElementById('bookingFormStep2').style.display = 'none';
+            document.getElementById('bookingSuccess').style.display = 'block';
+            
+            // Customize success text
+            const successText = document.getElementById('successText');
+            if(type === 'email') {
+                successText.innerText = "Your email client has been opened. Please hit 'Send' to complete your request!";
+            } else {
+                successText.innerText = "We'll contact you on WhatsApp within 5 minutes to confirm your booking.";
+            }
+
+            // Reset button
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            
+            // Reset form after 5 seconds if modal is closed
+            setTimeout(() => {
+                if (!document.getElementById('bookingModal').classList.contains('open')) {
+                    resetBookingForm();
+                }
+            }, 5000);
         }
         
         function resetBookingForm() {
