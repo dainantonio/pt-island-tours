@@ -38,6 +38,7 @@
             --shadow-pop: 0 20px 40px -5px rgba(0, 155, 58, 0.2);
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             --error-red: #d32f2f;
+            --whatsapp-green: #25d366;
         }
 
         /* --- RESET & BASE --- */
@@ -62,6 +63,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-padding { padding: 100px 0; }
         .text-center { text-align: center; }
+        .text-whatsapp { color: var(--whatsapp-green); font-size: 1.1em; }
         
         /* Section Titles */
         .section-title-wrapper { margin-bottom: 60px; display: flex; flex-direction: column; align-items: center; }
@@ -78,6 +80,7 @@
         }
         .btn-primary { background-color: var(--primary-green); color: var(--pure-white); box-shadow: 0 4px 15px rgba(0, 155, 58, 0.3); }
         .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        .btn-primary:disabled { background-color: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
         
         .btn-secondary { background-color: var(--primary-gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
         .btn-secondary:hover { background-color: #e6c200; transform: translateY(-3px); }
@@ -216,6 +219,7 @@
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; 
             background: var(--off-white-sand); width: 80px; height: 80px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin-left: auto; margin-right: auto;
+            position: relative; overflow: hidden; /* For animations */
         }
         .comp-features { list-style: none; margin: 20px 0; text-align: left; flex-grow: 1; padding: 0; }
         .comp-features li { margin-bottom: 10px; font-size: 0.95rem; color: var(--text-light); border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
@@ -223,6 +227,34 @@
         .comp-label { 
             display: inline-block; background: var(--off-white-sand); color: var(--primary-dark);
             padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 15px;
+        }
+
+        /* --- INTERACTIVE ICON ANIMATIONS --- */
+        
+        /* Plane Landing Animation */
+        @keyframes planeLand {
+            0% { transform: translate(-20px, -20px) scale(0.8); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(0, 0) scale(1); opacity: 1; }
+        }
+        
+        /* Camera Snap Animation */
+        @keyframes cameraSnap {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.2) rotate(-5deg); }
+            60% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        /* Trigger animations on card hover or reveal */
+        .comparison-card:hover .fa-plane-arrival,
+        .reveal.active .comparison-card .fa-plane-arrival {
+            animation: planeLand 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .comparison-card:hover .fa-camera,
+        .reveal.active .comparison-card .fa-camera {
+            animation: cameraSnap 0.8s ease-in-out;
         }
 
         /* --- ICONS --- */
@@ -296,8 +328,7 @@
         }
         .badge-loc { left: 20px; background: rgba(255,255,255,0.98); color: var(--primary-dark); }
         .badge-val { right: 20px; background: var(--primary-gold); color: var(--primary-dark); }
-        /* badge-trust removed from here as per request */
-
+        
         /* --- TABS --- */
         .tabs-container {
             display: flex; justify-content: center; gap: 15px; margin: 0 auto 50px;
@@ -587,6 +618,16 @@
             margin-bottom: 15px; display: block;
         }
         
+        /* Checkbox styling */
+        .checkbox-label {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.9rem; cursor: pointer; color: var(--text-dark);
+        }
+        .checkbox-label input[type="checkbox"] {
+            margin-top: 4px; accent-color: var(--primary-green);
+            width: 18px; height: 18px;
+        }
+        
         /* Navigation fixes */
         .nav-links a { position: relative; }
         
@@ -637,7 +678,6 @@
             <div class="trust-badges">
                 <div class="trust-item"><i class="fa-solid fa-check"></i> No Hidden Fees</div>
                 <div class="trust-item"><i class="fa-solid fa-check"></i> Pay on Arrival</div>
-                <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Secure Payments</div>
             </div>
 
             <!-- "Start Booking" button removed on mobile, kept on desktop -->
@@ -708,26 +748,26 @@
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
-                    <h4>BOOK WITH CONFIDENCE</h4>
-                    <h2>Why Travelers Trust Us</h2>
+                    <h4>PREMIUM SERVICE</h4>
+                    <h2>Why Travelers Choose Us</h2>
                     <div class="section-underline"></div>
                 </div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card card-body" onclick="openModal()">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-id-card"></i></div>
-                    <h3>JTB Certified</h3>
-                    <p>Fully licensed by the Jamaica Tourist Board. Safe, Insured, and Official.</p>
+                    <div class="feature-icon-circle"><i class="fa-solid fa-people-group"></i></div>
+                    <h3>Local Experts</h3>
+                    <p>We know the island inside out. Get authentic recommendations and hidden gems.</p>
                 </div>
                 <div class="universal-card card-body" onclick="openModal()">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3>Secure Payment</h3>
-                    <p>We use EzeePayments for secure deposits. You can pay the balance in Cash on arrival.</p>
+                    <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check"></i></div>
+                    <h3>Flight Tracking</h3>
+                    <p>We monitor your flight status. Delayed? We wait for you at no extra cost.</p>
                 </div>
                 <div class="universal-card card-body" onclick="openModal()">
                     <div class="feature-icon-circle"><i class="fa-solid fa-lock"></i></div>
                     <h3>100% Private</h3>
-                    <p>No sharing with strangers. The vehicle is yours, and your safety is our priority.</p>
+                    <p>No sharing with strangers. The vehicle is solely for you and your group.</p>
                 </div>
             </div>
         </div>
@@ -800,7 +840,7 @@
                         <p>Direct private transfer from Sangster Intl (MBJ).</p>
                         <div class="card-footer">
                             <span class="price-start">From $40</span>
-                            <span class="card-link">Reserve via WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
+                            <span class="card-link">Book Now <i class="fa-brands fa-whatsapp text-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
@@ -815,7 +855,7 @@
                         <p>Relax on the scenic drive to Seven Mile Beach.</p>
                         <div class="card-footer">
                             <span class="price-start">From $80</span>
-                            <span class="card-link">Reserve via WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
+                            <span class="card-link">Book Now <i class="fa-brands fa-whatsapp text-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
@@ -830,7 +870,7 @@
                         <p>Enjoy the lush greenery on your way to Ochi resorts.</p>
                         <div class="card-footer">
                             <span class="price-start">From $100</span>
-                            <span class="card-link">Reserve via WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
+                            <span class="card-link">Book Now <i class="fa-brands fa-whatsapp text-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
@@ -848,7 +888,7 @@
                         <p>Climb the famous falls and swim in the ocean.</p>
                         <div class="card-footer">
                             <span class="price-start">From $120</span>
-                            <span class="card-link">Get Quote <i class="fa-solid fa-arrow-right"></i></span>
+                            <span class="card-link">Book Now <i class="fa-brands fa-whatsapp text-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
@@ -862,7 +902,7 @@
                         <p>Visit the home of the Legend + Devon House stop.</p>
                         <div class="card-footer">
                             <span class="price-start">From $150</span>
-                            <span class="card-link">Get Quote <i class="fa-solid fa-arrow-right"></i></span>
+                            <span class="card-link">Book Now <i class="fa-brands fa-whatsapp text-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
@@ -876,7 +916,7 @@
                         <p>Jump and swim in bright blue mineral waters.</p>
                         <div class="card-footer">
                             <span class="price-start">From $130</span>
-                            <span class="card-link">Get Quote <i class="fa-solid fa-arrow-right"></i></span>
+                            <span class="card-link">Book Now <i class="fa-brands fa-whatsapp text-whatsapp"></i></span>
                         </div>
                     </div>
                 </article>
@@ -1163,12 +1203,19 @@
                         <small class="form-hint">Required for WhatsApp bookings</small>
                     </div>
                     
+                    <div class="form-group" style="margin-top: 15px; margin-bottom: 20px;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" required onchange="validateStep2()">
+                            <span>I agree to the <a href="#" onclick="openModal('legalModal')" style="text-decoration: underline; color: var(--primary-green);">Terms of Use</a> regarding deposits and cancellations.</span>
+                        </label>
+                    </div>
+                    
                     <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-                        <button type="button" onclick="submitBooking('whatsapp')" class="btn btn-primary" id="btnWhatsapp">
+                        <button type="button" onclick="submitBooking('whatsapp')" class="btn btn-primary" id="btnWhatsapp" disabled>
                             <i class="fab fa-whatsapp"></i> Book via WhatsApp
                         </button>
                         
-                        <button type="button" onclick="submitBooking('email')" class="btn btn-blue" id="btnEmail">
+                        <button type="button" onclick="submitBooking('email')" class="btn btn-blue" id="btnEmail" disabled>
                             <i class="fa-solid fa-envelope"></i> Book via Email
                         </button>
                         
@@ -1212,52 +1259,52 @@
                         <tr>
                             <td>Rick's Cafe (Negril)</td>
                             <td>Sunsets & Cliff Diving</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Ricks Cafe', 'Negril')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Ricks Cafe', 'Negril')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>Luminous Lagoon</td>
                             <td>Night Tour / Glowing Water</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>Martha Brae Rafting</td>
                             <td>Relaxation & Nature</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Martha Brae', 'Trelawny')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Martha Brae', 'Trelawny')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>YS Falls</td>
                             <td>Waterfalls & Zipline</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                          <tr>
                             <td>Black River Safari</td>
                             <td>Wildlife (Crocodiles)</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Black River', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Black River', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>Floyd's Pelican Bar</td>
                             <td>Ocean Bar & Seafood</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>Rose Hall Great House</td>
                             <td>History & Haunted Tour</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>Mystic Mountain</td>
                             <td>Adventure & Bobsled</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
                             <td>Appleton Estate</td>
                             <td>Rum Tour</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Appleton Rum', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Appleton Rum', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                          <tr>
                             <td>Green Grotto Caves</td>
                             <td>History & Caves</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Green Grotto', 'Runaway Bay')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Green Grotto', 'Runaway Bay')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1471,7 +1518,24 @@
             });
             document.querySelectorAll('.booking-step')[1].classList.add('active');
             
+            // Reset validation state for step 2
+            validateStep2();
+            
             currentBookingStep = 2;
+        }
+        
+        function validateStep2() {
+            const termsChecked = document.getElementById('terms').checked;
+            const btnWhatsapp = document.getElementById('btnWhatsapp');
+            const btnEmail = document.getElementById('btnEmail');
+            
+            if (termsChecked) {
+                btnWhatsapp.disabled = false;
+                btnEmail.disabled = false;
+            } else {
+                btnWhatsapp.disabled = true;
+                btnEmail.disabled = true;
+            }
         }
         
         function goBackToStep1() {
@@ -1488,6 +1552,12 @@
         }
         
         function submitBooking(method) {
+            
+            const termsChecked = document.getElementById('terms').checked;
+            if(!termsChecked) {
+                alert("Please agree to the Terms of Use to proceed.");
+                return;
+            }
             
             const btn = method === 'whatsapp' ? document.getElementById('btnWhatsapp') : document.getElementById('btnEmail');
             const originalText = btn.innerHTML;
@@ -1794,22 +1864,34 @@
             }
         }
         
-        // Mobile Scroll Focus
-        function handleScroll() {
+        // Mobile Scroll Focus (Optimized with requestAnimationFrame)
+        let ticking = false;
+        
+        function handleScroll(container) {
             if(window.innerWidth > 900) return;
-            const containers = document.querySelectorAll('.mobile-scroll-container');
-            containers.forEach(container => {
-                const center = container.getBoundingClientRect().left + container.offsetWidth / 2;
-                Array.from(container.children).forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const cardCenter = rect.left + rect.width / 2;
-                    const dist = Math.abs(center - cardCenter);
-                    const scale = Math.max(0.95, 1 - (dist / window.innerWidth) * 0.2);
-                    const opacity = Math.max(0.7, 1 - (dist / window.innerWidth) * 0.5);
-                    card.style.transform = `scale(${scale})`;
-                    card.style.opacity = opacity;
-                });
+            // Only process the specific container that scrolled
+            if (!container) return; 
+            
+            const center = container.getBoundingClientRect().left + container.offsetWidth / 2;
+            Array.from(container.children).forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = rect.left + rect.width / 2;
+                const dist = Math.abs(center - cardCenter);
+                const scale = Math.max(0.95, 1 - (dist / window.innerWidth) * 0.2);
+                const opacity = Math.max(0.7, 1 - (dist / window.innerWidth) * 0.5);
+                card.style.transform = `scale(${scale})`;
+                card.style.opacity = opacity;
             });
+        }
+        
+        function onScroll(e) {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll(e.target);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         }
         
         // Reveal Animation
@@ -1832,9 +1914,11 @@
             // Observe reveal elements
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
             
-            // Initialize scroll handlers
+            // Initialize scroll handlers with optimization
             document.querySelectorAll('.mobile-scroll-container').forEach(el => {
-                el.addEventListener('scroll', handleScroll);
+                el.addEventListener('scroll', onScroll);
+                // Initial call to set positions
+                handleScroll(el);
             });
             
             // Real-time validation for step 1
@@ -1846,8 +1930,6 @@
                     input.addEventListener('change', validateStep1);
                 }
             });
-            
-            handleScroll();
         });
         
         // Lightbox
