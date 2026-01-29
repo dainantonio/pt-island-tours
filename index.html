@@ -6,7 +6,6 @@
     <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Ride with locals who know the real Jamaica. Montego Bay, Negril, Ocho Rios. JTB Certified.">
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
-    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Marcellus&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -111,7 +110,7 @@
         .hero {
             min-height: 90vh;
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
-                        url('https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?q=80&w=1920&auto=format&fit=crop');
+                        url('gallery-beach.jpg'); /* Using gallery beach image as hero background fallback/main */
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
             color: var(--pure-white); margin-top: 80px; position: relative;
@@ -594,7 +593,6 @@
 </head>
 <body>
 
-    <!-- LIGHTBOX -->
     <div id="lightbox" style="position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:4000; display:none; align-items:center; justify-content:center;">
         <span style="position:absolute; top:30px; right:30px; color:white; font-size:2.5rem; cursor:pointer;" onclick="document.getElementById('lightbox').style.display='none'">&times;</span>
         <img id="lightbox-img" src="" style="max-width:95%; max-height:90vh; border-radius:4px; box-shadow: 0 0 30px rgba(0,0,0,0.5);">
@@ -626,12 +624,10 @@
         <div class="container hero-content">
             <h1>Experience the <br><span class="jamaica-text">Real Jamaica</span></h1>
             <p>Start your vacation the moment you land. Authentic, private, and safe transportation tailored to you.</p>
-            <!-- "Start Booking" button removed on mobile, kept on desktop -->
             <button onclick="openModal()" class="btn btn-secondary" id="desktopBookingBtn">Start Booking</button>
         </div>
     </section>
 
-    <!-- SERVICE COMPARISON -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="comparison">
         <div class="container">
             <div class="text-center">
@@ -643,7 +639,6 @@
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="comparison-grid">
-                <!-- Transfer Card -->
                 <div class="comparison-card">
                     <div class="comp-icon"><i class="fa-solid fa-plane-arrival"></i></div>
                     <h3>Airport Transfers</h3>
@@ -657,7 +652,6 @@
                     <button onclick="goToDestinations('transfers')" class="btn btn-primary">View Destinations</button>
                 </div>
 
-                <!-- Tour Card -->
                 <div class="comparison-card">
                     <div class="comp-icon"><i class="fa-solid fa-camera"></i></div>
                     <h3>Tours & Excursions</h3>
@@ -674,7 +668,6 @@
         </div>
     </section>
 
-    <!-- SERVICES -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="services">
         <div class="container">
             <div class="text-center">
@@ -704,7 +697,6 @@
         </div>
     </section>
 
-    <!-- PROCESS -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="howitworks">
         <div class="container">
             <div class="text-center">
@@ -713,7 +705,6 @@
                     <h2>How It Works</h2>
                     <div class="section-underline"></div>
                 </div>
-                <!-- ADDED: Swipe hint for "How It Works" -->
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
@@ -741,7 +732,6 @@
         </div>
     </section>
 
-    <!-- DESTINATIONS -->
     <section class="section-padding reveal" id="destinations" style="background-color: var(--soft-mint);">
         <div class="container">
             <div class="text-center">
@@ -759,13 +749,12 @@
                 </div>
             </div>
 
-            <!-- TAB: TRANSFERS -->
             <div id="tab-transfers-main" class="tab-content active grid-container mobile-scroll-container">
                 <article class="universal-card featured-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Montego Bay</span>
                         <span class="badge badge-val">Best Value</span>
-                        <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?auto=format&fit=crop&w=800&q=80" alt="Montego Bay" class="card-img">
+                        <img src="mobay-transfer.jpg" alt="Montego Bay" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Montego Bay</h3>
@@ -780,7 +769,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Negril</span>
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Negril" class="card-img">
+                        <img src="negril-transfer.jpg" alt="Negril" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Negril</h3>
@@ -795,7 +784,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://images.unsplash.com/photo-1555427840-7459146059d4?auto=format&fit=crop&w=800&q=80" alt="Ocho Rios" class="card-img">
+                        <img src="ochorios-transfer.jpg" alt="Ocho Rios" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Ocho Rios</h3>
@@ -808,12 +797,11 @@
                 </article>
             </div>
 
-            <!-- TAB: TOURS -->
             <div id="tab-tours-main" class="tab-content grid-container mobile-scroll-container">
                  <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=800&q=80" alt="Falls" class="card-img">
+                        <img src="dunns-river.jpg" alt="Dunn's River Falls" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Dunn's River Falls</h3>
@@ -827,7 +815,7 @@
                  <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Kingston</span>
-                        <img src="https://images.unsplash.com/photo-1550416338-79d8a5737521?auto=format&fit=crop&w=800&q=80" alt="Bob Marley" class="card-img">
+                        <img src="bob-marley.jpg" alt="Bob Marley Mural" class="card-img">
                     </div>
                     <div class="card-body">
                         <h3>Bob Marley Museum</h3>
@@ -841,7 +829,7 @@
                 <article class="universal-card">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <img src="https://placehold.co/800x600/009B3A/FFFFFF?text=Blue+Hole" class="card-img" alt="Blue Hole">
+                        <img src="blue-hole.jpg" class="card-img" alt="Blue Hole">
                     </div>
                     <div class="card-body">
                         <h3>Blue Hole</h3>
@@ -856,7 +844,6 @@
         </div>
     </section>
 
-    <!-- GALLERY -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="gallery">
         <div class="container">
             <div class="text-center">
@@ -865,27 +852,25 @@
                     <h2>See the Vibe</h2>
                     <div class="section-underline"></div>
                 </div>
-                <!-- ADDED: Swipe hint for "See the Vibe" -->
                 <div class="mobile-swipe-hint"><i class="fa-solid fa-hand-pointer"></i> ← Swipe to see more →</div>
             </div>
             <div class="grid-container mobile-scroll-container">
                 <div class="universal-card gallery-item">
-                    <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=600&q=80" alt="Beach" class="card-img">
+                    <img src="gallery-beach.jpg" alt="Beach" class="card-img">
                     <div class="gallery-overlay"><span>Beach</span></div>
                 </div>
                 <div class="universal-card gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584968173934-5c44002699e1?auto=format&fit=crop&w=600&q=80" alt="Nature" class="card-img">
+                    <img src="gallery-nature.jpg" alt="Nature" class="card-img">
                     <div class="gallery-overlay"><span>Nature</span></div>
                 </div>
                 <div class="universal-card gallery-item">
-                    <img src="https://placehold.co/600x400/009B3A/FFFFFF?text=Island+Food" class="card-img" alt="Food">
+                    <img src="gallery-food.jpg" class="card-img" alt="Food">
                     <div class="gallery-overlay"><span>Food</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="faq">
         <div class="container text-center">
             <div class="section-title-wrapper">
@@ -898,7 +883,6 @@
         </div>
     </section>
 
-    <!-- ABOUT & DRIVER -->
     <section class="section-padding reveal" id="about" style="background-color: var(--off-white-sand);">
         <div class="container text-center">
             <div class="section-title-wrapper">
@@ -912,7 +896,6 @@
                 <button class="tab-btn" onclick="switchTab(event, 'driver', 'info')">Meet Pedro</button>
             </div>
 
-            <!-- Tab: About -->
             <div id="tab-about-info" class="tab-content active" style="max-width: 800px; margin: 0 auto; display: block;">
                  <p class="about-text" style="font-size:1.1rem; line-height:1.8; color:var(--text-light);">
                     Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. 
@@ -921,7 +904,6 @@
                 <div style="margin-top: 30px;"><i class="fa-solid fa-heart" style="color: var(--primary-gold); font-size: 2rem;"></i></div>
             </div>
 
-            <!-- Tab: Driver -->
             <div id="tab-driver-info" class="tab-content" style="max-width: 600px; margin: 0 auto;">
                 <div class="driver-card">
                     <div class="driver-avatar">
@@ -935,7 +917,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
@@ -977,12 +958,10 @@
         </div>
     </footer>
 
-    <!-- STICKY MOBILE CTA -->
     <div class="mobile-sticky-cta">
         <button onclick="openModal('bookingModal')" class="btn btn-primary" style="width:100%;">Book Your Ride Now</button>
     </div>
 
-    <!-- WHATSAPP FLOAT WITH ENHANCED PULSATING EFFECT - NOW ON RIGHT SIDE ON MOBILE -->
     <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." 
        class="whatsapp-float" 
        target="_blank" 
@@ -992,7 +971,6 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- MODAL: BOOKING WITH IMPROVED FLOW -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
@@ -1001,7 +979,6 @@
                 <p style="color: var(--text-light); margin-top: 10px; font-size: 0.95rem;">Fill in your details and we'll get back to you via WhatsApp in 5 minutes</p>
             </div>
             
-            <!-- Booking Steps Indicator -->
             <div class="booking-steps">
                 <div class="booking-step active">
                     <div class="step-number">1</div>
@@ -1013,7 +990,6 @@
                 </div>
             </div>
             
-            <!-- Main Booking Form -->
             <form id="bookingForm" onsubmit="submitBooking(event)">
                 <div id="bookingFormStep1">
                     <div class="form-group">
@@ -1044,7 +1020,6 @@
                         </select>
                     </div>
                     
-                    <!-- Dynamic fields based on service type -->
                     <div id="airportFields" style="display: none;">
                         <div class="form-group">
                             <label class="form-label">Flight Details</label>
@@ -1096,7 +1071,6 @@
                         </div>
                     </div>
                     
-                    <!-- Price Calculator Display -->
                     <div id="price-estimate" class="price-estimate"></div>
                     
                     <button type="button" onclick="showBookingConfirmation()" class="btn btn-primary" id="nextStepBtn" style="width:100%; margin-top: 20px;" disabled>
@@ -1104,7 +1078,6 @@
                     </button>
                 </div>
                 
-                <!-- Confirmation Step -->
                 <div id="bookingFormStep2" style="display: none;">
                     <div class="text-center" style="margin-bottom: 20px;">
                         <h4>Review Your Booking</h4>
@@ -1112,8 +1085,7 @@
                     </div>
                     
                     <div id="confirmationDetails" style="background: var(--off-white-sand); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                        <!-- Details will be filled by JavaScript -->
-                    </div>
+                        </div>
                     
                     <div class="form-group">
                         <label class="form-label">Your WhatsApp Number</label>
@@ -1132,7 +1104,6 @@
                 </div>
             </form>
             
-            <!-- Success Message -->
             <div id="bookingSuccess" class="booking-success" style="display: none;">
                 <i class="fas fa-check-circle"></i>
                 <h4>Booking Request Sent!</h4>
@@ -1143,7 +1114,6 @@
         </div>
     </div>
 
-    <!-- MODAL: FAQ -->
     <div class="modal-overlay" id="faqModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('faqModal')">&times;</span>
@@ -1177,7 +1147,6 @@
         </div>
     </div>
 
-    <!-- MODAL: LEGAL -->
     <div class="modal-overlay" id="legalModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('legalModal')">&times;</span>
