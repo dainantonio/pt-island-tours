@@ -209,12 +209,39 @@
             position: relative; cursor: pointer;
         }
         /* GREEN BORDER HIGHLIGHT */
-        .comparison-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: var(--shadow-pop); 
-            border: 2px solid var(--primary-green);
-            border-top: 6px solid var(--primary-green);
+        /* Updated to only trigger on devices that support hover */
+        @media (hover: hover) {
+            .comparison-card:hover { 
+                transform: translateY(-10px); 
+                box-shadow: var(--shadow-pop); 
+                border: 2px solid var(--primary-green);
+                border-top: 6px solid var(--primary-green);
+            }
+            .universal-card:hover { 
+                transform: translateY(-10px); 
+                box-shadow: var(--shadow-pop); 
+                border: 2px solid var(--primary-green);
+                border-top: 6px solid var(--primary-green);
+            }
+            .gallery-item:hover { 
+                transform: translateY(-10px); 
+                box-shadow: var(--shadow-pop); 
+                border: 2px solid var(--primary-green);
+            }
+            .faq-item:hover { 
+                transform: translateY(-5px); 
+                box-shadow: var(--shadow-pop); 
+                border: 2px solid var(--primary-green);
+                border-top: 6px solid var(--primary-green);
+            }
+            .driver-card:hover { 
+                transform: translateY(-10px); 
+                box-shadow: var(--shadow-pop); 
+                border: 2px solid var(--primary-green);
+                border-top: 6px solid var(--primary-green);
+            }
         }
+
         .comp-icon { 
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; 
             background: var(--off-white-sand); width: 80px; height: 80px; border-radius: 50%;
@@ -279,12 +306,6 @@
             position: relative; display: flex; flex-direction: column;
             border: 1px solid rgba(0,0,0,0.03); cursor: pointer;
         }
-        .universal-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: var(--shadow-pop); 
-            border: 2px solid var(--primary-green);
-            border-top: 6px solid var(--primary-green);
-        }
 
         /* Featured Card Style */
         .featured-card {
@@ -343,7 +364,7 @@
         .tab-content { display: none; }
         .tab-content.active { display: grid; }
 
-        /* --- LIST VIEW STYLES --- */
+        /* --- LIST VIEW STYLES (Mobile Optimized) --- */
         .list-view-trigger {
             margin-top: 30px;
             text-align: center;
@@ -368,17 +389,55 @@
             background-color: var(--off-white-sand);
         }
 
+        /* Mobile Card View for Tables */
+        @media (max-width: 768px) {
+            .list-table, .list-table tbody, .list-table tr, .list-table td {
+                display: block;
+                width: 100%;
+            }
+            .list-table thead { display: none; }
+            .list-table tr {
+                margin-bottom: 15px;
+                border: 1px solid #eee;
+                border-radius: 12px;
+                padding: 15px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                background: white;
+            }
+            .list-table td {
+                padding: 8px 0;
+                border: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+            }
+            .list-table td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--primary-dark);
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                margin-right: 10px;
+                text-align: left;
+            }
+            .list-table td:last-child {
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid #f5f5f5;
+                justify-content: center;
+            }
+            .list-table td:last-child::before {
+                display: none;
+            }
+        }
+
         /* --- GALLERY --- */
         .gallery-item { 
             height: 300px; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;
             transition: var(--transition);
         }
-        /* GREEN BORDER HIGHLIGHT */
-        .gallery-item:hover { 
-            transform: translateY(-10px); 
-            box-shadow: var(--shadow-pop); 
-            border: 2px solid var(--primary-green);
-        }
+        
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
         .gallery-item:hover img { transform: scale(1.1); }
         .gallery-overlay {
@@ -425,12 +484,6 @@
             padding: 40px 30px; text-align: center; max-width: 600px; margin: 0 auto;
             transition: var(--transition);
         }
-        .driver-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: var(--shadow-pop); 
-            border: 2px solid var(--primary-green);
-            border-top: 6px solid var(--primary-green);
-        }
         .driver-avatar {
             width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
             border: 4px solid var(--primary-green); margin: 0 auto 20px;
@@ -442,12 +495,6 @@
             border-bottom: 1px solid #eee; overflow: hidden; background: var(--pure-white); 
             padding: 5px 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
             transition: var(--transition);
-        }
-        .faq-item:hover { 
-            transform: translateY(-5px); 
-            box-shadow: var(--shadow-pop); 
-            border: 2px solid var(--primary-green);
-            border-top: 6px solid var(--primary-green);
         }
         .faq-header { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; font-weight: 700; color: var(--primary-dark); }
         .faq-body { max-height: 0; overflow: hidden; transition: 0.4s; padding-bottom: 0; color: var(--text-light); }
@@ -1150,7 +1197,7 @@
                     
                     <div class="form-group">
                         <label class="form-label">Travel Date</label>
-                        <input type="text" id="date" class="form-control" placeholder="Select date" onfocus="(this.type='date')" onblur="(this.value ? this.type='date' : this.type='text')" required>
+                        <input type="date" id="date" class="form-control" required style="color: var(--text-dark);">
                     </div>
                     
                     <div class="form-group">
@@ -1160,7 +1207,7 @@
                     
                     <div class="form-group">
                         <label class="form-label">Additional Notes (Optional)</label>
-                        <textarea id="notes" class="form-control" placeholder="Special requests, pickup location details, etc." rows="2"></textarea>
+                        <textarea id="notes" class="form-control" placeholder="Special requests, pickup location details, etc." rows="2" maxlength="500"></textarea>
                     </div>
                     
                     <div class="form-group" style="margin-top: 20px;">
@@ -1247,7 +1294,7 @@
             </div>
             
             <div style="overflow-x: auto;">
-                <table class="list-table">
+                <table class="list-table" data-role="list-view">
                     <thead>
                         <tr>
                             <th>Destination / Tour</th>
@@ -1257,54 +1304,54 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Rick's Cafe (Negril)</td>
-                            <td>Sunsets & Cliff Diving</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Ricks Cafe', 'Negril')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Rick's Cafe (Negril)</td>
+                            <td data-label="Best For">Sunsets & Cliff Diving</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Ricks Cafe', 'Negril')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>Luminous Lagoon</td>
-                            <td>Night Tour / Glowing Water</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Luminous Lagoon</td>
+                            <td data-label="Best For">Night Tour / Glowing Water</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>Martha Brae Rafting</td>
-                            <td>Relaxation & Nature</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Martha Brae', 'Trelawny')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Martha Brae Rafting</td>
+                            <td data-label="Best For">Relaxation & Nature</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Martha Brae', 'Trelawny')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>YS Falls</td>
-                            <td>Waterfalls & Zipline</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">YS Falls</td>
+                            <td data-label="Best For">Waterfalls & Zipline</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                          <tr>
-                            <td>Black River Safari</td>
-                            <td>Wildlife (Crocodiles)</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Black River', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Black River Safari</td>
+                            <td data-label="Best For">Wildlife (Crocodiles)</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Black River', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>Floyd's Pelican Bar</td>
-                            <td>Ocean Bar & Seafood</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Floyd's Pelican Bar</td>
+                            <td data-label="Best For">Ocean Bar & Seafood</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>Rose Hall Great House</td>
-                            <td>History & Haunted Tour</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Rose Hall Great House</td>
+                            <td data-label="Best For">History & Haunted Tour</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>Mystic Mountain</td>
-                            <td>Adventure & Bobsled</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Mystic Mountain</td>
+                            <td data-label="Best For">Adventure & Bobsled</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                         <tr>
-                            <td>Appleton Estate</td>
-                            <td>Rum Tour</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Appleton Rum', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Appleton Estate</td>
+                            <td data-label="Best For">Rum Tour</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Appleton Rum', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                          <tr>
-                            <td>Green Grotto Caves</td>
-                            <td>History & Caves</td>
-                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Green Grotto', 'Runaway Bay')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
+                            <td data-label="Destination">Green Grotto Caves</td>
+                            <td data-label="Best For">History & Caves</td>
+                            <td data-label="Action"><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Green Grotto', 'Runaway Bay')" style="color:var(--primary-green); font-weight:700;">Book</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1403,6 +1450,16 @@
                 }
             });
         });
+        
+        // DEEP LINKING SUPPORT
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash === '#tours') {
+                goToDestinations('tours');
+            } else if (hash === '#transfers') {
+                goToDestinations('transfers');
+            }
+        });
 
         // ====== ENHANCED BOOKING FLOW ======
         let currentBookingStep = 1;
@@ -1473,27 +1530,32 @@
                 day: 'numeric'
             });
             
-            // Build confirmation HTML
-            let confirmationHTML = `
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Service:</strong> ${service}</p>
-                <p><strong>Destination:</strong> ${location}</p>
-                <p><strong>Date:</strong> ${formattedDate}</p>
-                <p><strong>Passengers:</strong> ${pax}</p>
-            `;
+            // SECURITY FIX: Use textContent/innerText instead of innerHTML to prevent XSS
+            const detailsContainer = document.getElementById('confirmationDetails');
+            detailsContainer.innerHTML = ''; // Clear existing content
             
-            if (flight) {
-                confirmationHTML += `<p><strong>Flight:</strong> ${flight}</p>`;
-            }
+            // Helper to add lines safely
+            const addLine = (label, value) => {
+                const p = document.createElement('p');
+                const strong = document.createElement('strong');
+                strong.textContent = label + ': ';
+                p.appendChild(strong);
+                const span = document.createElement('span');
+                span.textContent = value;
+                p.appendChild(span);
+                detailsContainer.appendChild(p);
+            };
             
-            if (tourInterest) {
-                confirmationHTML += `<p><strong>Tour Interest:</strong> ${tourInterest}</p>`;
-            }
+            addLine('Name', name);
+            addLine('Email', email);
+            addLine('Service', service);
+            addLine('Destination', location);
+            addLine('Date', formattedDate);
+            addLine('Passengers', pax);
             
-            if (notes) {
-                confirmationHTML += `<p><strong>Notes:</strong> ${notes}</p>`;
-            }
+            if (flight) addLine('Flight', flight);
+            if (tourInterest) addLine('Tour Interest', tourInterest);
+            if (notes) addLine('Notes', notes);
             
             // Add options
             let options = [];
@@ -1502,11 +1564,8 @@
             if (grocerystop) options.push('Grocery Stop');
             
             if (options.length > 0) {
-                confirmationHTML += `<p><strong>Options:</strong> ${options.join(', ')}</p>`;
+                addLine('Options', options.join(', '));
             }
-            
-            // Update confirmation display
-            document.getElementById('confirmationDetails').innerHTML = confirmationHTML;
             
             // Show step 2, hide step 1
             document.getElementById('bookingFormStep1').style.display = 'none';
@@ -1618,36 +1677,21 @@
             else if (method === 'email') {
                 // Email Subject & Body
                 const subject = `Booking Request: ${service} - ${name}`;
-                let body = `Hello P&T Island Tours,%0D%0A%0D%0AI would like to book a trip.%0D%0A%0D%0A`;
-                body += `Name: ${name}%0D%0A`;
-                body += `Email: ${email}%0D%0A`;
-                body += `Service: ${service}%0D%0A`;
-                body += `Destination: ${location}%0D%0A`;
-                body += `Date: ${date}%0D%0A`;
-                body += `Passengers: ${pax}%0D%0A`;
+                // Re-constructing cleaner version for proper encoding
+                let cleanBody = `Hello P&T Island Tours,\n\nI would like to book a trip.\n\n`;
+                cleanBody += `Name: ${name}\nEmail: ${email}\nService: ${service}\nDestination: ${location}\nDate: ${date}\nPassengers: ${pax}\n`;
+                if(flight) cleanBody += `Flight: ${flight}\n`;
+                if(tourInterest) cleanBody += `Tour Interest: ${tourInterest}\n`;
+                if(notes) cleanBody += `Notes: ${notes}\n`;
+                if(whatsappNumber) cleanBody += `Phone: ${whatsappNumber}\n`;
                 
-                if(flight) body += `Flight: ${flight}%0D%0A`;
-                if(tourInterest) body += `Tour Interest: ${tourInterest}%0D%0A`;
-                
-                body += `Round Trip: ${roundtrip}%0D%0A`;
-                body += `Car Seat: ${carseat}%0D%0A`;
-                body += `Grocery Stop: ${grocerystop}%0D%0A`;
-                
-                if(notes) body += `Notes: ${notes}%0D%0A`;
-                if(whatsappNumber) body += `Phone/WhatsApp: ${whatsappNumber}%0D%0A`;
+                // Encode the whole body
+                const encodedBody = encodeURIComponent(cleanBody);
+                const encodedSubject = encodeURIComponent(subject);
 
                 // Simulate delay then open Email Client
                 setTimeout(() => {
-                    // Re-constructing cleaner version for proper encoding
-                    let cleanBody = `Hello P&T Island Tours,\n\nI would like to book a trip.\n\n`;
-                    cleanBody += `Name: ${name}\nEmail: ${email}\nService: ${service}\nDestination: ${location}\nDate: ${date}\nPassengers: ${pax}\n`;
-                    if(flight) cleanBody += `Flight: ${flight}\n`;
-                    if(tourInterest) cleanBody += `Tour Interest: ${tourInterest}\n`;
-                    if(notes) cleanBody += `Notes: ${notes}\n`;
-                    if(whatsappNumber) cleanBody += `Phone: ${whatsappNumber}\n`;
-                    
-                    window.location.href = `mailto:ttgrindley@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(cleanBody)}`;
-
+                    window.location.href = `mailto:ttgrindley@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
                     finishBookingProcess(btn, originalText, 'email');
                 }, 1000);
             }
