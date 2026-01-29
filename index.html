@@ -150,6 +150,31 @@
             background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 30px;
             backdrop-filter: blur(5px);
         }
+
+        /* --- TRUST STRIP --- */
+        .trust-strip {
+            background: var(--pure-white);
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .trust-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .trust-element {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .trust-element i {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+        }
         
         @keyframes pulse-gradient {
             0% { background-position: 0% 50%; }
@@ -286,6 +311,31 @@
         .tab-btn.active { background: var(--pure-white); color: var(--primary-green); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         .tab-content { display: none; }
         .tab-content.active { display: grid; }
+
+        /* --- LIST VIEW STYLES --- */
+        .list-view-trigger {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .list-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .list-table th {
+            background: var(--soft-mint);
+            padding: 12px;
+            color: var(--primary-dark);
+            font-family: var(--font-heading);
+        }
+        .list-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            color: var(--text-light);
+        }
+        .list-table tr:hover {
+            background-color: var(--off-white-sand);
+        }
 
         /* --- GALLERY --- */
         .gallery-item { 
@@ -587,12 +637,28 @@
             <div class="trust-badges">
                 <div class="trust-item"><i class="fa-solid fa-check"></i> No Hidden Fees</div>
                 <div class="trust-item"><i class="fa-solid fa-check"></i> Pay on Arrival</div>
+                <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Secure Payments</div>
             </div>
 
             <!-- "Start Booking" button removed on mobile, kept on desktop -->
             <button onclick="openModal()" class="btn btn-secondary" id="desktopBookingBtn" style="margin-top: 30px;">Start Booking</button>
         </div>
     </section>
+
+    <!-- TRUST STRIP - NEW SECTION FOR SECURITY EMPHASIS -->
+    <div class="trust-strip">
+        <div class="container trust-grid">
+            <div class="trust-element">
+                <i class="fa-solid fa-lock"></i> Secure Transactions
+            </div>
+            <div class="trust-element">
+                <i class="fa-solid fa-money-bill-wave"></i> Cash Accepted
+            </div>
+            <div class="trust-element">
+                <i class="fa-solid fa-id-card"></i> JTB Certified
+            </div>
+        </div>
+    </div>
 
     <!-- SERVICE COMPARISON -->
     <section class="section-padding reveal" style="background-color: var(--off-white-sand);" id="comparison">
@@ -637,13 +703,13 @@
         </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- SERVICES / TRUST SECTION -->
     <section class="section-padding reveal" style="background-color: var(--soft-mint);" id="services">
         <div class="container">
             <div class="text-center">
                 <div class="section-title-wrapper">
-                    <h4>PREMIUM SERVICE</h4>
-                    <h2>Why Choose P&T Tours</h2>
+                    <h4>BOOK WITH CONFIDENCE</h4>
+                    <h2>Why Travelers Trust Us</h2>
                     <div class="section-underline"></div>
                 </div>
             </div>
@@ -651,17 +717,17 @@
                 <div class="universal-card card-body" onclick="openModal()">
                     <div class="feature-icon-circle"><i class="fa-solid fa-id-card"></i></div>
                     <h3>JTB Certified</h3>
-                    <p>Fully licensed by the Jamaica Tourist Board. Safe & Insured.</p>
+                    <p>Fully licensed by the Jamaica Tourist Board. Safe, Insured, and Official.</p>
                 </div>
                 <div class="universal-card card-body" onclick="openModal()">
-                    <div class="feature-icon-circle"><i class="fa-solid fa-plane-circle-check"></i></div>
-                    <h3>Flight Tracking</h3>
-                    <p>We monitor your flight. Early or late, we are there waiting.</p>
+                    <div class="feature-icon-circle"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Secure Payment</h3>
+                    <p>We use EzeePayments for secure deposits. You can pay the balance in Cash on arrival.</p>
                 </div>
                 <div class="universal-card card-body" onclick="openModal()">
                     <div class="feature-icon-circle"><i class="fa-solid fa-lock"></i></div>
                     <h3>100% Private</h3>
-                    <p>No sharing with strangers. The vehicle is yours.</p>
+                    <p>No sharing with strangers. The vehicle is yours, and your safety is our priority.</p>
                 </div>
             </div>
         </div>
@@ -683,12 +749,12 @@
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <h3>1. Inquire</h3>
-                    <p>Tap "Book Now" on any tour to start a WhatsApp chat.</p>
+                    <p>Tap "Book Now" on any tour to start a WhatsApp or Email chat.</p>
                 </div>
                 <div class="universal-card card-body">
-                    <div class="process-icon"><i class="fa-regular fa-credit-card"></i></div>
-                    <h3>2. Deposit</h3>
-                    <p>Secure your date with a small deposit.</p>
+                    <div class="process-icon"><i class="fa-solid fa-link"></i></div>
+                    <h3>2. Secure Deposit</h3>
+                    <p>We send a <strong>secure</strong> EzeePayments link. No card info is stored by us.</p>
                 </div>
                 <div class="universal-card card-body">
                     <div class="process-icon"><i class="fa-solid fa-sign-hanging"></i></div>
@@ -696,9 +762,9 @@
                     <p>Look for the <strong>P&T Sign</strong> at airport.</p>
                 </div>
                 <div class="universal-card card-body">
-                    <div class="process-icon"><i class="fa-solid fa-car-side"></i></div>
-                    <h3>4. Ride</h3>
-                    <p>Pay the balance in Cash or Card when you arrive.</p>
+                    <div class="process-icon"><i class="fa-solid fa-money-bill-1-wave"></i></div>
+                    <h3>4. Ride & Pay</h3>
+                    <p>Pay the remaining balance in <strong>Cash</strong> when you meet your driver.</p>
                 </div>
             </div>
         </div>
@@ -815,6 +881,12 @@
                     </div>
                 </article>
             </div>
+
+            <!-- NEW "VIEW FULL LIST" BUTTON -->
+            <div class="list-view-trigger">
+                 <button class="btn btn-outline" onclick="openModal('rateListModal')">View All Destinations & Rates <i class="fa-solid fa-list"></i></button>
+            </div>
+
         </div>
     </section>
 
@@ -961,6 +1033,9 @@
             <div class="text-center" style="margin-bottom: 20px;">
                 <h3>Plan Your Jamaican Adventure</h3>
                 <p style="color: var(--text-light); margin-top: 10px; font-size: 0.95rem;">Fill in your details and we'll get back to you via WhatsApp in 5 minutes</p>
+                <div style="margin-top: 10px; font-size: 0.85rem; color: var(--primary-green); font-weight: 600;">
+                    <i class="fa-solid fa-lock"></i> Secure Request. No Payment Required Now.
+                </div>
             </div>
             
             <!-- Booking Steps Indicator -->
@@ -1111,6 +1186,85 @@
                 <p id="successText">We'll contact you within 5 minutes to confirm your booking.</p>
                 <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 10px;">If you don't hear from us, please call <strong>+1 (876) 485-9759</strong></p>
                 <button onclick="closeModal('bookingModal')" class="btn btn-primary" style="margin-top: 20px;">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- NEW MODAL: FULL RATE LIST -->
+    <div class="modal-overlay" id="rateListModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-modal" onclick="closeModal('rateListModal')">&times;</span>
+            <div class="text-center" style="margin-bottom: 30px;">
+                <h3>Popular Destinations</h3>
+                <p style="color: var(--text-light);">Explore more of what Jamaica has to offer. Contact us for a custom quote on any of these locations.</p>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="list-table">
+                    <thead>
+                        <tr>
+                            <th>Destination / Tour</th>
+                            <th>Best For</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rick's Cafe (Negril)</td>
+                            <td>Sunsets & Cliff Diving</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Ricks Cafe', 'Negril')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>Luminous Lagoon</td>
+                            <td>Night Tour / Glowing Water</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Luminous Lagoon', 'Falmouth')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>Martha Brae Rafting</td>
+                            <td>Relaxation & Nature</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Martha Brae', 'Trelawny')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>YS Falls</td>
+                            <td>Waterfalls & Zipline</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: YS Falls', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                         <tr>
+                            <td>Black River Safari</td>
+                            <td>Wildlife (Crocodiles)</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Black River', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>Floyd's Pelican Bar</td>
+                            <td>Ocean Bar & Seafood</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Pelican Bar', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>Rose Hall Great House</td>
+                            <td>History & Haunted Tour</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Rose Hall', 'Montego Bay')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>Mystic Mountain</td>
+                            <td>Adventure & Bobsled</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Mystic Mountain', 'Ocho Rios')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                        <tr>
+                            <td>Appleton Estate</td>
+                            <td>Rum Tour</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Appleton Rum', 'South Coast')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                         <tr>
+                            <td>Green Grotto Caves</td>
+                            <td>History & Caves</td>
+                            <td><a href="javascript:void(0)" onclick="openModalWithContext('Tour: Green Grotto', 'Runaway Bay')" style="color:var(--primary-green); font-weight:700;">Get Quote</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="text-center" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="openModal('bookingModal')">Request Custom Itinerary</button>
             </div>
         </div>
     </div>
@@ -1414,9 +1568,6 @@
 
                 // Simulate delay then open Email Client
                 setTimeout(() => {
-                    window.location.href = `mailto:ttgrindley@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`; // No encoding needed for body as we used manual codes, but to be safe usually better to encode
-                    // Actually standard mailto usually needs component encoding
-                    // Let's redo the body assignment for safety in href
                     // Re-constructing cleaner version for proper encoding
                     let cleanBody = `Hello P&T Island Tours,\n\nI would like to book a trip.\n\n`;
                     cleanBody += `Name: ${name}\nEmail: ${email}\nService: ${service}\nDestination: ${location}\nDate: ${date}\nPassengers: ${pax}\n`;
@@ -1541,16 +1692,22 @@
 
         // MODAL SYSTEM
         function openModal(id = 'bookingModal') { 
-            document.getElementById(id).classList.add('open'); 
-            document.body.style.overflow = 'hidden';
+            const el = document.getElementById(id);
+            if(el) {
+                el.classList.add('open'); 
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         function closeModal(id) { 
             if(typeof id === 'string') {
-                document.getElementById(id).classList.remove('open');
-                // Reset booking form if closing booking modal
-                if (id === 'bookingModal') {
-                    setTimeout(resetBookingForm, 300);
+                const el = document.getElementById(id);
+                if(el) {
+                    el.classList.remove('open');
+                    // Reset booking form if closing booking modal
+                    if (id === 'bookingModal') {
+                        setTimeout(resetBookingForm, 300);
+                    }
                 }
             } else if(id && id.target) {
                 id.target.classList.remove('open');
@@ -1561,6 +1718,9 @@
         function openModalWithContext(srv, loc) {
             // Reset form first
             resetBookingForm();
+            
+            // Close any other open modals (like the Rate List)
+            closeModal('rateListModal');
             
             // Pre-fill form
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
