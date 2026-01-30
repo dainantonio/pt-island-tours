@@ -3,12 +3,13 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v31.3
-    Features: 
-    - Updated Email (pt.islandtours01@gmail.com)
-    - Premium Typography & Cinematic Animations
-    - Full Booking Form & Functionality
-    - FAQ Modal & About Tabs
+    P&T ISLAND TOURS - UPDATED BUILD
+    Updates:
+    - Smart Booking Form (Dynamic Fields for Tours vs Transfers)
+    - Custom Itinerary Logic
+    - Email Booking Option Added
+    - Mobile Navigation Fixes (Auto-close menu)
+    - Removed Redundant Mobile CTAs
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -101,6 +102,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-padding { padding: 100px 0; border-top: 1px solid rgba(0,0,0,0.03); }
         .text-center { text-align: center; }
+        .hidden { display: none !important; }
         
         /* Section Titles */
         .section-title-wrapper { margin-bottom: 60px; display: flex; flex-direction: column; align-items: center; }
@@ -123,6 +125,9 @@
 
         .btn-outline { border: 2px solid var(--primary-dark); color: var(--primary-dark); background: transparent; }
         .btn-outline:hover { background-color: var(--primary-dark); color: var(--white); }
+
+        .btn-email { background-color: #f0f0f0; color: #333; border: 1px solid #ccc; width: 100%; margin-top: 10px; }
+        .btn-email:hover { background-color: #e0e0e0; }
 
         /* --- ANIMATIONS (CINEMATIC) --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
@@ -402,9 +407,12 @@
             .universal-card, .gallery-item, .comparison-card {
                 min-width: 85vw; scroll-snap-align: center; flex-shrink: 0;
             }
-            .mobile-sticky-cta { display: block; }
-            body { padding-bottom: 80px; }
-            .whatsapp-float { bottom: 90px; }
+            
+            /* HIDE STICKY CTA as requested to reduce clutter */
+            .mobile-sticky-cta { display: none; }
+            
+            body { padding-bottom: 0px; } /* Reset padding since CTA is gone */
+            .whatsapp-float { bottom: 20px; }
             
             .mobile-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.75rem; color: var(--primary-green); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
             .mobile-swipe-hint i { animation: swipeAnim 1.5s infinite; }
@@ -808,7 +816,7 @@
         </div>
     </footer>
 
-    <!-- STICKY MOBILE CTA -->
+    <!-- STICKY MOBILE CTA (Hidden via CSS on mobile now) -->
     <div class="mobile-sticky-cta">
         <button onclick="openModal('bookingModal')" class="btn btn-primary" style="width:100%;">Book Your Ride Now</button>
     </div>
@@ -824,27 +832,52 @@
                 <h3>Plan Your Trip</h3>
             </div>
             <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
-                <input type="text" id="name" class="form-control" placeholder="Name" required>
-                <select id="service" class="form-control"><option>Airport Transfer</option><option>Private Tour</option></select>
-                <select id="location" class="form-control" onchange="calculatePrice()"><option>Montego Bay</option><option>Negril</option><option>Ocho Rios</option><option>Custom</option></select>
+                <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                <input type="email" id="email" class="form-control" placeholder="Email Address (Optional)">
+                
+                <select id="service" class="form-control" onchange="updateFormFields()">
+                    <option value="Airport Transfer">Airport Transfer</option>
+                    <option value="Private Tour">Private Tour</option>
+                </select>
+                
+                <select id="location" class="form-control" onchange="updateFormFields(); calculatePrice();">
+                    <option value="Montego Bay">Montego Bay</option>
+                    <option value="Negril">Negril</option>
+                    <option value="Ocho Rios">Ocho Rios</option>
+                    <option value="Custom">Custom Destination...</option>
+                </select>
+
+                <!-- Custom Itinerary Logic -->
+                <textarea id="custom-details" class="form-control hidden" placeholder="Tell us where you want to go or create your own itinerary..." rows="3"></textarea>
+
                 <!-- Price Calculator Display -->
                 <div id="price-estimate" class="price-estimate"></div>
 
                 <div class="form-group" style="text-align:left; margin-top:15px;">
                     <label>Trip Details</label>
-                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Pickup Time" required>
+                    
+                    <!-- Dynamic Label -->
+                    <input type="text" id="flight" class="form-control" placeholder="Flight # / Arrival Time" required>
+                    
                     <!-- Date Field with Icon/Placeholder Logic -->
                     <div style="position:relative;">
                         <input type="text" id="date" class="form-control" placeholder="Select Travel Date" onfocus="(this.type='date')" onblur="(this.value ? this.type='date' : this.type='text')" required>
                         <i class="fa-regular fa-calendar" style="position:absolute; right:15px; top:15px; color:#999; pointer-events:none;"></i>
                     </div>
-                    <input type="number" id="pax" class="form-control" placeholder="Passengers" required>
+                    <input type="number" id="pax" class="form-control" placeholder="Number of Passengers" required>
                 </div>
-                <div class="form-group" style="text-align:left; margin-bottom:15px; font-size:0.9rem;">
-                     <input type="checkbox" id="roundtrip" value="Yes"> Round Trip? <br>
-                     <input type="checkbox" id="carseat" value="Yes"> Need Car Seat?
+                
+                <div class="form-group" id="extras-group" style="text-align:left; margin-bottom:15px; font-size:0.9rem;">
+                     <label style="display:block; margin-bottom:5px;"><input type="checkbox" id="roundtrip" value="Yes"> Round Trip</label>
+                     <label style="display:block;"><input type="checkbox" id="carseat" value="Yes"> Need Car Seat</label>
                 </div>
-                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Chat to Book</button>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%; margin-bottom:10px;">
+                    <i class="fa-brands fa-whatsapp"></i> Chat to Book
+                </button>
+                <button type="button" class="btn btn-email" onclick="sendToEmail()">
+                    <i class="fa-regular fa-envelope"></i> Send via Email
+                </button>
             </form>
         </div>
     </div>
@@ -967,8 +1000,37 @@
         
         function openModalWithContext(srv, loc) {
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
+            document.getElementById('location').value = loc;
             openModal('bookingModal');
+            updateFormFields();
             calculatePrice();
+        }
+
+        // --- NEW: DYNAMIC FORM FIELDS ---
+        function updateFormFields() {
+            const service = document.getElementById('service').value;
+            const location = document.getElementById('location').value;
+            
+            const flightInput = document.getElementById('flight');
+            const customDetails = document.getElementById('custom-details');
+            const roundTripCheck = document.getElementById('roundtrip').parentElement;
+
+            // 1. Service Logic
+            if(service === 'Private Tour') {
+                flightInput.placeholder = "Pickup Location (Hotel/Villa)";
+                // Round trip is less relevant for tours (usually implied or hourly)
+                roundTripCheck.style.display = 'none';
+            } else {
+                flightInput.placeholder = "Flight # / Arrival Time";
+                roundTripCheck.style.display = 'block';
+            }
+
+            // 2. Custom Location Logic
+            if(location === 'Custom') {
+                customDetails.classList.remove('hidden');
+            } else {
+                customDetails.classList.add('hidden');
+            }
         }
 
         // Pricing Logic
@@ -1004,42 +1066,89 @@
             }
         }
 
+        function getFormData() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value || "N/A";
+            const service = document.getElementById('service').value;
+            const loc = document.getElementById('location').value;
+            const custom = document.getElementById('custom-details').value;
+            const date = document.getElementById('date').value;
+            const flight = document.getElementById('flight').value; // Contains Flight OR Pickup Loc
+            const pax = document.getElementById('pax').value;
+            
+            // Checkbox logic
+            const roundtrip = (document.getElementById('roundtrip').parentElement.style.display !== 'none' && document.getElementById('roundtrip').checked) ? "Yes" : "No";
+            const carseat = document.getElementById('carseat').checked ? "Yes" : "No";
+            
+            return { name, email, service, loc, custom, date, flight, pax, roundtrip, carseat };
+        }
+
         // WHATSAPP
         function sendToWhatsApp(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
+            const originalText = btn.innerHTML;
+            const data = getFormData();
             
-            // Validate Flight
-            const flight = document.getElementById('flight');
-            if(document.getElementById('service').value === 'Airport Transfer' && !flight.value) {
-                flight.classList.add('error');
-                setTimeout(() => flight.classList.remove('error'), 500);
-                return;
-            }
+            if(!data.name || !data.date || !data.pax) return; // Basic validation handled by 'required' attr usually
 
             btn.classList.add('loading');
             btn.innerText = "Opening WhatsApp...";
             
             setTimeout(() => {
-                const name = document.getElementById('name').value;
-                const email = "N/A"; 
-                const service = document.getElementById('service').value;
-                const loc = document.getElementById('location').value;
-                const date = document.getElementById('date').value;
-                const flightVal = flight.value || "N/A";
-                const pax = document.getElementById('pax').value;
-                const roundtrip = document.getElementById('roundtrip').checked ? "Yes" : "No";
-                const carseat = document.getElementById('carseat').checked ? "Yes" : "No";
-
-                const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Service:* ${encodeURIComponent(service)}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${encodeURIComponent(flightVal)}%0A*Pax:* ${pax}%0A*Round Trip:* ${roundtrip}%0A*Car Seat:* ${carseat}`;
+                let text = `*New Booking Inquiry* 🇯🇲%0A%0A`;
+                text += `*Name:* ${encodeURIComponent(data.name)}%0A`;
+                text += `*Email:* ${encodeURIComponent(data.email)}%0A`;
+                text += `*Service:* ${encodeURIComponent(data.service)}%0A`;
+                text += `*Location:* ${data.loc}%0A`;
                 
+                if(data.loc === 'Custom' && data.custom) {
+                    text += `*Custom Details:* ${encodeURIComponent(data.custom)}%0A`;
+                }
+
+                text += `*Date:* ${data.date}%0A`;
+                
+                // Context sensitive label
+                const flightLabel = (data.service === 'Private Tour') ? "Pickup Loc" : "Flight";
+                text += `*${flightLabel}:* ${encodeURIComponent(data.flight)}%0A`;
+                
+                text += `*Pax:* ${data.pax}%0A`;
+                if(data.service !== 'Private Tour') text += `*Round Trip:* ${data.roundtrip}%0A`;
+                text += `*Car Seat:* ${data.carseat}`;
+
                 window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
                 
                 btn.classList.remove('loading');
-                btn.innerText = originalText;
+                btn.innerHTML = originalText;
                 closeModal('bookingModal');
             }, 800);
+        }
+
+        // EMAIL FUNCTIONALITY
+        function sendToEmail() {
+            const data = getFormData();
+            if(!data.name || !data.date) {
+                alert("Please fill in your Name and Date first.");
+                return;
+            }
+
+            let subject = `Booking Inquiry: ${data.service} - ${data.name}`;
+            let body = `Hello P&T Island Tours,\n\nI would like to book a service.\n\n`;
+            body += `Name: ${data.name}\n`;
+            body += `Email: ${data.email}\n`;
+            body += `Service: ${data.service}\n`;
+            body += `Location: ${data.loc}\n`;
+            if(data.loc === 'Custom') body += `Custom Details: ${data.custom}\n`;
+            body += `Date: ${data.date}\n`;
+            
+            const flightLabel = (data.service === 'Private Tour') ? "Pickup Location" : "Flight Number";
+            body += `${flightLabel}: ${data.flight}\n`;
+            
+            body += `Passengers: ${data.pax}\n`;
+            if(data.service !== 'Private Tour') body += `Round Trip: ${data.roundtrip}\n`;
+            body += `Car Seat Needed: ${data.carseat}\n`;
+
+            window.location.href = `mailto:pt.islandtours01@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
 
         // Menu
@@ -1053,6 +1162,16 @@
                 icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
             }
         }
+        
+        // AUTO CLOSE MENU ON CLICK
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.getElementById('navLinks');
+                if(nav.classList.contains('active')) {
+                   toggleMenu();
+                }
+            });
+        });
         
         // Listeners
         window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) closeModal(e.target.id); }
@@ -1120,6 +1239,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const d = document.getElementById('date');
             if(d) d.min = new Date().toISOString().split("T")[0];
+            
+            // Initialize Form State
+            updateFormFields();
         });
     </script>
 </body>
