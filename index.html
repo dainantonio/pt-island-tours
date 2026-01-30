@@ -3,12 +3,13 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - FULLY INTERACTIVE ICONS
+    P&T ISLAND TOURS - FINAL UI + CTA
     Updates:
-    - Added custom animations for ALL circular icons:
-      (Flip, Radar Pulse, Shake, Wiggle, Swing, Drive, Heartbeat)
-    - Updated CSS Keyframes
-    - Updated JS generic animation handler
+    - Restored WhatsApp Floating Button (Bottom Right)
+    - Updated "Book Your Trip" Button:
+        - Color: Gold (to differentiate from WhatsApp Green)
+        - Animation: Continuous Pulsate
+    - Mobile layout adjustments for dual floating buttons
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -384,21 +385,39 @@
             text-align: center;
         }
 
-        /* --- FLOATING ACTION BUTTON --- */
+        /* --- FLOATING ACTION BUTTON (Center Bottom) --- */
         .floating-booking-container {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             z-index: 2000; width: auto; text-align: center;
         }
         .floating-btn {
-            background: var(--primary-green); color: white; 
+            background: var(--primary-gold); /* CHANGED to GOLD */
+            color: var(--primary-dark); /* Dark text for contrast */
             padding: 15px 40px; border-radius: 50px; 
             font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 5px 20px rgba(0, 155, 58, 0.4); border: 2px solid white;
+            box-shadow: 0 5px 20px rgba(230, 194, 0, 0.4); border: 2px solid white;
             display: flex; align-items: center; gap: 10px; cursor: pointer;
             transition: var(--transition);
+            animation: btnPulse 2s infinite; /* CONTINUOUS ANIMATION */
         }
-        .floating-btn:hover { transform: scale(1.05); background: var(--primary-dark); }
+        .floating-btn:hover { transform: scale(1.05); background: #ffdf33; }
         .floating-btn i { font-size: 1.2rem; }
+
+        @keyframes btnPulse {
+            0% { transform: scale(1); box-shadow: 0 5px 20px rgba(230, 194, 0, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 10px 25px rgba(230, 194, 0, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 5px 20px rgba(230, 194, 0, 0.4); }
+        }
+
+        /* --- WHATSAPP FLOATING BUTTON (Right Bottom) --- */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 20px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
 
         /* --- MODAL --- */
         .modal-overlay {
@@ -460,6 +479,9 @@
             .floating-booking-container { width: 90%; bottom: 15px; }
             .floating-btn { width: 100%; justify-content: center; padding: 15px; }
             
+            /* Move WhatsApp button UP on mobile to avoid overlap */
+            .whatsapp-float { bottom: 90px; right: 20px; }
+            
             .mobile-swipe-hint { display: block; text-align: center; color: var(--primary-green); font-size: 0.8rem; margin-bottom: 15px; font-weight: 700; opacity: 0.8; }
         }
         @media (min-width: 901px) {
@@ -497,12 +519,17 @@
         </div>
     </section>
 
-    <!-- FLOATING ACTION BUTTON -->
+    <!-- FLOATING ACTION BUTTON (CENTER) -->
     <div class="floating-booking-container">
         <div class="floating-btn" onclick="openModal('bookingModal')">
             <i class="fa-regular fa-calendar-check"></i> Book Your Trip
         </div>
     </div>
+
+    <!-- WHATSAPP FLOATING BUTTON (BOTTOM RIGHT) -->
+    <a href="https://wa.me/18764859759?text=Hello!%20I%20am%20browsing%20your%20website%20and%20interested%20in%20booking%20a%20tour." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- SERVICE COMPARISON -->
     <section class="section-padding reveal" style="background-color: var(--white);" id="comparison">
