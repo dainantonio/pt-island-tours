@@ -3,19 +3,17 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - FINAL UI + CTA
+    P&T ISLAND TOURS - ISLAND-WIDE COVERAGE
     Updates:
-    - Restored WhatsApp Floating Button (Bottom Right)
-    - Updated "Book Your Trip" Button:
-        - Color: Gold (to differentiate from WhatsApp Green)
-        - Animation: Continuous Pulsate
-    - Mobile layout adjustments for dual floating buttons
+    - Added Ian Fleming (OCJ) to Airport Transfer description
+    - Expanded Booking Modal Location List (Port Antonio, South Coast, etc.)
+    - Verifed Visit Jamaica Link in Footer
     ==================================================================== 
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Ride with locals who know the real Jamaica. Montego Bay, Negril, Ocho Rios. JTB Certified.">
-    <meta name="keywords" content="Montego Bay airport transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions, YS Falls, Pelican Bar">
+    <meta name="description" content="Authentic private airport transfers and tours in Jamaica. Serving Montego Bay, Negril, Ocho Rios, Port Antonio, and South Coast. JTB Certified.">
+    <meta name="keywords" content="Montego Bay airport transfer, Ian Fleming Airport Transfer, Kingston Airport Transfer, Real Jamaica Tours, Private driver Jamaica, Negril transportation, Ocho Rios excursions, YS Falls, Pelican Bar">
     
     <title>P&T Island Tours | Experience the Real Jamaica</title>
 
@@ -452,6 +450,7 @@
         .footer-col h4 { color: var(--primary-gold); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; text-align: left; }
         .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 20px; display: block; text-align: left; }
         .footer-col p, .footer-col ul { text-align: left; }
+        .footer-col a:hover { color: var(--primary-gold); padding-left: 5px; } /* Added hover effect */
         
         .payment-icons { display: flex; gap: 10px; margin-top: 15px; align-items: center; flex-wrap: wrap; }
         .payment-badge { padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
@@ -551,7 +550,7 @@
                             <li><i class="fa-solid fa-check"></i> Private AC Vehicle</li>
                             <li><i class="fa-solid fa-check"></i> Flight Tracking Included</li>
                             <li><i class="fa-solid fa-check"></i> No Waiting for Others</li>
-                            <li><i class="fa-solid fa-check"></i> Grocery Stops Available</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Serving MBJ, KIN & OCJ Airports</strong></li>
                         </ul>
                     </div>
                     <button onclick="selectService('transfers')" class="btn btn-primary">View Destinations</button>
@@ -850,6 +849,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#destinations" onclick="switchTab(null, 'transfers', 'main')">Transfers</a></li>
                         <li><a href="#destinations" onclick="switchTab(null, 'tours', 'main')">Tours</a></li>
+                        <li><a href="https://www.visitjamaica.com/travel-alerts/tours-attractions-reopenings/" target="_blank" rel="noopener noreferrer">Official Travel Alerts</a></li> <!-- UPDATED -->
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -890,6 +890,11 @@
                     <option value="Montego Bay">Montego Bay</option>
                     <option value="Negril">Negril</option>
                     <option value="Ocho Rios">Ocho Rios</option>
+                    <!-- UPDATED -->
+                    <option value="Kingston">Kingston</option>
+                    <option value="South Coast">South Coast</option>
+                    <option value="Port Antonio">Port Antonio</option>
+                    <!-- END UPDATED -->
                     <option value="Custom">Custom Destination...</option>
                 </select>
 
