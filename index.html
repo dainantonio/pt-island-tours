@@ -3,11 +3,10 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - FINAL POLISH
+    P&T ISLAND TOURS - FINAL RESTORE
     Updates:
-    - Removed Redundant Hero Button
-    - Centered List Items in Service Cards
-    - robust Booking Data Transcription (WhatsApp & Email)
+    - Restored "About Us" & "Meet Pedro" sections after FAQ
+    - Maintained "Reserve" button text updates
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -606,7 +605,7 @@
                         <p>Climb the famous cascading falls and swim in the Caribbean sea.</p>
                         <div class="card-footer">
                             <span class="price-start">From $120</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Book Now</a>
+                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Dunns River', 'Ocho Rios')" class="card-link">Reserve</a>
                         </div>
                     </div>
                 </article>
@@ -620,7 +619,7 @@
                         <p>Visit the home of the Legend, plus a stop at Devon House for ice cream.</p>
                         <div class="card-footer">
                             <span class="price-start">From $150</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Book Now</a>
+                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Bob Marley', 'Kingston')" class="card-link">Reserve</a>
                         </div>
                     </div>
                 </article>
@@ -634,7 +633,7 @@
                         <p>Jump, dive, and swim in the electric blue mineral waters.</p>
                         <div class="card-footer">
                             <span class="price-start">From $130</span>
-                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Book Now</a>
+                            <a href="javascript:void(0)" onclick="openModalWithContext('Tour: Blue Hole', 'Ocho Rios')" class="card-link">Reserve</a>
                         </div>
                     </div>
                 </article>
@@ -678,6 +677,37 @@
             </div>
             <p style="margin-bottom: 30px;">We have answers regarding payments, safety, and more.</p>
             <button onclick="openModal('faqModal')" class="btn btn-outline" style="border-color:var(--primary-green); color:var(--primary-green);">Read FAQ</button>
+        </div>
+    </section>
+
+    <!-- ABOUT & PROFILE (Restored & Formatted as Swipeable Cards) -->
+    <section class="section-padding reveal" style="background-color: var(--white);" id="about">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <h4>WHO WE ARE</h4>
+                <h2>Your Local Travel Family</h2>
+                <div class="section-underline"></div>
+            </div>
+            <div class="mobile-swipe-hint">← Swipe to Meet Us →</div>
+            
+            <div class="grid-container mobile-scroll-container">
+                <!-- Card 1: Our Story -->
+                <div class="universal-card" style="padding: 40px 30px; text-align: center;">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-heart"></i></div>
+                    <h3>Our Story</h3>
+                    <p>Welcome to P&T Island Tours. We aren't just a booking site; we are local Jamaicans passionate about showing you our home. We treat every guest like family.</p>
+                </div>
+
+                <!-- Card 2: Meet Pedro -->
+                <div class="universal-card" style="padding: 40px 30px; text-align: center;">
+                    <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; border: 3px solid var(--primary-green);">
+                         <img src="https://images.unsplash.com/photo-1506803682981-6e718a9dd3ee?auto=format&fit=crop&w=300&q=80" alt="Pedro" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h3>Meet Pedro</h3>
+                    <p style="font-weight:700; color:var(--primary-green); margin-bottom:10px;">Head Guide</p>
+                    <p>"I've been driving these roads for over 20 years. My goal is to show you the heart of Jamaica."</p>
+                </div>
+            </div>
         </div>
     </section>
 
