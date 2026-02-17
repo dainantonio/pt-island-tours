@@ -3,13 +3,13 @@
 <head>
     <!-- 
     ====================================================================
-    P&T ISLAND TOURS - PRODUCTION BUILD v33.2
+    P&T ISLAND TOURS - PRODUCTION BUILD v33.3
     Features: 
+    - Added Email Booking Option (Mailto link)
     - Real Pricing Logic (Base 1-3 pax + $25/extra)
-    - Full Service List from Document
-    - Corrected Image Paths (Root directory)
-    - Special Offers (Return Discount + Free Drink)
-    - Premium Visuals (Marcellus/Lora)
+    - Full Service List
+    - Corrected Image Paths
+    - Special Offers
     ==================================================================== 
     -->
     <meta charset="UTF-8">
@@ -158,23 +158,6 @@
             flex-wrap: wrap;
         }
         .info-item { display: inline-flex; align-items: center; gap: 6px; cursor: default; }
-        
-        /* Tooltip */
-        .tooltip-trigger { position: relative; cursor: help; border-bottom: 1px dotted var(--primary-dark); }
-        .tooltip-text {
-            visibility: hidden; width: 220px; background-color: #333; color: #fff;
-            text-align: center; border-radius: 6px; padding: 8px; position: absolute;
-            z-index: 1; top: 150%; left: 50%; margin-left: -110px;
-            opacity: 0; transition: opacity 0.3s; font-weight: 400; font-size: 0.75rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); pointer-events: none;
-        }
-        .tooltip-trigger:hover .tooltip-text, .tooltip-trigger:active .tooltip-text {
-            visibility: visible; opacity: 1;
-        }
-        .tooltip-text::after {
-            content: ""; position: absolute; bottom: 100%; left: 50%; margin-left: -5px;
-            border-width: 5px; border-style: solid; border-color: transparent transparent #333 transparent;
-        }
 
         /* --- HERO --- */
         .hero {
@@ -185,9 +168,8 @@
             /* Fallback handled via JS/CSS if needed, but primary is local now */
             background-size: cover; background-position: center; display: flex;
             align-items: center; justify-content: center; text-align: center;
-            color: var(--white); margin-top: 125px; /* Offset for double header */
-            position: relative;
-            border-bottom: 6px solid var(--primary-gold);
+            color: var(--white); margin-top: 125px; 
+            position: relative; border-bottom: 6px solid var(--primary-gold);
         }
         
         .hero-content h1 { 
@@ -245,7 +227,7 @@
 
         .card-body { padding: 35px 30px; flex-grow: 1; display: flex; flex-direction: column; text-align: center; align-items: center; }
         .card-body h3 { font-size: 1.5rem; margin-bottom: 15px; width: 100%; }
-        .card-body p { font-size: 1rem; color: var(--text-light); margin-bottom: 25px; }
+        .card-body p { font-size: 1rem; color: var(--text-light); margin-bottom: 25px; width: 100%; }
         
         .card-footer {
             width: 100%; border-top: 1px solid #f0f0f0; padding-top: 20px;
@@ -634,11 +616,7 @@
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Montego Bay</span>
                         <span class="badge badge-val">Best Value</span>
-                        <div class="carousel-track">
-                             <img src="mobay-transfer.jpg" class="card-img" alt="Montego Bay" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Montego+Bay+Transfer'">
-                        </div>
-                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
+                        <img src="mobay-transfer.jpg" class="card-img" alt="Montego Bay" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Montego+Bay+Transfer'">
                     </div>
                     <div class="card-body">
                         <h3>Montego Bay</h3>
@@ -653,11 +631,7 @@
                 <article class="universal-card reveal delay-200">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Negril</span>
-                        <div class="carousel-track">
-                             <img src="negril-transfer.jpg" class="card-img" alt="Negril" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Negril+Transfer'">
-                        </div>
-                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
+                        <img src="negril-transfer.jpg" class="card-img" alt="Negril" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Negril+Transfer'">
                     </div>
                     <div class="card-body">
                         <h3>Negril</h3>
@@ -672,11 +646,7 @@
                 <article class="universal-card reveal delay-300">
                     <div class="card-img-wrapper">
                         <span class="badge badge-loc">Ocho Rios</span>
-                        <div class="carousel-track">
-                             <img src="ochorios-transfer.jpg" class="card-img" alt="Ocho Rios" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Ocho+Rios+Transfer'">
-                        </div>
-                        <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
-                        <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
+                        <img src="ochorios-transfer.jpg" class="card-img" alt="Ocho Rios" onerror="this.src='https://placehold.co/800x600/009B3A/FFFFFF?text=Ocho+Rios+Transfer'">
                     </div>
                     <div class="card-body">
                         <h3>Ocho Rios</h3>
@@ -874,7 +844,21 @@
                      <i class="fa-solid fa-tag"></i> <strong>Special Offer:</strong> 15% OFF Return Trip!
                 </div>
             </div>
-            <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
+            
+            <!-- BUTTONS: CHOOSE WHATSAPP OR EMAIL -->
+            <div id="bookingChoice" style="display:flex; flex-direction:column; gap:10px;">
+                <button onclick="showBookingForm('whatsapp')" class="btn btn-primary" style="width:100%; justify-content:center;">
+                    <i class="fab fa-whatsapp"></i> Book via WhatsApp (Fastest)
+                </button>
+                <button onclick="showBookingForm('email')" class="btn btn-outline" style="width:100%; justify-content:center;">
+                    <i class="fa-solid fa-envelope"></i> Book via Email
+                </button>
+            </div>
+
+            <!-- THE FORM (Hidden initially) -->
+            <form id="bookingForm" onsubmit="submitBooking(event)" style="display:none; margin-top:20px;">
+                <input type="hidden" id="bookingType" value="whatsapp"> <!-- Hidden field to track type -->
+                
                 <input type="text" id="name" class="form-control" placeholder="Name" required>
                 <select id="service" class="form-control" onchange="calculatePrice()"><option>Airport Transfer</option><option>Private Tour</option></select>
                 <select id="location" class="form-control" onchange="calculatePrice()">
@@ -887,6 +871,11 @@
                     <option value="Appleton Estate">Appleton Estate ($160)</option>
                     <option value="Pelican Bar">Pelican Bar ($40)</option>
                     <option value="Lethe River">Lethe River Rafting ($160)</option>
+                    <option value="Chukka Adventure">Chukka Adventure ($220)</option>
+                    <option value="Lovers Leap">Lovers Leap ($50)</option>
+                    <option value="Black River Safari">Black River Safari ($70)</option>
+                    <option value="Combo: Appleton/YS">Combo: Appleton & YS ($170)</option>
+                    <option value="Combo: Chukka/Lethe">Combo: Chukka & Lethe ($240)</option>
                     <option value="Custom">Custom / Other</option>
                 </select>
                 
@@ -907,7 +896,11 @@
                      <input type="checkbox" id="roundtrip" value="Yes"> Round Trip (15% OFF)? <br>
                      <input type="checkbox" id="carseat" value="Yes"> Need Car Seat?
                 </div>
-                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Chat to Book</button>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Send Request</button>
+                <div style="text-align:center; margin-top:10px;">
+                    <a href="javascript:void(0)" onclick="resetModalView()" style="font-size:0.8rem; color:#666; text-decoration:underline;">Back to options</a>
+                </div>
             </form>
         </div>
     </div>
@@ -977,14 +970,39 @@
         function openModalWithContext(srv, loc) {
             document.getElementById('service').value = srv.includes("Tour") ? "Private Tour" : "Airport Transfer";
             openModal('bookingModal');
+            // Default to showing form in WhatsApp mode for direct clicks
+            showBookingForm('whatsapp'); 
             calculatePrice();
+        }
+
+        // --- NEW: Toggle between Choice and Form ---
+        function showBookingForm(type) {
+            document.getElementById('bookingChoice').style.display = 'none';
+            document.getElementById('bookingForm').style.display = 'block';
+            document.getElementById('bookingType').value = type;
+            
+            const btn = document.getElementById('submitBtn');
+            if(type === 'whatsapp') {
+                btn.innerHTML = '<i class="fab fa-whatsapp"></i> Chat to Book';
+                btn.className = "btn btn-primary"; // Green
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Email Request';
+                btn.className = "btn btn-secondary"; // Gold/Dark
+            }
+        }
+
+        function resetModalView() {
+            document.getElementById('bookingChoice').style.display = 'flex';
+            document.getElementById('bookingForm').style.display = 'none';
         }
 
         // Pricing Logic (1-3 Pax Base + $25 Extra)
         const prices = {
             'Montego Bay': 150, 'Negril': 400, 'Ocho Rios': 100, 'Kingston': 230,
             'YS Falls': 130, 'Appleton Estate': 160, 'Pelican Bar': 40, 'Lethe River': 160,
-            'Blue Hole': 130, 'Bob Marley Museum': 210, 'Dunns River Falls': 400
+            'Blue Hole': 130, 'Bob Marley Museum': 210, 'Dunns River Falls': 400,
+            'Chukka Adventure': 220, 'Lovers Leap': 50, 'Black River Safari': 70,
+            'Combo: Appleton/YS': 170, 'Combo: Chukka/Lethe': 240
         };
 
         function calculatePrice() {
@@ -1020,11 +1038,13 @@
             }
         }
 
-        function sendToWhatsApp(e) {
+        // --- UPDATED SUBMIT LOGIC (WHATSAPP + EMAIL) ---
+        function submitBooking(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
+            const type = document.getElementById('bookingType').value;
             const originalText = btn.innerText;
-            
+
             // Validate Flight
             const flight = document.getElementById('flight');
             if(document.getElementById('service').value === 'Airport Transfer' && !flight.value) {
@@ -1034,7 +1054,7 @@
             }
 
             btn.classList.add('loading');
-            btn.innerText = "Opening WhatsApp...";
+            btn.innerText = (type === 'whatsapp') ? "Opening WhatsApp..." : "Opening Email...";
             
             setTimeout(() => {
                 const name = document.getElementById('name').value;
@@ -1046,13 +1066,22 @@
                 const roundtrip = document.getElementById('roundtrip').checked ? "Yes" : "No";
                 const carseat = document.getElementById('carseat').checked ? "Yes" : "No";
 
-                const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Service:* ${encodeURIComponent(service)}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${encodeURIComponent(flightVal)}%0A*Pax:* ${pax}%0A*Round Trip:* ${roundtrip}%0A*Car Seat:* ${carseat}`;
-                
-                window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
+                if (type === 'whatsapp') {
+                     const text = `*New Inquiry* 🇯🇲%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Service:* ${encodeURIComponent(service)}%0A*Loc:* ${loc}%0A*Date:* ${date}%0A*Flight:* ${encodeURIComponent(flightVal)}%0A*Pax:* ${pax}%0A*Round Trip:* ${roundtrip}%0A*Car Seat:* ${carseat}`;
+                     window.open(`https://wa.me/18764859759?text=${text}`, '_blank');
+                } else {
+                     // MAILTO LOGIC
+                     const subject = `Booking Request: ${name} - ${loc}`;
+                     const body = `Name: ${name}%0D%0AService: ${service}%0D%0ADestination: ${loc}%0D%0ADate: ${date}%0D%0AFlight: ${flightVal}%0D%0APassengers: ${pax}%0D%0ARound Trip: ${roundtrip}%0D%0ACar Seat: ${carseat}`;
+                     window.location.href = `mailto:pt.islandtours01@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+                }
                 
                 btn.classList.remove('loading');
                 btn.innerText = originalText;
                 closeModal('bookingModal');
+                
+                // Optional: Reset form for next use
+                if(type === 'email') resetModalView();
             }, 800);
         }
 
